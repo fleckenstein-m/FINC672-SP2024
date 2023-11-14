@@ -94,7 +94,7 @@ begin
 	<p style="padding-bottom:1cm"> </p>
 	<p align=center style="font-size:25px; font-family:family:Georgia"> <b> Julia Fundamentals </b> <p>
 	<p style="padding-bottom:1cm"> </p>
-	<p align=center style="font-size:25px; font-family:family:Georgia"> Spring 2023 <p>
+	<p align=center style="font-size:25px; font-family:family:Georgia"> Spring 2024 <p>
 	<p style="padding-bottom:0.5cm"> </p>
 	<div align=center style="font-size:20px; font-family:family:Georgia"> Prof. Matt Fleckenstein </div>
 	<p style="padding-bottom:0.05cm"> </p>
