@@ -3,9 +3,9 @@
 
 
 * **Instructor:** Matthias Fleckenstein, [mflecken@udel.edu](mailto:mflecken@udel.edu)
-* **Class Times:** Tuesdays and Thursdays, 9.30am-10:45am 
-* **Class Location:** Purnell Hall 324A
-* **Office Hours:** Fridays, 8.00am - 10.00am, 310 Purnell Hall or by appointment.
+* **Class Times:** Tuesdays and Thursdays, 11.10am-12:30pm 
+* **Class Location:** Memorial Hall 126
+* **Office Hours:** Tuesdays and Thursdays, 5.00pm-6:00pm, 310 Purnell Hall or by appointment.
 
 @def mintoclevel=2 
 @def maxtoclevel=3
@@ -28,25 +28,31 @@
 |             | FINC-672 (Section 010)        | 
 | :--------:  | :----------------------------:| 
 | Day(s)      | Tue, Thu                      | 
-| Time        | 9.30am-10.45am                | 
-| Location    | Purnell Hall 324A             | 
+| Time        | 11.10am - 12.30pm             | 
+| Location    | Memorial Hall 126             | 
 
 
 ## Office Hours
-Office hours will be held in person on Fridays from 8.00am to 10.00am in 310 Purnell Hall, or by appointment.
+Office hours will be held in person on Tuesdays and Thursdays, 5.00pm-6:00pm, 310 Purnell Hall or by appointment.
 
 
 ## Course Webpage
-[https://fleckenstein-m.github.io/FINC672-SP2023/](https://fleckenstein-m.github.io/FINC672-SP2023/)
+[https://fleckenstein-m.github.io/FINC672-SP2024/](https://fleckenstein-m.github.io/FINC672-SP2024/)
 
 
 ## Canvas Page
-[Link](https://external.ink?to=udel.instructure.com/courses/1698145)
+[Link]()
 
 
 ## Course Overview
 
-The objective of this course is to provide an overview of empirical research in finance. This course is divided into two main parts. In the first part, students develop fundamental programming knowledge and data science skills in the Julia programming language. This part of the course is an intensive introduction to procedures for collecting, processing, and analyzing financial datasets, which have become increasingly important with the emergence and popularization of “big data” in finance. The second part of the course covers widely-used state-of-the-art statistical methodologies in empirical asset pricing. Students will learn to apply programming techniques to real-world empirical research questions in the equity markets and fixed-income markets.
+This course provides an overview of empirical research in finance.
+The course is divided into two main parts. In the first part, students develop fundamental programming 
+knowledge and data science skills in the Julia programming language.
+This part of the course is an intensive introduction to procedures for collecting, processing and analyzing financial datasets, 
+which have become increasingly important with the emergence and popularization of "big data" and "FinTech" in finance. 
+The second part of the course covers widely used state-of-the-art statistical methodologies in empirical asset pricing. 
+Students will learn to apply programming techniques to real-world empirical research questions in equity and fixed-income markets.
 
 
 ## Learning Goals
@@ -68,11 +74,11 @@ After completing this course, students will
 
 
 ## Course Syllabus
-[Syllabus](./assets/FINC672_Syllabus_SP23.pdf)
+[Syllabus](./assets/FINC672_Syllabus_SP24.pdf)
 
 
 ## Course Materials
-All course materials will be posted on the course webpage at [https://fleckenstein-m.github.io/FINC672-SP2023/](https://fleckenstein-m.github.io/FINC672-SP2023/).
+All course materials will be posted on the course webpage at [https://fleckenstein-m.github.io/FINC672-SP2024/](https://fleckenstein-m.github.io/FINC672-SP2024/).
 
 
 
@@ -81,25 +87,23 @@ All course materials will be posted on the course webpage at [https://fleckenste
 
 Your final grade is based on i) two midterm exams, ii) a final exam, and iii) class participation. Grading is on a curve. This means that you will be ranked relative to all students in both sections based on your two midterms, the final exam, and quizzes. The weighting shown below under Final Grade Breakdown determines your final rank among all students enrolled in the sections I teach.
 
-- 10% Class Participation
-- 30% Midterm 1
-- 30% Midterm 2
+- 20% Class Participation
+- 25% Midterm 1
+- 25% Midterm 2
 - 30% Final Exam
 
 
 ## Exam Schedule
 - Midterm 1
-  - *March 7, 2023* 
-  - Time: 9.30am - 10.45am. 
-  - Location: Purnell Hall 324A.
+  - *March 5, 2024* 
+  - Time: 11.10am - 12.30pm. 
+  - Location: Memorial Hall 126
 - Midterm 2
-  - *April 11, 2023* 
-  - Time: 9.30am - 10.45am. 
-  - Location: Purnell Hall 324A.
+  - *April 16, 2024* 
+  - Time: 11.10am - 12.30pm. 
+  - Location: Memorial Hall 126
 - Final Exam
-  - *May 19, 2023* 
-  - Time: 10.30am - 12.30pm. 
-  - Location: Purnell Hall 324A.
+  - Date and Time set by Registrar's Office.
 
 
 ## Assessment Component: Class Participation
