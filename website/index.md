@@ -5,7 +5,7 @@
 * **Instructor:** Matthias Fleckenstein, [mflecken@udel.edu](mailto:mflecken@udel.edu)
 * **Class Times:** Tuesdays and Thursdays, 11.10am-12:30pm 
 * **Class Location:** Memorial Hall 126
-* **Office Hours:** Tuesdays and Thursdays, 5.00pm-6:00pm, 310 Purnell Hall or by appointment.
+* **Office Hours:** Tuesdays and Thursdays, 1.00pm-2:00pm, 310 Purnell Hall or by appointment.
 
 @def mintoclevel=2 
 @def maxtoclevel=3
@@ -16,7 +16,7 @@
 
 ---
 
-**Table of Contents:**
+**Table of Contents**
 
 \toc
 
@@ -33,7 +33,7 @@
 
 
 ## Office Hours
-Office hours will be held in person on Tuesdays and Thursdays, 5.00pm-6:00pm, 310 Purnell Hall or by appointment.
+Office hours will be held in person on Tuesdays and Thursdays, 1.00pm-2:00pm, 310 Purnell Hall or by appointment.
 
 
 ## Course Webpage
@@ -41,7 +41,7 @@ Office hours will be held in person on Tuesdays and Thursdays, 5.00pm-6:00pm, 31
 
 
 ## Canvas Page
-[Link]()
+[Link](https://udel.instructure.com/courses/1763768)
 
 
 ## Course Overview
@@ -59,9 +59,9 @@ Students will learn to apply programming techniques to real-world empirical rese
 
 After completing this course, students will 
 
-- have a thorough understanding of fundamental programming concepts in the Julia programming langugage including data types, data structures, functions, control flow and loops.
-- understand tabular data structures and how Julia dataframes are used in financial data analysis.
-- be able to load and save large datasets into data frames, and apply advanced data conversion and transformation techniques to financial market data.
+- have a thorough understanding of fundamental programming concepts in the Julia programming language, including data types, data structures, functions, control flow and loops.
+- understand tabular data structures and how Julia data frames are used in financial data analysis.
+- be able to load and save large datasets into data frames and apply advanced data conversion and transformation techniques to financial market data.
 - have a thorough understanding of data visualization techniques.
 - understand how to connect to and use online web services to download financial datasets.
 - be able to form and analyze stock portfolios and implement mean-variance analysis.
@@ -85,7 +85,7 @@ All course materials will be posted on the course webpage at [https://fleckenste
 
 ## Grading Policy
 
-Your final grade is based on i) two midterm exams, ii) a final exam, and iii) class participation. Grading is on a curve. This means that you will be ranked relative to all students in both sections based on your two midterms, the final exam, and quizzes. The weighting shown below under Final Grade Breakdown determines your final rank among all students enrolled in the sections I teach.
+Your final grade is based on i) two midterm exams, ii) a final exam, and iii) class participation. Grading is on a curve. This means that you will be ranked relative to all students in the sections based on your two midterms, the final exam, and class participation. The weighting shown below under Final Grade Breakdown determines your final rank among all students enrolled in the sections.
 
 - 20% Class Participation
 - 25% Midterm 1
@@ -108,7 +108,7 @@ Your final grade is based on i) two midterm exams, ii) a final exam, and iii) cl
 
 ## Assessment Component: Class Participation
 
-You are expected to come to class and be prepared to answer questions on the material. *Homework assignments* will be given nearly every week, and will be announced in class and posted on the course webpage. You are expected to work on the homework assignments in groups of three. Homework assignments must be submitted in class before the lecture starts on the date the assignment is due. In addition, I reserve the right to ask the groups to solve up to three questions from the homework assignments in front of the class. The groups can select the problems they would like to present. I also reserve the right to give *Quizzes* in class. These will not officially be announced beforehand. The in-class quizzes will be modeled on the examples in the lecture material, after the topic is covered.    
+You are expected to come to class and be prepared to answer questions on the material. *Homework assignments* will be given nearly every week and will be announced in class and posted on the course webpage. You are expected to work on the homework assignments in groups of three. Homework assignments must be submitted in class before the lecture starts on the date the assignment is due. In addition, I reserve the right to ask the groups to solve up to three questions from the homework assignments in front of the class. The groups can select the problems they would like to present. I also reserve the right to give *Quizzes* in class. These will not officially be announced beforehand. The in-class quizzes will be modeled on the examples in the lecture material after the topic is covered.   
 
 
 ## License
