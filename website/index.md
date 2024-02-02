@@ -41,7 +41,7 @@ Office hours will be held in person on Tuesdays and Thursdays, 1.00pm-2:00pm, 31
 
 
 ## Canvas Page
-[Link](https://udel.instructure.com/courses/1763768)
+[Link](https://external.ink?to=udel.instructure.com/courses/1763768)
 
 
 ## Course Overview
@@ -116,7 +116,7 @@ You are expected to come to class and be prepared to answer questions on the mat
 The copyright notice to be included in any copies and other derivative work of this material is:
 
 ```
-Copyright 2022 Matthias Fleckenstein, University of Delaware, Lerner College of Business & Economics, mflecken@udel.edu
+Copyright 2024 Matthias Fleckenstein, University of Delaware, Lerner College of Business & Economics, mflecken@udel.edu
 ```
 
 ![](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png) This is licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
