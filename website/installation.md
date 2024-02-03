@@ -6,7 +6,7 @@
 
 ## Step 1: Install Julia 1.9.4
 
-Go to [https://julialang.org/downloads](https://julialang.org/downloads) and download the current stable release, Julia 1.8.4, using the correct version for your operating system (Linux x86, Mac, Windows, etc).
+Go to [https://julialang.org/downloads](https://julialang.org/downloads) and download the current stable release, Julia 1.10.0, using the correct version for your operating system (Linux x86, Mac, Windows, etc).
 
 *Mac users beware!* Do **not** download the ARM/M-series version of Julia! It is still experimental and some packages will not work.
 

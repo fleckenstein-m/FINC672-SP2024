@@ -2,11 +2,11 @@
 
 | Lecture | Topic                              | Date          |  Notebooks                                                                             | Reading              |
 |:-------:|:----------------------------------:|:-------------:|:--------------------------------------------------------------------------------------:|:--------------------:|
-| 1       | Variables, Functions, Control-Flow | Feb  7, 2023  | [Variables, Function, Control-Flow](/assets/notebooksolutions/Lect01/Lect01_noSol.html)      |                      |
+| 1       | Variables, Functions, Control-Flow | Feb  6, 2024  | Variables, Function, Control-Flow                                                      |                      |
 
 
 ## Assignments
 
 |         | Title                                      | Due Date          | Assignment                                              |
 |:-------:|:------------------------------------------:|:-----------------:|:-------------------------------------------------------:|
-| 1       | Homework 1                                 | TBD               | Assignment 01, Exercise 1 and Exercise 2                |
+| 1       | Homework 1                                 | TBD               | TBD      |
