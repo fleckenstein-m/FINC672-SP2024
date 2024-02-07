@@ -29,7 +29,7 @@
 | :--------:  | :----------------------------:| 
 | Day(s)      | Tue, Thu                      | 
 | Time        | 11.10am - 12.30pm             | 
-| Location    | Memorial Hall 126             | 
+| Location    | FINTECH 514                   | 
 
 
 ## Office Hours
