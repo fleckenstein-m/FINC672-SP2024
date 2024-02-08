@@ -4,7 +4,7 @@
 
 * **Instructor:** Matthias Fleckenstein, [mflecken@udel.edu](mailto:mflecken@udel.edu)
 * **Class Times:** Tuesdays and Thursdays, 11.10am-12:30pm 
-* **Class Location:** Memorial Hall 126
+* **Class Location:** FINTECH 514
 * **Office Hours:** Tuesdays and Thursdays, 1.00pm-2:00pm, 310 Purnell Hall or by appointment.
 
 @def mintoclevel=2 
