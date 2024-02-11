@@ -38,9 +38,7 @@ begin
 	<br>
 	<input type="checkbox" value=""> Comprehensions
 	<br>
-	<input type="checkbox" value=""> Iteration
-	<br>
-	<input type="checkbox" value=""> Matrices
+	<input type="checkbox" value=""> Iteration over Matrices
 	<br>
 	<br>
 	</fieldset>      
@@ -62,12 +60,21 @@ md"""
 """
 
 # ╔═╡ c5568d49-9a87-4224-bdf5-4365d77a44e4
+# [1, 2, 3] .+ 1
 
+# ╔═╡ 93ea5c80-8dc9-42f7-860a-09a797ae4047
+# begin
+	
+# 	my_example_matrix = [[1 2 3]
+# 						 [4 5 6]
+# 						 [7 8 9]]
+	
+# 	my_example_matrix .+ 100
+	
+# end
 
 # ╔═╡ 422dd2fc-9103-4fab-8e0a-e5026c7c221e
-md"""
-#
-"""
+vspace
 
 # ╔═╡ fb14b35e-894f-4212-85e0-cbc15b029699
 md"""
@@ -76,40 +83,10 @@ md"""
 """
 
 # ╔═╡ c772d04b-c584-45b0-8935-b8c643fa19b3
-
-
-# ╔═╡ 9b42d9b9-6a21-4b77-8a86-2176c642a31f
-md"""
-#
-"""
-
-# ╔═╡ 3f510cf6-1412-493a-944a-ce6a97e10c58
-md"""
-- We can broadcast operators.
-"""
-
-# ╔═╡ 93ea5c80-8dc9-42f7-860a-09a797ae4047
-begin
-
-end
-
-# ╔═╡ 448bb57c-95c9-4bbc-8e06-5b177802b5eb
-md"""
-#
-"""
-
-# ╔═╡ 43d8ae9e-2673-4e58-8f9a-879da43d1239
-md"""
-- We can use `map` to apply a function to every element of an array.
-"""
-
-# ╔═╡ 0539004a-3552-4f7d-b13a-8161a247c00a
-
+# log.([1, 2, 3])
 
 # ╔═╡ 24be1cc2-e132-477f-92dc-5defe2d3de4b
-md"""
-#
-"""
+vspace
 
 # ╔═╡ c671e317-3d47-4f33-a7a8-3e0389d3b883
 md"""
@@ -117,45 +94,102 @@ md"""
 """
 
 # ╔═╡ f80aa11f-6246-4d36-92e3-8673b07e3d11
+# map(x -> x*3, my_example_matrix)
 
+# ╔═╡ e21e99b0-507c-461d-8219-71c703f9f163
+# map(x -> x + 100, my_example_matrix[:, 3])
 
 # ╔═╡ 80402620-7794-44f3-b31d-5d33e64995e1
-md"""
-#
-"""
+vspace
 
 # ╔═╡ 51a6042d-3999-423a-ac54-71ed9d856474
 md"""
-- It also works with slicing
+#### Exercise
+1. We have two stocks (Stock A and Stock B), and three periods. The table below shows annual stock returns in the three periods, expressed as percentages. Set up a matrix with the stock returns.
+  - _Hint: use a `begin` `end` block so that you can re-use the stock return matrix in the next questions._
+
+| Period | Stock A | Stock B |
+|:-------|:--------|:--------|
+| 1      |  10     |   1     |
+| 2      |  -2     |   8     |
+| 3      |  3      |   -2    |
+
 """
 
-# ╔═╡ e21e99b0-507c-461d-8219-71c703f9f163
+# ╔═╡ e7d168d6-6dd1-4329-80cc-51f8598ce49b
+
+
+# ╔═╡ ce4b785d-3f14-4604-aed2-8a7b273d1452
+vspace
+
+# ╔═╡ 0cd00220-5d3b-470d-8939-0548f4202e29
+md"""
+2. Use indexing to select the return of Stock A in the third period.
+"""
+
+# ╔═╡ fb47f483-903a-4cac-8663-54078cd3303a
+
+
+# ╔═╡ 9dcfab70-ae04-40a2-b0e8-1d82c946685b
+vspace
+
+# ╔═╡ e74f4ca0-b66a-47c4-9c17-da6991242a91
+md"""
+3. Use indexing to select all returns for Stock B.
+"""
+
+# ╔═╡ f831111c-79aa-4b41-9363-7441a54a8a7d
+
+
+# ╔═╡ 46d00ed5-a2bd-467a-b398-687487945770
+vspace
+
+# ╔═╡ 0ad97376-cf1e-4cc8-a2a1-c15240ed7397
+md"""
+4. Use indexing to select the returns of both stocks in period 2.
+"""
+
+# ╔═╡ 84811113-a003-484a-8eed-03bd40c23120
+
+
+# ╔═╡ 8947fe86-43e9-4e41-aa4f-ca94609bb0d0
+vspace
+
+# ╔═╡ a68f123b-1b3e-4e23-b6cc-6cd3720af4e5
+md"""
+5. Use indexing to select the returns of Stock A and Stock B in the 2nd and 3rd period (_Hint: the result will be a 2-by-2 matrix._)
+"""
+
+# ╔═╡ 93b0c9bd-9c96-4b86-a37a-d0af07fdea49
+
+
+# ╔═╡ 41833092-2471-4feb-b2e9-307b4f887484
+vspace
+
+# ╔═╡ 86aa963e-0012-4054-b4f3-9e205810f5da
+md"""
+6. Use broadcasting to convert the returns from percentages to decimals.
+"""
+
+# ╔═╡ 38738b9f-b783-4bbc-8f00-770b5fefcc25
+
+
+# ╔═╡ fcc5e494-b6a1-47eb-98ce-b8a402f27df0
+vspace
+
+# ╔═╡ 1ef48a51-802f-4256-92f8-92460fc75d92
+md"""
+7. Use an anonymous function to convert the returns to log returns. Recall that log returns are calculated from arithmetic returns $r$ using $\log(1+r)$ (where $r$ is a decimal number).
+"""
+
+# ╔═╡ e053bdee-c29a-48a6-8d7a-a2d101ea86a2
 
 
 # ╔═╡ dadc0dbe-ce9c-4285-b26c-fb64a80923d2
-md"""
-#
-"""
+vspace
 
-# ╔═╡ f7beec98-52e5-4d0b-9785-b5fc2db99470
-md"""
-- Finally, sometimes, and specially when dealing with tabular data, we want to apply a function over all elements in a specific array dimension.
-- This can be done with the `mapslices` function.
-- Similar to map, the first argument is the function and the second argument is the array.
-- The only change is that we need to specify the dims argument to flag what dimension we want to transform the elements.
-- For example let’s use `mapslice` with the sum function on both rows (dims=1) and columns (dims=2).
-"""
-
-# ╔═╡ 78fd769b-a6b2-46b6-94ea-3370a5bc326c
-md"""
-#
-"""
-
-# ╔═╡ 2079c244-bf83-4c61-9842-cbb7c2bb159d
-
-
-# ╔═╡ 1d6c6e65-86ef-4db6-8f5b-058289b275a1
-
+# ╔═╡ cc6a0eac-5daa-4cb5-af10-a230a6bbd5fc
+vspace
 
 # ╔═╡ 5a4d3d4f-83f2-41c9-a19f-9c1ff1cb7b60
 md"""
@@ -168,36 +202,30 @@ md"""
 - A typical form of a comprehension is: `[f(x) for x in A]`
 """
 
-# ╔═╡ 95260162-89e5-47e8-9583-1562a2b77aac
-
-
-# ╔═╡ 7dcc6788-30f6-42ce-9671-858568bca59b
-md"""
-# Array Comprehensions
-"""
+# ╔═╡ 1f5bddba-d4ad-4e23-938d-8ce9fee736b1
+vspace
 
 # ╔═╡ 7b6c4d93-8cc7-4821-bd3e-dc3369c46086
 md"""
-- Another powerful way to create arrays are `array comprehensions`.
-- You specify what you want to do inside the `[]` brackets.
 - For example, say we want to create a vector of squares from 1 to 100.
 """
 
 # ╔═╡ b748c58b-1484-4060-9b49-502b298152fb
-
+[x^2 for x in 1:10]
 
 # ╔═╡ 6aa79928-1a44-4baa-bd42-f229c4687076
-md"""
-#
-"""
+vspace
 
 # ╔═╡ 9c3b32a2-2cef-4af8-8906-c80afab33a40
 md"""
-- They also support multiple inputs
+- We can also use multiple inputs
 """
 
 # ╔═╡ 28e29d50-66ac-46ba-bb2b-1039b4fa2d4d
+[x*y for x in 1:7 for y in 1:2]
 
+# ╔═╡ 46f730ea-eeef-4bf5-add7-1338649e0e3d
+vspace
 
 # ╔═╡ 0d49845b-dc0d-4a80-9bd2-496cc6abc92d
 md"""
@@ -205,88 +233,27 @@ md"""
 """
 
 # ╔═╡ 09e409ab-d985-49ee-9005-88e0546ab767
-
+[x^2 for x in 1:10 if isodd(x)]
 
 # ╔═╡ 7b5d928f-b21b-45d8-9afe-623f8b863998
+vspace
+
+# ╔═╡ 1727c427-af26-42a7-bc58-f0b1f74eb994
 md"""
-#
+#### Exercise
+
+We would like to model a type of annuity. This annnuity pays \$75 after 1 year, then \$100 after 2 years, \$125 after 3 years, etc., and has a final payment of \$300 after 10-years. Use a comprehension to create the cash flows of this annuity.
 """
 
-# ╔═╡ cbe904d1-6bae-4d5d-94a6-8ba7458c6c49
-md"""
-- As with array literals you can specify your desired type before the `[]` brackets
-"""
-
-# ╔═╡ b2c048cb-43a7-4e17-9766-d664967e8195
+# ╔═╡ 3b94d326-2901-4e06-9ecb-6232df4f0a22
 
 
-# ╔═╡ 7e666183-bd75-4ddb-b51c-fad757f6fd8c
-md"""
-# Array Iteration
-"""
-
-# ╔═╡ 53c8d369-91cd-4bca-97b0-89583aedf21b
-md"""
-- One common operation is to iterate over an array with a `for` loop.
-- The regular for `loop` over an array returns each element.
-"""
-
-# ╔═╡ c119e9a3-4710-4751-8fac-6bf49725ee13
-let
-
-end
-
-# ╔═╡ 4e8b241b-19b6-4081-acbf-8f617f700029
-md"""
-#
-"""
-
-# ╔═╡ 384f7801-28c0-45cd-bd09-5d13cb1f1cbd
-md"""
-- Sometimes you don’t want to loop over each element, but actually over each array index. 
-- We can use the `eachindex` function combined with a for `loop` to iterate over each array index.
-"""
-
-# ╔═╡ 39f96d90-5d40-4a20-b033-3303d856538b
-let
-
-end
+# ╔═╡ 17e49a9d-064a-4826-af47-8aabf7c6b984
+vspace
 
 # ╔═╡ 49c44c27-bc74-42ca-ac14-a916c9b71723
 md"""
 # Matrix Iteration
-"""
-
-# ╔═╡ 48983b39-90f0-488d-94a1-990e04ba3322
-md"""
-- Iterating over matrices involves more details.
-- The standard for `loop` goes first over columns then over rows.
-- It will first traverse all elements in column 1, from the first row to the last row, then it will move to column 2 in a similar fashion until it has covered all columns.
-"""
-
-# ╔═╡ cab0f2ae-447d-4623-a804-110206275849
-md"""
-#
-"""
-
-# ╔═╡ 792eb8bf-b2bf-44a6-bbbd-b4f9353bf0b8
-md"""
-- Example.
-"""
-
-# ╔═╡ 1c2b0dcf-912a-4738-8023-20569ab30b4f
-let
-
-end
-
-# ╔═╡ 98b07f4a-3bfe-49d5-a2f1-cdf97078b795
-md"""
-#
-"""
-
-# ╔═╡ a931a810-7882-4718-97dc-70d11217d8e6
-md"""
-#
 """
 
 # ╔═╡ 328e958b-2acb-41cf-beda-85e6c04807fb
@@ -294,11 +261,6 @@ md"""
 - There are some handy functions to iterate over matrices.
 - `eachcol`: iterates over an array column first.
 - `eachrow`: iterates over an array row first.
-"""
-
-# ╔═╡ eb1e8ba7-ca57-4780-85a5-277ffd33f7b4
-md"""
-#
 """
 
 # ╔═╡ a85da6f5-ee7c-4f44-9db0-7c406f1bcf80
@@ -309,13 +271,28 @@ md"""
 # ╔═╡ 30bf2b50-0703-42d7-a591-050530b655fd
 let
 
+	column_major = [[1 2]
+					[3 4]]
+
+	first(eachcol(column_major))
+	
 end
 
 
-# ╔═╡ f4535587-3ac3-4d6d-a3d3-b867d946e583
+# ╔═╡ 3fb3fc36-f018-42af-896e-1a804878e97c
+vspace
+
+# ╔═╡ 545fbc71-4d7a-4991-8f5f-6b587926f536
 md"""
-#
+#### Exercise
+Use matrix iteration to put the returns of Stock B (for all periods) into a vector.
 """
+
+# ╔═╡ 5df6cf88-c6bf-4750-9e44-928dd9cb4fa0
+
+
+# ╔═╡ f4535587-3ac3-4d6d-a3d3-b867d946e583
+vspace
 
 # ╔═╡ 94338483-74a1-478a-badc-84431f8dfe45
 md"""
@@ -325,7 +302,24 @@ md"""
 # ╔═╡ 358fbc00-485f-4f21-ab7c-a2f431fef8b5
 let
 
+	column_major = [[1 2]
+					[3 4]]
+
+	eachrow(column_major)
+	
 end
+
+
+# ╔═╡ 47243e2a-67a1-4c05-bf28-0f056eb2c908
+vspace
+
+# ╔═╡ 3a665412-3b74-4488-ac63-2f5a21898960
+md"""
+#### Exercise
+Use matrix iteration to put the returns of Stock A and Stock B in the first period into a vector.
+"""
+
+# ╔═╡ 913daa13-7547-4dd4-8bf5-74f4ded92a9f
 
 
 # ╔═╡ a62e8e7a-01bc-446e-b9c5-7db3faad8109
@@ -346,9 +340,7 @@ begin
 	<br>
 	<input type="checkbox" value="" checked> Comprehensions
 	<br>
-	<input type="checkbox" value="" checked> Iteration
-	<br>
-	<input type="checkbox" value="" checked> Matrices
+	<input type="checkbox" value="" checked> Iteration over Matrices
 	<br>
 	<br>
 	</fieldset>      
@@ -356,9 +348,7 @@ begin
 end
 
 # ╔═╡ 5f191192-bc5f-41e8-845c-beba89ee5841
-md"""
-#
-"""
+vspace
 
 # ╔═╡ cddc45e1-7547-4d34-bc12-b08a5320a62c
 # ╠═╡ show_logs = false
@@ -737,60 +727,65 @@ version = "17.4.0+2"
 # ╟─cc7cbf20-9ab5-41e1-967a-f426183246a5
 # ╟─72eaafb9-4130-43fa-b2c5-536509aa5bd5
 # ╠═c5568d49-9a87-4224-bdf5-4365d77a44e4
+# ╠═93ea5c80-8dc9-42f7-860a-09a797ae4047
 # ╟─422dd2fc-9103-4fab-8e0a-e5026c7c221e
 # ╟─fb14b35e-894f-4212-85e0-cbc15b029699
 # ╠═c772d04b-c584-45b0-8935-b8c643fa19b3
-# ╟─9b42d9b9-6a21-4b77-8a86-2176c642a31f
-# ╟─3f510cf6-1412-493a-944a-ce6a97e10c58
-# ╠═93ea5c80-8dc9-42f7-860a-09a797ae4047
-# ╟─448bb57c-95c9-4bbc-8e06-5b177802b5eb
-# ╟─43d8ae9e-2673-4e58-8f9a-879da43d1239
-# ╠═0539004a-3552-4f7d-b13a-8161a247c00a
 # ╟─24be1cc2-e132-477f-92dc-5defe2d3de4b
 # ╟─c671e317-3d47-4f33-a7a8-3e0389d3b883
 # ╠═f80aa11f-6246-4d36-92e3-8673b07e3d11
+# ╠═e21e99b0-507c-461d-8219-71c703f9f163
 # ╟─80402620-7794-44f3-b31d-5d33e64995e1
 # ╟─51a6042d-3999-423a-ac54-71ed9d856474
-# ╠═e21e99b0-507c-461d-8219-71c703f9f163
+# ╠═e7d168d6-6dd1-4329-80cc-51f8598ce49b
+# ╟─ce4b785d-3f14-4604-aed2-8a7b273d1452
+# ╟─0cd00220-5d3b-470d-8939-0548f4202e29
+# ╠═fb47f483-903a-4cac-8663-54078cd3303a
+# ╟─9dcfab70-ae04-40a2-b0e8-1d82c946685b
+# ╟─e74f4ca0-b66a-47c4-9c17-da6991242a91
+# ╠═f831111c-79aa-4b41-9363-7441a54a8a7d
+# ╟─46d00ed5-a2bd-467a-b398-687487945770
+# ╠═0ad97376-cf1e-4cc8-a2a1-c15240ed7397
+# ╠═84811113-a003-484a-8eed-03bd40c23120
+# ╟─8947fe86-43e9-4e41-aa4f-ca94609bb0d0
+# ╟─a68f123b-1b3e-4e23-b6cc-6cd3720af4e5
+# ╠═93b0c9bd-9c96-4b86-a37a-d0af07fdea49
+# ╟─41833092-2471-4feb-b2e9-307b4f887484
+# ╟─86aa963e-0012-4054-b4f3-9e205810f5da
+# ╠═38738b9f-b783-4bbc-8f00-770b5fefcc25
+# ╟─fcc5e494-b6a1-47eb-98ce-b8a402f27df0
+# ╟─1ef48a51-802f-4256-92f8-92460fc75d92
+# ╠═e053bdee-c29a-48a6-8d7a-a2d101ea86a2
 # ╟─dadc0dbe-ce9c-4285-b26c-fb64a80923d2
-# ╟─f7beec98-52e5-4d0b-9785-b5fc2db99470
-# ╟─78fd769b-a6b2-46b6-94ea-3370a5bc326c
-# ╠═2079c244-bf83-4c61-9842-cbb7c2bb159d
-# ╠═1d6c6e65-86ef-4db6-8f5b-058289b275a1
+# ╟─cc6a0eac-5daa-4cb5-af10-a230a6bbd5fc
 # ╟─5a4d3d4f-83f2-41c9-a19f-9c1ff1cb7b60
 # ╟─1f4d07cc-38cf-4104-8085-e7ee9ef9d5e9
-# ╠═95260162-89e5-47e8-9583-1562a2b77aac
-# ╟─7dcc6788-30f6-42ce-9671-858568bca59b
+# ╟─1f5bddba-d4ad-4e23-938d-8ce9fee736b1
 # ╟─7b6c4d93-8cc7-4821-bd3e-dc3369c46086
 # ╠═b748c58b-1484-4060-9b49-502b298152fb
 # ╟─6aa79928-1a44-4baa-bd42-f229c4687076
 # ╟─9c3b32a2-2cef-4af8-8906-c80afab33a40
 # ╠═28e29d50-66ac-46ba-bb2b-1039b4fa2d4d
+# ╟─46f730ea-eeef-4bf5-add7-1338649e0e3d
 # ╟─0d49845b-dc0d-4a80-9bd2-496cc6abc92d
 # ╠═09e409ab-d985-49ee-9005-88e0546ab767
 # ╟─7b5d928f-b21b-45d8-9afe-623f8b863998
-# ╟─cbe904d1-6bae-4d5d-94a6-8ba7458c6c49
-# ╠═b2c048cb-43a7-4e17-9766-d664967e8195
-# ╟─7e666183-bd75-4ddb-b51c-fad757f6fd8c
-# ╟─53c8d369-91cd-4bca-97b0-89583aedf21b
-# ╠═c119e9a3-4710-4751-8fac-6bf49725ee13
-# ╟─4e8b241b-19b6-4081-acbf-8f617f700029
-# ╟─384f7801-28c0-45cd-bd09-5d13cb1f1cbd
-# ╠═39f96d90-5d40-4a20-b033-3303d856538b
+# ╟─1727c427-af26-42a7-bc58-f0b1f74eb994
+# ╠═3b94d326-2901-4e06-9ecb-6232df4f0a22
+# ╟─17e49a9d-064a-4826-af47-8aabf7c6b984
 # ╟─49c44c27-bc74-42ca-ac14-a916c9b71723
-# ╟─48983b39-90f0-488d-94a1-990e04ba3322
-# ╟─cab0f2ae-447d-4623-a804-110206275849
-# ╟─792eb8bf-b2bf-44a6-bbbd-b4f9353bf0b8
-# ╠═1c2b0dcf-912a-4738-8023-20569ab30b4f
-# ╟─98b07f4a-3bfe-49d5-a2f1-cdf97078b795
-# ╟─a931a810-7882-4718-97dc-70d11217d8e6
 # ╟─328e958b-2acb-41cf-beda-85e6c04807fb
-# ╟─eb1e8ba7-ca57-4780-85a5-277ffd33f7b4
 # ╟─a85da6f5-ee7c-4f44-9db0-7c406f1bcf80
 # ╠═30bf2b50-0703-42d7-a591-050530b655fd
+# ╟─3fb3fc36-f018-42af-896e-1a804878e97c
+# ╟─545fbc71-4d7a-4991-8f5f-6b587926f536
+# ╠═5df6cf88-c6bf-4750-9e44-928dd9cb4fa0
 # ╟─f4535587-3ac3-4d6d-a3d3-b867d946e583
 # ╟─94338483-74a1-478a-badc-84431f8dfe45
 # ╠═358fbc00-485f-4f21-ab7c-a2f431fef8b5
+# ╟─47243e2a-67a1-4c05-bf28-0f056eb2c908
+# ╟─3a665412-3b74-4488-ac63-2f5a21898960
+# ╠═913daa13-7547-4dd4-8bf5-74f4ded92a9f
 # ╟─a62e8e7a-01bc-446e-b9c5-7db3faad8109
 # ╟─a124bf84-7ca4-40c8-8607-b05dec24a730
 # ╟─75672e0c-5c34-44c8-b1a9-f6ba821d6c8d
