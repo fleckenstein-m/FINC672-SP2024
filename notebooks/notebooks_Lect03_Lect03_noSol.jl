@@ -60,7 +60,7 @@ md"""
 """
 
 # ╔═╡ c5568d49-9a87-4224-bdf5-4365d77a44e4
-# [1, 2, 3] .+ 1
+
 
 # ╔═╡ 93ea5c80-8dc9-42f7-860a-09a797ae4047
 # begin
@@ -69,7 +69,7 @@ md"""
 # 						 [4 5 6]
 # 						 [7 8 9]]
 	
-# 	my_example_matrix .+ 100
+
 	
 # end
 
@@ -83,7 +83,7 @@ md"""
 """
 
 # ╔═╡ c772d04b-c584-45b0-8935-b8c643fa19b3
-# log.([1, 2, 3])
+
 
 # ╔═╡ 24be1cc2-e132-477f-92dc-5defe2d3de4b
 vspace
@@ -94,10 +94,10 @@ md"""
 """
 
 # ╔═╡ f80aa11f-6246-4d36-92e3-8673b07e3d11
-# map(x -> x*3, my_example_matrix)
+
 
 # ╔═╡ e21e99b0-507c-461d-8219-71c703f9f163
-# map(x -> x + 100, my_example_matrix[:, 3])
+
 
 # ╔═╡ 80402620-7794-44f3-b31d-5d33e64995e1
 vspace
@@ -211,7 +211,7 @@ md"""
 """
 
 # ╔═╡ b748c58b-1484-4060-9b49-502b298152fb
-[x^2 for x in 1:10]
+
 
 # ╔═╡ 6aa79928-1a44-4baa-bd42-f229c4687076
 vspace
@@ -222,7 +222,7 @@ md"""
 """
 
 # ╔═╡ 28e29d50-66ac-46ba-bb2b-1039b4fa2d4d
-[x*y for x in 1:7 for y in 1:2]
+
 
 # ╔═╡ 46f730ea-eeef-4bf5-add7-1338649e0e3d
 vspace
@@ -233,7 +233,7 @@ md"""
 """
 
 # ╔═╡ 09e409ab-d985-49ee-9005-88e0546ab767
-[x^2 for x in 1:10 if isodd(x)]
+
 
 # ╔═╡ 7b5d928f-b21b-45d8-9afe-623f8b863998
 vspace
@@ -274,7 +274,7 @@ let
 	column_major = [[1 2]
 					[3 4]]
 
-	first(eachcol(column_major))
+	
 	
 end
 
@@ -305,7 +305,7 @@ let
 	column_major = [[1 2]
 					[3 4]]
 
-	eachrow(column_major)
+	
 	
 end
 
@@ -745,7 +745,7 @@ version = "17.4.0+2"
 # ╟─e74f4ca0-b66a-47c4-9c17-da6991242a91
 # ╠═f831111c-79aa-4b41-9363-7441a54a8a7d
 # ╟─46d00ed5-a2bd-467a-b398-687487945770
-# ╠═0ad97376-cf1e-4cc8-a2a1-c15240ed7397
+# ╟─0ad97376-cf1e-4cc8-a2a1-c15240ed7397
 # ╠═84811113-a003-484a-8eed-03bd40c23120
 # ╟─8947fe86-43e9-4e41-aa4f-ca94609bb0d0
 # ╟─a68f123b-1b3e-4e23-b6cc-6cd3720af4e5
