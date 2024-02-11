@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.32
+# v0.19.38
 
 using Markdown
 using InteractiveUtils
@@ -113,15 +113,11 @@ begin
 	<br>
 	<input type="checkbox" value=""> Strings
 	<br>
-	<input type="checkbox" value=""> Pairs
+	<input type="checkbox" value=""> String Conversions
 	<br>
 	<input type="checkbox" value=""> Tuples, Named Tuples
 	<br>
 	<input type="checkbox" value=""> Ranges
-	<br>
-	<input type="checkbox" value=""> Dictionaries
-	<br>
-	<input type="checkbox" value=""> Splatting
 	<br>
 	<br>
 	</fieldset>      
@@ -155,9 +151,16 @@ md"""
 """
 
 # ╔═╡ 402ebee0-68b0-4318-809d-fa81d40ff243
-let 
+# let 
+# 	text = "
+# 		This is a big multiline string.
+# 		As you can see.
+# 		It is still a String to Julia.
+# 		"
 
-end
+# 	println(text)
+
+# end
 
 # ╔═╡ 7aef4abc-0abd-4e51-8494-2805aac60869
 md"""
@@ -166,13 +169,22 @@ md"""
 
 # ╔═╡ cdcd1a12-3beb-4080-b76c-1976a48c6500
 md"""
-- But, it is, typically, more clear to use triple quotation marks
+- But it is typically more clear to use triple quotation marks
 """
 
 # ╔═╡ 34abd3a8-0a33-4d02-827e-d61c74ee9838
-let
+# let
+# 	s = """
+# 		This is a big multiline string with a nested "quotation".
+# 		As you can see.
+# 		It is still a String to Julia.
+# 		"""
+# 	println(s)
+	
+# end
 
-end
+# ╔═╡ 511862c6-c3e8-44d2-9163-06fb0e8aa63a
+vspace
 
 # ╔═╡ 66d5ad2e-7569-4d40-9e1b-f49f7f2b1955
 md"""
@@ -211,8 +223,16 @@ md"""
 
 # ╔═╡ 7a9e7928-6d4e-40e8-b9ea-26e2eb6d3f61
 let
+	
+	hello = "Hello"
+	goodbye = "Goodbye"
+	
+	
 
 end
+
+# ╔═╡ 21fdcf6b-3958-43a5-9e22-7192361246d8
+vspace
 
 # ╔═╡ a7cf85d5-2299-4a6d-b2a0-9f70f1a5a96f
 md"""
@@ -235,6 +255,11 @@ md"""
 # ╔═╡ c245716e-1a72-42e9-b8cc-fd65b785e968
 let
 
+	hello = "Hello"
+	goodbye = "Goodbye"
+	
+	
+
 end
 
 
@@ -243,16 +268,39 @@ md"""
 #
 """
 
+# ╔═╡ 41074323-ec69-4320-b3f6-de85cc1d34c6
+md"""
+#### Exercise
+Suppose we observe that the price of stock A is \$85.75. Create an variable called `stock_price` with value of the stock price. Then use string interpolation to display "The stock price is 85.75".
+"""
+
+# ╔═╡ d9cd0943-6573-44ac-9a25-0d5f05c9136e
+
+
+# ╔═╡ 27b79bbc-ce6d-4270-8c1d-9363dbb6c35b
+vspace
+
 # ╔═╡ 7868c045-4fd9-419d-bc66-a9d14ea41c97
 md"""
 - It works even inside functions. Let’s create a function to illustrate the idea.
 """
 
 # ╔═╡ c955997d-eeb5-48c6-9ab5-c85de7bef6fc
-
+# function test_interpolated(a, b)
+# 	if a < b
+# 		"$a is less than $b"
+# 	elseif a > b
+# 		"$a is greater than $b"
+# 	else
+# 		"$a is equal to $b"
+# 	end
+# end
 
 # ╔═╡ c01f4006-98d1-48b8-a069-22f66b856c62
 
+
+# ╔═╡ e3e82a7f-263c-4b20-897c-338a740f6c6a
+vspace
 
 # ╔═╡ 657a80f5-b889-4c2f-84d3-eebdd9f28f02
 md"""
@@ -269,7 +317,7 @@ md"""
 """
 
 # ╔═╡ 189e90ac-1516-4b4d-86c0-911bfbd1db24
-
+julia_string = "Julia is an amazing opensource programming language"
 
 # ╔═╡ 329b6035-dcd0-4238-b428-a8448141bdfa
 md"""
@@ -293,9 +341,6 @@ md"""
 md"""
 [occursin Documentation](https://docs.julialang.org/en/v1/base/strings/#Base.occursin)
 """
-
-# ╔═╡ 79ef8ec7-737c-4571-b9be-51c2ffeaa133
-
 
 # ╔═╡ 4990d1a0-30f7-4643-bd6e-39d0a642baa0
 
@@ -323,9 +368,6 @@ But
 md"""
 [endswith Documentation](https://docs.julialang.org/en/v1/base/strings/#Base.endswith)
 """
-
-# ╔═╡ d4ec70c0-22e6-42a3-80e9-c1e3df1a61ff
-
 
 # ╔═╡ 5d121a4b-8aba-42f4-a62c-24497cfeaad2
 
@@ -430,59 +472,24 @@ md"""
 
 # ╔═╡ dbcb6057-086d-4584-b961-7b6569781ffa
 let
-
+	# a = tryparse(Int64, "A very non-numeric string")
+	
+	# typeof(a)
 end
 
 # ╔═╡ 0522f18b-6c47-49b9-a492-19ece6d49efc
 vspace
 
-# ╔═╡ e5eb8771-9fa4-4bca-bdfb-abb8b1af39d3
+# ╔═╡ c805833e-e677-41cc-a748-b0f68e1e3098
 md"""
-# Pairs
+#### Exercise
+We have obtained data on stock prices, but in the data, numbers are formatted as string. Convert the stock price given below to a floating point number.
 """
 
-# ╔═╡ 27b3ff56-2e40-4ba8-a366-9957bf711f88
-md"""
-- `Pair` is a data structure that holds two types.
-- We construct a pair in Julia is using the following syntax.
-"""
-
-# ╔═╡ 1fa6ce25-d853-4110-b5f1-615773e0a12d
-let
-
-end
-
-# ╔═╡ 4f03a603-145d-415e-97de-9f400c6480b5
-md"""
-#
-"""
-
-# ╔═╡ 79464896-4b6c-4aec-8680-b0d00c0fadc9
-md"""
-- Alternatively, we can create a pair by specifying both values and in between we
-use the pair `=>` operator.
-"""
-
-# ╔═╡ 2eff919e-2f67-4b5d-8e51-1ca4ef2e52f8
+# ╔═╡ 5e364de4-581a-4850-aa3c-4468418d181e
 
 
-# ╔═╡ 5347321b-0526-4cd9-b6c7-b2366407e9f8
-md"""
-#
-"""
-
-# ╔═╡ 3463b880-9a25-43fb-95f6-bd1aac9653f4
-md"""
-- The elements are stored in the fields first and second
-"""
-
-# ╔═╡ ad08de30-bc54-45c1-9456-86b46eeb4602
-
-
-# ╔═╡ c483a43e-7422-477e-91ce-1431f07b0a97
-
-
-# ╔═╡ c28703c0-cb1e-4da6-8864-e078f5a968b6
+# ╔═╡ 32881d64-5939-4dc3-83ce-d3eb409229a6
 vspace
 
 # ╔═╡ e4e970b8-0bc0-4d84-a20c-171546784439
@@ -521,37 +528,6 @@ md"""
 #
 """
 
-# ╔═╡ 9363fe6a-de52-493f-8aef-a336d992077c
-md"""
-- We can also loop over tuples with the `for` keyword, and even apply functions to tuples. 
-- But we can never change any value of a tuple since they are immutable.
-"""
-
-# ╔═╡ 6723daf1-0924-43c9-97df-a230d36029be
-md"""
-#
-"""
-
-# ╔═╡ cee8a83c-1fc3-43fd-928f-c69ee25afba9
-md"""
-- Example
-  - Recall that functions can return multiple values.
-  - Let’s inspect what our `add_multiply` function returns.
-"""
-
-# ╔═╡ 41b9fa87-6a60-4896-b09e-0fe16947c5da
-
-
-# ╔═╡ ecfd8aaf-f715-4b0f-a7fc-e7fa8f5fadc0
-md"""
-#
-"""
-
-# ╔═╡ 8f3a92ba-577b-406e-8200-be64dddd0bc8
-let 
-
-end
-
 # ╔═╡ 2fc75d57-30e8-4c28-860c-386649436615
 md"""
 #
@@ -559,9 +535,8 @@ md"""
 
 # ╔═╡ 95ce5454-a3a3-430a-9bc5-74fe3b5dd48f
 md"""
-- One more thing about `Tuples`.
-- When you want to pass more than one variable to an anonymous function, what would you need to use?
-- Answer: Tuples
+- `Tuples` are useful for anonymous functios.
+- Specifically, when we want to pass more than one variable to an anonymous function, we use `Tuples`.
 """
 
 # ╔═╡ 6796d442-ea72-4297-bad1-2b18e90d0d9a
@@ -579,6 +554,9 @@ md"""
 
 # ╔═╡ f5549c83-545a-4da2-841a-aaf1a2c656f3
 
+
+# ╔═╡ 758c51a1-2227-47fb-80cd-8dda7b9a81e1
+vspace
 
 # ╔═╡ fff54865-2dd3-4997-b3eb-6381fcb15450
 md"""
@@ -614,22 +592,28 @@ md"""
 #
 """
 
-# ╔═╡ f84125f9-5eed-48d1-aace-18100c57f2af
+# ╔═╡ 017bcf97-8429-4c78-8b18-6aeb6460a609
+vspace
+
+# ╔═╡ 0c8d0fac-f204-4c87-b74f-1eb63ed1e462
 md"""
-- Often Julia users create a named tuple by using the familiar parenthesis `()` and commas `,`, but without naming the values.
-- To do so you begin the named tuple construction by specifying first a semicolon `;` before the values.
-- This is especially useful when the values that would compose the named tuple are already defined in variables or when you want to avoid long lines
+#### Exercise
+1. Create a named tuple to represent the paramters of the Black Scholes Formula. Suppose the stock price is P=79.97, the implied vol is σ=14%, the riskfree rate is r=5%, the strike price is K=85, and the options expires in t=0.25 years.
 """
 
-# ╔═╡ cb3fcc78-61fe-4486-bc4a-925693c877e4
+# ╔═╡ 1fda5a07-7981-428a-a8e5-9266570d0451
+
+
+# ╔═╡ 24efaa98-fb85-42a6-a5e5-47b53fbbc86d
 md"""
-#
+2. Use indexing to output the  implied volatility.
 """
 
-# ╔═╡ 19f0e235-8302-4659-bc1f-565574449a62
-let
+# ╔═╡ 4fa964ee-9226-4732-b993-f90240ee4dfe
 
-end
+
+# ╔═╡ fdbeb35f-8a8d-4f29-9ad4-e3d195cafad5
+vspace
 
 # ╔═╡ 3cf6bb82-151b-4082-9ff9-67506b74af59
 md"""
@@ -658,17 +642,9 @@ md"""
 #
 """
 
-# ╔═╡ 78c5b679-3707-427c-b8c2-103e8b58491c
-md"""
-- And, if we _gather_ all the values, we get
-"""
-
-# ╔═╡ acdc6195-bddb-482d-8669-d574afa653e8
-
-
 # ╔═╡ e90df9cb-54eb-456a-ac4e-a374d2eb3ba1
 md"""
-- A convenient shortcut is the `collect` function.
+- To put all the values in the range into a vector, we use the `collect` function.
 """
 
 # ╔═╡ 47442c7b-9c18-4e8b-96fd-0b4f472c8624
@@ -716,217 +692,27 @@ md"""
 # ╔═╡ 8bee3b15-811d-4c3e-9266-a023c5211eae
 
 
-# ╔═╡ 7cc28408-ca76-4054-bee3-47c6553b4dd2
+# ╔═╡ 7a47dc38-e772-4f32-bebc-2c3ddec481be
+vspace
+
+# ╔═╡ 9f82918f-3c27-4973-8645-b6bbb02f0edf
 md"""
-# Dictionaries (Dicts)
+#### Example
+Use a range to create a vector of all years from the year 2000 to the year 2024.
 """
 
-# ╔═╡ ba22b383-ee9e-4ff7-a9ce-ebac8b64fdc5
-md"""
-- `Dict` in Julia is just a _hash table_ with pairs of `key` and `value`.
-- `keys` and `values` can be of any type, but generally you’ll see keys as `strings`.
-- There are two ways to construct `Dicts` in Julia.
-- The first is using the default constructor `Dict` and passing a vector of tuples composed of `(key, value)`.
-"""
-
-# ╔═╡ baf9f998-d3ba-4b7f-a618-baf7d01ba8eb
-md"""
-#
-"""
-
-# ╔═╡ c4144798-e269-4e60-ba52-0f9f101d36dc
-let
-
-end
-
-# ╔═╡ 206882f8-0bd4-434d-a821-7775d5a60e98
-md"""
-- The second way of constructing Dicts is more elegant because it has a more expressive syntax.
-- You use the same default constructor Dict, but now you pass pairs of `key` and `value`.
-"""
-
-# ╔═╡ 2edcb5a2-39fb-4363-a303-52ed32870291
-let 
-
-end
-
-# ╔═╡ 28ce123b-8a31-42c1-9e17-836b3a60513e
-md"""
-#
-"""
-
-# ╔═╡ 4db895f3-712c-4ff7-b679-caf70572cae9
-md"""
-- You can retrieve a Dicts value by indexing it by the corresponding key.
-"""
-
-# ╔═╡ af2589e3-c191-4f93-9150-295914c85c33
-let
-
-end
-
-# ╔═╡ 491ff53c-59b5-49dd-bf12-69d3e1e1e674
-md"""
-- Similarly, to add a new entry you index the `Dict` by the desired `key` and assign a value with the assignment `=` operator.
-"""
-
-# ╔═╡ bfa4eb7f-6aef-4723-9565-dcb2131223c9
-let
-
-end
-
-# ╔═╡ 30f2ae99-cb6d-4ac8-9ef3-154ca18ded3f
-md"""
-#
-"""
-
-# ╔═╡ 58a811eb-97bc-4173-a3b0-6ffdf148d798
-md"""
-- If you want to check if a Dict has a certain `key` you can use the `haskey` function.
-"""
-
-# ╔═╡ c636919c-76d1-4b89-a59b-a3c6c0f5a495
+# ╔═╡ e70a109e-843c-434c-9a2b-e18a37419193
 let
 	
 end
 
-# ╔═╡ 5392ee59-5a03-4789-a64e-2c661f250107
-md"""
-#
-"""
-
-# ╔═╡ 7ec0aa0d-153e-4cef-a2d3-40af83928e95
-md"""
-- To delete a key you can use either the `delete!` function.
-"""
-
-# ╔═╡ e93c8fab-b86f-4f75-961e-da53c6f1ab6a
-let
-
-end
-
-# ╔═╡ 70d5f5eb-2544-41a9-9faf-8fe5bd6d20c2
-md"""
-#
-"""
-
-# ╔═╡ cda7feb9-f18b-4490-9f3d-3b726981e4df
-md"""
-- Or to delete a `key` while retuning its value you can use the `pop!` function.
-"""
-
-# ╔═╡ 1faa48df-32e8-42f3-be0d-554257b948bb
-let
-
-end
-
-# ╔═╡ c135fa18-56ff-4e10-b59c-d34371da20c7
-md"""
-#
-"""
-
-# ╔═╡ eec76302-4b16-451d-9a0a-ab504f33dfe3
-md"""
-- There is one useful `Dict` constructor that we use a lot.
-- Suppose you have two vectors and you want to construct a Dict with one of them as keys and the other as values.
-- You can do that with the `zip` function which _glues_ together two objects just like a _zipper_.
-"""
+# ╔═╡ 89685d39-d9db-4119-98fa-173096c7d628
+vspace
 
 # ╔═╡ b3dbf318-6e52-46ac-ae6e-2ea8832ba9e1
 md"""
 #
 """
-
-# ╔═╡ 3ee268a0-f32b-4c99-8da8-fc5dbff7db08
-begin
-
-end
-
-# ╔═╡ 2dea6272-e8de-4c4c-9bb5-136c42d0554d
-md"""
-- For instance, we can now get the number 3 via.
-"""
-
-# ╔═╡ 1a9b63d3-953e-42f2-9557-93fb9c234b02
-
-
-# ╔═╡ f2012a77-742e-49ed-b9df-d3c70519e8e0
-md"""
-# Splat Operator
-"""
-
-# ╔═╡ 56cd4d6f-733d-464a-a02d-8455a977cf53
-md"""
-- In Julia we have the _splat_ operator `...` which is mainly used in function calls as a sequence of arguments.
-- The most intuitive way to learn about splatting is with an example.
-- The `add_elements` function below takes three arguments to be added together.
-"""
-
-# ╔═╡ 371d8b82-0bcf-4071-81cc-a855e6944078
-
-
-# ╔═╡ 83f142a0-104b-4978-acf0-9438d9913ffb
-md"""
-#
-"""
-
-# ╔═╡ 55c08ffe-6ccb-4567-b127-20978b7676a8
-md"""
-- Now suppose that we have a collection with three elements.
-- The naïve way to do this would be to supply the function with all three elements as function arguments like this.
-"""
-
-# ╔═╡ 135adc8e-4169-4800-943a-fe51828fad16
-let
-
-end
-
-# ╔═╡ fc45db58-1856-45ef-a633-9096fd3940b9
-md"""
-#
-"""
-
-# ╔═╡ 0c8b1e06-3f4d-42e0-a9e8-f69979ffa7dd
-md"""
-- Here is where we use the `splat` operator `...` which takes a collection (often an array, vector, tuple or range) and converts into a sequence of arguments.
-"""
-
-# ╔═╡ 5a4a22ad-cf6e-4f1e-8ca4-aedb41f5076f
-let
-
-end
-
-# ╔═╡ c91592c2-6bf2-4fbc-bbd4-c4703e32f1e6
-md"""
-#
-"""
-
-# ╔═╡ 36cc5182-061d-45e9-8bca-f704e1be324d
-md"""
-- The `...` is included after the collection that we want to _splat_ into a sequence of arguments.
-- In the example above, syntactically speaking, the following are the same.
-```
-	collection = [x, y, z]
-	function(collection...) = function(x, y, z)
-```
-"""
-
-# ╔═╡ 391cbe17-ce70-48aa-8de9-3a0aa0b6d9fb
-md"""
-#
-"""
-
-# ╔═╡ 9472bd3a-6805-41bf-9778-eca308a39696
-md"""
-- Anytime Julia sees a splatting operator inside a function call, it will be converted on a sequence of arguments for all elements of the collection separated by commas.
-- It also works for ranges
-"""
-
-# ╔═╡ 95aa5f25-c707-4031-8ab0-e1d4264b07f7
-
-
-# ╔═╡ 2f9b7bea-8ae0-4d59-81c3-01711eced69c
-vspace
 
 # ╔═╡ a124bf84-7ca4-40c8-8607-b05dec24a730
 md"""
@@ -946,10 +732,6 @@ begin
 	<input type="checkbox" value="" checked> Tuples, Named Tuples
 	<br>
 	<input type="checkbox" value="" checked> Ranges
-	<br>
-	<input type="checkbox" value="" checked> Dictionaries
-	<br>
-	<input type="checkbox" value="" checked> Splatting
 	<br>
 	<br>
 	</fieldset>      
@@ -981,15 +763,15 @@ PlutoUI = "~0.7.49"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.4"
+julia_version = "1.10.0"
 manifest_format = "2.0"
 project_hash = "6b6c3dd8246a30b04854d2ce30c3f3718dd6ec8c"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
-git-tree-sha1 = "793501dcd3fa7ce8d375a2c878dca2296232686e"
+git-tree-sha1 = "c278dfab760520b8bb7e9511b968bf4ba38b7acc"
 uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.2.2"
+version = "1.2.3"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -1010,7 +792,7 @@ version = "0.11.4"
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.5+0"
+version = "1.0.5+1"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -1032,9 +814,9 @@ version = "0.8.4"
 
 [[deps.Hyperscript]]
 deps = ["Test"]
-git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
+git-tree-sha1 = "179267cfa5e712760cd43dcae385d7ea90cc25a4"
 uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
-version = "0.0.4"
+version = "0.0.5"
 
 [[deps.HypertextLiteral]]
 deps = ["Tricks"]
@@ -1044,9 +826,9 @@ version = "0.9.5"
 
 [[deps.IOCapture]]
 deps = ["Logging", "Random"]
-git-tree-sha1 = "d75853a0bdbfb1ac815478bacd89cd27b550ace6"
+git-tree-sha1 = "8b72179abc660bfab5e28472e019392b97d0985c"
 uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
-version = "0.2.3"
+version = "0.2.4"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -1074,8 +856,13 @@ uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
 version = "8.4.0+0"
 
 [[deps.LibGit2]]
-deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
+deps = ["Base64", "LibGit2_jll", "NetworkOptions", "Printf", "SHA"]
 uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
+
+[[deps.LibGit2_jll]]
+deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll"]
+uuid = "e37daf67-58a4-590a-8e99-b0245dd2ffc5"
+version = "1.6.4+0"
 
 [[deps.LibSSH2_jll]]
 deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
@@ -1104,14 +891,14 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.28.2+0"
+version = "2.28.2+1"
 
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-version = "2022.10.11"
+version = "2023.1.10"
 
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
@@ -1120,24 +907,24 @@ version = "1.2.0"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.21+4"
+version = "0.3.23+2"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
-git-tree-sha1 = "a935806434c9d4c506ba941871b327b96d41f2bf"
+git-tree-sha1 = "8489905bcdbcfac64d1daa51ca07c0d8f0283821"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.8.0"
+version = "2.8.1"
 
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.9.2"
+version = "1.10.0"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "bd7c69c7f7173097e7b5e1be07cee2b8b7447f51"
+git-tree-sha1 = "68723afdb616445c6caaef6255067a8339f91325"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.54"
+version = "0.7.55"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
@@ -1160,7 +947,7 @@ deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.Random]]
-deps = ["SHA", "Serialization"]
+deps = ["SHA"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [[deps.Reexport]]
@@ -1181,16 +968,17 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 [[deps.SparseArrays]]
 deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+version = "1.10.0"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
-version = "1.9.0"
+version = "1.10.0"
 
 [[deps.SuiteSparse_jll]]
-deps = ["Artifacts", "Libdl", "Pkg", "libblastrampoline_jll"]
+deps = ["Artifacts", "Libdl", "libblastrampoline_jll"]
 uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
-version = "5.10.1+6"
+version = "7.2.1+1"
 
 [[deps.TOML]]
 deps = ["Dates"]
@@ -1226,12 +1014,12 @@ uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
-version = "1.2.13+0"
+version = "1.2.13+1"
 
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.8.0+0"
+version = "5.8.0+1"
 
 [[deps.nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1241,7 +1029,7 @@ version = "1.52.0+1"
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
-version = "17.4.0+0"
+version = "17.4.0+2"
 """
 
 # ╔═╡ Cell order:
@@ -1259,6 +1047,7 @@ version = "17.4.0+0"
 # ╟─7aef4abc-0abd-4e51-8494-2805aac60869
 # ╟─cdcd1a12-3beb-4080-b76c-1976a48c6500
 # ╠═34abd3a8-0a33-4d02-827e-d61c74ee9838
+# ╟─511862c6-c3e8-44d2-9163-06fb0e8aa63a
 # ╟─66d5ad2e-7569-4d40-9e1b-f49f7f2b1955
 # ╟─098eafb0-8c7e-4584-b252-512d0bbb0227
 # ╠═52c10638-14d0-4812-b54d-5879198be7dc
@@ -1266,14 +1055,19 @@ version = "17.4.0+0"
 # ╟─8b592c01-c988-4fb7-940e-a6628d35bceb
 # ╟─3aa94c23-d150-4f32-b110-df92937e6981
 # ╠═7a9e7928-6d4e-40e8-b9ea-26e2eb6d3f61
+# ╟─21fdcf6b-3958-43a5-9e22-7192361246d8
 # ╟─a7cf85d5-2299-4a6d-b2a0-9f70f1a5a96f
 # ╟─01a1c439-7022-4857-968a-5321df4a183e
 # ╟─9daccbff-20ee-4429-a428-2a404b585f10
 # ╠═c245716e-1a72-42e9-b8cc-fd65b785e968
 # ╟─39a41ede-0750-471d-89b3-b2a2d4e2ce52
+# ╟─41074323-ec69-4320-b3f6-de85cc1d34c6
+# ╠═d9cd0943-6573-44ac-9a25-0d5f05c9136e
+# ╟─27b79bbc-ce6d-4270-8c1d-9363dbb6c35b
 # ╟─7868c045-4fd9-419d-bc66-a9d14ea41c97
 # ╠═c955997d-eeb5-48c6-9ab5-c85de7bef6fc
 # ╠═c01f4006-98d1-48b8-a069-22f66b856c62
+# ╟─e3e82a7f-263c-4b20-897c-338a740f6c6a
 # ╟─657a80f5-b889-4c2f-84d3-eebdd9f28f02
 # ╟─3c70b4ac-087e-41cf-a38a-fd654edb6011
 # ╠═189e90ac-1516-4b4d-86c0-911bfbd1db24
@@ -1281,7 +1075,6 @@ version = "17.4.0+0"
 # ╟─0c7bf844-59c0-4893-9c5f-40774bb61309
 # ╟─c513d589-af7d-40d0-b496-0d0de4df56c3
 # ╟─14d1d1de-458a-467b-8093-a0f63676fac2
-# ╠═79ef8ec7-737c-4571-b9be-51c2ffeaa133
 # ╠═4990d1a0-30f7-4643-bd6e-39d0a642baa0
 # ╟─7a4e47bb-dcaa-443e-bc90-a912221da8bb
 # ╟─ce684892-82fc-4d6a-847d-1e55bfd80296
@@ -1289,7 +1082,6 @@ version = "17.4.0+0"
 # ╟─d4b4dbc1-ecd4-4ee8-ad34-fa83d5b65fdb
 # ╠═3adf8946-20a8-4904-86d1-50c494cc96fb
 # ╟─60d8da29-d333-4a52-9c5d-a3d9509ddb6c
-# ╠═d4ec70c0-22e6-42a3-80e9-c1e3df1a61ff
 # ╠═5d121a4b-8aba-42f4-a62c-24497cfeaad2
 # ╠═70054c25-f239-47e3-b5c8-30ecec5101ce
 # ╟─5a019a2f-0a04-4c7e-855e-40c216de0fda
@@ -1315,17 +1107,9 @@ version = "17.4.0+0"
 # ╟─392afdf7-68df-4227-87a0-22e88dfb3e75
 # ╠═dbcb6057-086d-4584-b961-7b6569781ffa
 # ╟─0522f18b-6c47-49b9-a492-19ece6d49efc
-# ╟─e5eb8771-9fa4-4bca-bdfb-abb8b1af39d3
-# ╟─27b3ff56-2e40-4ba8-a366-9957bf711f88
-# ╠═1fa6ce25-d853-4110-b5f1-615773e0a12d
-# ╟─4f03a603-145d-415e-97de-9f400c6480b5
-# ╟─79464896-4b6c-4aec-8680-b0d00c0fadc9
-# ╠═2eff919e-2f67-4b5d-8e51-1ca4ef2e52f8
-# ╟─5347321b-0526-4cd9-b6c7-b2366407e9f8
-# ╟─3463b880-9a25-43fb-95f6-bd1aac9653f4
-# ╠═ad08de30-bc54-45c1-9456-86b46eeb4602
-# ╠═c483a43e-7422-477e-91ce-1431f07b0a97
-# ╟─c28703c0-cb1e-4da6-8864-e078f5a968b6
+# ╟─c805833e-e677-41cc-a748-b0f68e1e3098
+# ╠═5e364de4-581a-4850-aa3c-4468418d181e
+# ╟─32881d64-5939-4dc3-83ce-d3eb409229a6
 # ╟─e4e970b8-0bc0-4d84-a20c-171546784439
 # ╟─a47c9bca-a192-4148-8968-b105243ff04b
 # ╟─d1011108-e962-4421-bc98-28483f5f560d
@@ -1333,18 +1117,13 @@ version = "17.4.0+0"
 # ╠═b7dd2983-7735-4c23-a54d-ac3aabdd0838
 # ╠═892566de-1f1a-4745-8713-f0244131bc6a
 # ╟─361ef513-3661-4c9a-8630-4d1e42071efe
-# ╟─9363fe6a-de52-493f-8aef-a336d992077c
-# ╟─6723daf1-0924-43c9-97df-a230d36029be
-# ╟─cee8a83c-1fc3-43fd-928f-c69ee25afba9
-# ╠═41b9fa87-6a60-4896-b09e-0fe16947c5da
-# ╟─ecfd8aaf-f715-4b0f-a7fc-e7fa8f5fadc0
-# ╠═8f3a92ba-577b-406e-8200-be64dddd0bc8
 # ╟─2fc75d57-30e8-4c28-860c-386649436615
 # ╟─95ce5454-a3a3-430a-9bc5-74fe3b5dd48f
 # ╠═6796d442-ea72-4297-bad1-2b18e90d0d9a
 # ╟─7e807618-c81a-4df0-83c3-89ea63dafbe9
 # ╟─3c03eee2-47c3-432a-8e21-783422e18c89
 # ╠═f5549c83-545a-4da2-841a-aaf1a2c656f3
+# ╟─758c51a1-2227-47fb-80cd-8dda7b9a81e1
 # ╟─fff54865-2dd3-4997-b3eb-6381fcb15450
 # ╟─d8612c9b-aa37-4eb2-a853-493d5c68dd34
 # ╠═77ba073b-e243-4f8e-827b-08f95e6981d1
@@ -1352,17 +1131,18 @@ version = "17.4.0+0"
 # ╟─d9ed75c6-0216-4552-8a5e-b917757cc48a
 # ╠═1465ebe6-965b-45ab-8f14-2f5e341c3928
 # ╟─4152dd29-da41-4f77-8991-459690a85b5b
-# ╟─f84125f9-5eed-48d1-aace-18100c57f2af
-# ╟─cb3fcc78-61fe-4486-bc4a-925693c877e4
-# ╠═19f0e235-8302-4659-bc1f-565574449a62
+# ╟─017bcf97-8429-4c78-8b18-6aeb6460a609
+# ╟─0c8d0fac-f204-4c87-b74f-1eb63ed1e462
+# ╠═1fda5a07-7981-428a-a8e5-9266570d0451
+# ╟─24efaa98-fb85-42a6-a5e5-47b53fbbc86d
+# ╠═4fa964ee-9226-4732-b993-f90240ee4dfe
+# ╟─fdbeb35f-8a8d-4f29-9ad4-e3d195cafad5
 # ╟─3cf6bb82-151b-4082-9ff9-67506b74af59
 # ╟─37aee362-f7f6-4fd7-b240-e2c6da0252cd
 # ╠═07f2c7a2-4262-4f6d-bed1-171124dbd28f
 # ╠═efd520b0-5890-4de4-adbc-e15664b94688
 # ╟─7b21ac8e-b41c-47d0-9a69-1ddfeed7da42
 # ╟─a323ff01-48f8-4e80-ac10-6b3e5a6204bc
-# ╟─78c5b679-3707-427c-b8c2-103e8b58491c
-# ╠═acdc6195-bddb-482d-8669-d574afa653e8
 # ╟─e90df9cb-54eb-456a-ac4e-a374d2eb3ba1
 # ╠═47442c7b-9c18-4e8b-96fd-0b4f472c8624
 # ╟─6fdf0cc0-82ae-4dea-83f4-6da843962f4a
@@ -1374,47 +1154,11 @@ version = "17.4.0+0"
 # ╟─35678f86-dff3-4baf-ac61-22eb2aff248d
 # ╟─cb5b2fe7-63aa-4fe3-a32a-e2caf6078668
 # ╠═8bee3b15-811d-4c3e-9266-a023c5211eae
-# ╟─7cc28408-ca76-4054-bee3-47c6553b4dd2
-# ╟─ba22b383-ee9e-4ff7-a9ce-ebac8b64fdc5
-# ╟─baf9f998-d3ba-4b7f-a618-baf7d01ba8eb
-# ╠═c4144798-e269-4e60-ba52-0f9f101d36dc
-# ╟─206882f8-0bd4-434d-a821-7775d5a60e98
-# ╠═2edcb5a2-39fb-4363-a303-52ed32870291
-# ╟─28ce123b-8a31-42c1-9e17-836b3a60513e
-# ╟─4db895f3-712c-4ff7-b679-caf70572cae9
-# ╠═af2589e3-c191-4f93-9150-295914c85c33
-# ╟─491ff53c-59b5-49dd-bf12-69d3e1e1e674
-# ╠═bfa4eb7f-6aef-4723-9565-dcb2131223c9
-# ╟─30f2ae99-cb6d-4ac8-9ef3-154ca18ded3f
-# ╟─58a811eb-97bc-4173-a3b0-6ffdf148d798
-# ╠═c636919c-76d1-4b89-a59b-a3c6c0f5a495
-# ╟─5392ee59-5a03-4789-a64e-2c661f250107
-# ╟─7ec0aa0d-153e-4cef-a2d3-40af83928e95
-# ╠═e93c8fab-b86f-4f75-961e-da53c6f1ab6a
-# ╟─70d5f5eb-2544-41a9-9faf-8fe5bd6d20c2
-# ╟─cda7feb9-f18b-4490-9f3d-3b726981e4df
-# ╠═1faa48df-32e8-42f3-be0d-554257b948bb
-# ╟─c135fa18-56ff-4e10-b59c-d34371da20c7
-# ╟─eec76302-4b16-451d-9a0a-ab504f33dfe3
+# ╟─7a47dc38-e772-4f32-bebc-2c3ddec481be
+# ╟─9f82918f-3c27-4973-8645-b6bbb02f0edf
+# ╠═e70a109e-843c-434c-9a2b-e18a37419193
+# ╟─89685d39-d9db-4119-98fa-173096c7d628
 # ╟─b3dbf318-6e52-46ac-ae6e-2ea8832ba9e1
-# ╠═3ee268a0-f32b-4c99-8da8-fc5dbff7db08
-# ╟─2dea6272-e8de-4c4c-9bb5-136c42d0554d
-# ╠═1a9b63d3-953e-42f2-9557-93fb9c234b02
-# ╟─f2012a77-742e-49ed-b9df-d3c70519e8e0
-# ╟─56cd4d6f-733d-464a-a02d-8455a977cf53
-# ╠═371d8b82-0bcf-4071-81cc-a855e6944078
-# ╟─83f142a0-104b-4978-acf0-9438d9913ffb
-# ╟─55c08ffe-6ccb-4567-b127-20978b7676a8
-# ╠═135adc8e-4169-4800-943a-fe51828fad16
-# ╟─fc45db58-1856-45ef-a633-9096fd3940b9
-# ╟─0c8b1e06-3f4d-42e0-a9e8-f69979ffa7dd
-# ╠═5a4a22ad-cf6e-4f1e-8ca4-aedb41f5076f
-# ╟─c91592c2-6bf2-4fbc-bbd4-c4703e32f1e6
-# ╟─36cc5182-061d-45e9-8bca-f704e1be324d
-# ╟─391cbe17-ce70-48aa-8de9-3a0aa0b6d9fb
-# ╟─9472bd3a-6805-41bf-9778-eca308a39696
-# ╠═95aa5f25-c707-4031-8ab0-e1d4264b07f7
-# ╟─2f9b7bea-8ae0-4d59-81c3-01711eced69c
 # ╟─a124bf84-7ca4-40c8-8607-b05dec24a730
 # ╟─75672e0c-5c34-44c8-b1a9-f6ba821d6c8d
 # ╟─5f191192-bc5f-41e8-845c-beba89ee5841
