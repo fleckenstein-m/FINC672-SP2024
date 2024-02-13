@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.32
+# v0.19.38
 
 using Markdown
 using InteractiveUtils
@@ -11,7 +11,7 @@ begin
 	using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
 
 	using Pkg
-	# Pkg.upgrade_manifest()
+	#Pkg.upgrade_manifest()
 	Pkg.update()
 	Pkg.resolve()
 	
@@ -80,6 +80,16 @@ begin
 	display("")
 	
 end
+
+# ╔═╡ def08918-6841-45e9-b5fb-7cc670b9f76a
+begin
+	
+	using Statistics
+	
+end
+
+# ╔═╡ d09946cf-2e63-4d7e-b6fe-ff856f45b137
+using Missings
 
 # ╔═╡ c60f08e1-972d-4591-80f7-c190a671a076
 html"""
@@ -187,6 +197,9 @@ md"""
 # ╔═╡ 67c9c70e-2f01-421b-9499-c05665297929
 
 
+# ╔═╡ 4b4eea58-15ed-49bf-8628-fd657b6cba39
+vspace
+
 # ╔═╡ f3cc4855-00db-4776-a4b7-f9496f2db477
 md"""
 # Parsing Dates
@@ -206,7 +219,9 @@ md"""
 """
 
 # ╔═╡ 05abb0c7-31e0-48f1-b351-9183ea76acc8
-
+let
+	
+end
 
 # ╔═╡ 5ccbbe98-5730-4f22-9124-68a9008ba584
 md"""
@@ -257,7 +272,7 @@ md"""
 """
 
 # ╔═╡ eae8cf8f-3c44-4098-b790-1594f62230e4
-
+d
 
 # ╔═╡ 5cc4913b-2f84-4383-bcc2-dfdd2dd5f6d6
 
@@ -293,6 +308,33 @@ md"""
 
 # ╔═╡ c287b86a-4e6f-4431-b2da-9b45922a9103
 
+
+# ╔═╡ 08065883-c080-4e32-a42f-c6e332376232
+vspace
+
+# ╔═╡ 64b2b3df-8f6c-41f8-9878-0fe6b5fffb10
+md"""
+#### Exercise
+1. A Treasury bond matures on May 15, 2055. Suppose today is February 20, 2026. In how many days is the maturity date of the Treasury bond?
+"""
+
+# ╔═╡ 3d713722-0aad-4dde-a451-6bc98eb5427c
+begin
+
+	
+	
+end
+
+# ╔═╡ cb5a12e0-433c-4fb7-9b6a-465e4b79806d
+md"""
+2. How many years are there from today until maturity?
+"""
+
+# ╔═╡ 4efddb7a-c8c0-4a50-9e4e-920d4f738c0a
+
+
+# ╔═╡ 34b8697d-c0b8-4ace-b822-1942492cc498
+vspace
 
 # ╔═╡ 4afbe891-959a-4e81-878a-8df219a273bf
 md"""
@@ -363,6 +405,7 @@ md"""
 
 # ╔═╡ c67b56d3-4e71-43cd-96e9-66547c1c1304
 begin
+ 
 
 end
 
@@ -405,6 +448,23 @@ md"""
 - There are many more functions available in Julia to work with dates.
 - Best place to find out more is the manual: [Julia Dates](https://docs.julialang.org/en/v1/stdlib/Dates/).
 """
+
+# ╔═╡ 4a673d0e-b1f2-460e-8b99-a51c7424ce8b
+vspace
+
+# ╔═╡ a512c6b8-8d64-45cb-8c42-db8af3f3399a
+md"""
+#### Exercise
+Create a vector of coupon payment dates for a Treasury note with maturity date on November 15, 2052. Suppose today is June 2, 2024.
+"""
+
+# ╔═╡ f525ab6d-7b59-4e4a-8149-b295e283cc83
+let
+	
+end	
+
+# ╔═╡ cc5041c1-a4bb-4532-a701-a53c2a1d745c
+vspace
 
 # ╔═╡ 7f837c37-1f11-451d-a212-4ec8fe98b0ce
 md"""
@@ -467,9 +527,11 @@ md"""
 """
 
 # ╔═╡ f46e3aca-f7d3-46e1-a488-73419b486c76
-let
-
-end
+# let
+# 	if missing
+# 		print("this is not printed")
+# 	end
+# end
 
 # ╔═╡ cfe87ac9-a5d2-47ba-938e-bd0275abfffe
 
@@ -483,7 +545,7 @@ md"""
 md"""
 - The design of handling missing in Julia requires you to _explicitly_ decide if in such a case missing should be treated as `true` or `false`.
 - The use of `coalesce` is most common with handling logical conditions. 
-- If you write `coalesce(condition, true)` you say that if condition evaluates to `missing` you want this `missing` to be treated as `true`. 
+- If you write `coalesce(condition, true)` you say that if a condition evaluates to `missing` you want this `missing` to be treated as `true`. 
 - Similarly, `coalesce(condition, false)` means that you want to treat `missing` as false. Here is an example:
 """
 
@@ -492,6 +554,9 @@ md"""
 
 # ╔═╡ 66a1bb0a-d424-4ddd-8e0d-e4ccdf362635
 
+
+# ╔═╡ 38adac30-0a31-494c-ae42-6c07a99a1460
+vspace
 
 # ╔═╡ 9f067d53-82df-41e6-b21f-a9b21d8671dd
 md"""
@@ -514,6 +579,9 @@ md"""
 
 # ╔═╡ 23e22307-cb91-4378-b9bc-8c2012065ad4
 
+
+# ╔═╡ 0076853f-7f42-4796-8330-c641c8e595c2
+vspace
 
 # ╔═╡ d049b64c-231f-49c0-89a7-7d26e4cf8a10
 md"""
@@ -543,6 +611,19 @@ md"""
 # ╔═╡ db6114e0-f40e-4bdf-855e-68618720de7a
 
 
+# ╔═╡ bc861da7-04ba-463c-874f-4d099631185e
+vspace
+
+# ╔═╡ 34fe420c-5d4a-43fc-92e9-5ed0cac7f8ac
+md"""
+#### Exercise
+- Suppose we are given a vector of daily historical stock prices (`StockPx`) below. There are missing observations in the time series. What is the average stock price (omitting days with missing data)?
+- We can use the `mean` function which we can use by loading the Statistics package. We do this by running `using Statistics`.
+"""
+
+# ╔═╡ 7631ea81-deea-45b7-84e2-a7a7a6e072c8
+vspace
+
 # ╔═╡ f2d7aa7b-4ad4-4d63-bf24-5effd198c3aa
 md"""
 # Enabling Missing Propagation in a Function
@@ -555,7 +636,7 @@ md"""
 """
 
 # ╔═╡ 32858b13-fc6b-4b09-aabb-d64f154476a4
-
+fun(x::Int, y::Int) = x + y
 
 # ╔═╡ 5b771350-cf18-46fa-b4c2-0284c35a4474
 md"""
@@ -583,9 +664,6 @@ md"""
 - However, we may want to create another function, based on the original one that propagates missing values. This feature is provided by the `passmissing` function from the `Missings.jl` package. 
 - Here is an example how it can be used:
 """
-
-# ╔═╡ d09946cf-2e63-4d7e-b6fe-ff856f45b137
-
 
 # ╔═╡ 1ac7681f-4974-4619-9de1-4b0028b25998
 md"""
@@ -660,13 +738,16 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+Missings = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 HypertextLiteral = "~0.9.4"
 LaTeXStrings = "~1.3.0"
+Missings = "~1.0.2"
 PlutoUI = "~0.7.49"
 """
 
@@ -674,15 +755,15 @@ PlutoUI = "~0.7.49"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.4"
+julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "6b6c3dd8246a30b04854d2ce30c3f3718dd6ec8c"
+project_hash = "a7a2e3172f1f1c1d6bc9c0a771838f9170bc962d"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
-git-tree-sha1 = "793501dcd3fa7ce8d375a2c878dca2296232686e"
+git-tree-sha1 = "c278dfab760520b8bb7e9511b968bf4ba38b7acc"
 uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.2.2"
+version = "1.2.3"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -703,7 +784,12 @@ version = "0.11.4"
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.5+0"
+version = "1.0.5+1"
+
+[[deps.DataAPI]]
+git-tree-sha1 = "abe83f3a2f1b857aac70ef8b269080af17764bbe"
+uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
+version = "1.16.0"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -725,9 +811,9 @@ version = "0.8.4"
 
 [[deps.Hyperscript]]
 deps = ["Test"]
-git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
+git-tree-sha1 = "179267cfa5e712760cd43dcae385d7ea90cc25a4"
 uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
-version = "0.0.4"
+version = "0.0.5"
 
 [[deps.HypertextLiteral]]
 deps = ["Tricks"]
@@ -737,9 +823,9 @@ version = "0.9.5"
 
 [[deps.IOCapture]]
 deps = ["Logging", "Random"]
-git-tree-sha1 = "d75853a0bdbfb1ac815478bacd89cd27b550ace6"
+git-tree-sha1 = "8b72179abc660bfab5e28472e019392b97d0985c"
 uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
-version = "0.2.3"
+version = "0.2.4"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -767,8 +853,13 @@ uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
 version = "8.4.0+0"
 
 [[deps.LibGit2]]
-deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
+deps = ["Base64", "LibGit2_jll", "NetworkOptions", "Printf", "SHA"]
 uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
+
+[[deps.LibGit2_jll]]
+deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll"]
+uuid = "e37daf67-58a4-590a-8e99-b0245dd2ffc5"
+version = "1.6.4+0"
 
 [[deps.LibSSH2_jll]]
 deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
@@ -797,14 +888,20 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.28.2+0"
+version = "2.28.2+1"
+
+[[deps.Missings]]
+deps = ["DataAPI"]
+git-tree-sha1 = "bf210ce90b6c9eed32d25dbcae1ebc565df2687f"
+uuid = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
+version = "1.0.2"
 
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-version = "2022.10.11"
+version = "2023.1.10"
 
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
@@ -813,24 +910,24 @@ version = "1.2.0"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.21+4"
+version = "0.3.23+2"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
-git-tree-sha1 = "a935806434c9d4c506ba941871b327b96d41f2bf"
+git-tree-sha1 = "8489905bcdbcfac64d1daa51ca07c0d8f0283821"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.8.0"
+version = "2.8.1"
 
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.9.2"
+version = "1.10.0"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "bd7c69c7f7173097e7b5e1be07cee2b8b7447f51"
+git-tree-sha1 = "68723afdb616445c6caaef6255067a8339f91325"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.54"
+version = "0.7.55"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
@@ -853,7 +950,7 @@ deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.Random]]
-deps = ["SHA", "Serialization"]
+deps = ["SHA"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [[deps.Reexport]]
@@ -874,16 +971,17 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 [[deps.SparseArrays]]
 deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+version = "1.10.0"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
-version = "1.9.0"
+version = "1.10.0"
 
 [[deps.SuiteSparse_jll]]
-deps = ["Artifacts", "Libdl", "Pkg", "libblastrampoline_jll"]
+deps = ["Artifacts", "Libdl", "libblastrampoline_jll"]
 uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
-version = "5.10.1+6"
+version = "7.2.1+1"
 
 [[deps.TOML]]
 deps = ["Dates"]
@@ -919,12 +1017,12 @@ uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
-version = "1.2.13+0"
+version = "1.2.13+1"
 
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.8.0+0"
+version = "5.8.0+1"
 
 [[deps.nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -934,7 +1032,7 @@ version = "1.52.0+1"
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
-version = "17.4.0+0"
+version = "17.4.0+2"
 """
 
 # ╔═╡ Cell order:
@@ -957,6 +1055,7 @@ version = "17.4.0+0"
 # ╟─1a1a6276-6875-46e4-a54a-7b2d7a8f2e52
 # ╟─d3f3a63f-d70a-4f48-a965-33bf045a4913
 # ╠═67c9c70e-2f01-421b-9499-c05665297929
+# ╟─4b4eea58-15ed-49bf-8628-fd657b6cba39
 # ╟─f3cc4855-00db-4776-a4b7-f9496f2db477
 # ╟─d5061181-9903-415e-bfa5-4fa69f9860ec
 # ╟─ba52fe3d-ea89-444a-a7fe-73ef0128ab34
@@ -980,6 +1079,12 @@ version = "17.4.0+0"
 # ╟─60c84e90-79de-4abc-9995-27a00814570e
 # ╟─0c2fb01b-866e-47eb-b64c-ad8a9c1704b3
 # ╠═c287b86a-4e6f-4431-b2da-9b45922a9103
+# ╟─08065883-c080-4e32-a42f-c6e332376232
+# ╟─64b2b3df-8f6c-41f8-9878-0fe6b5fffb10
+# ╠═3d713722-0aad-4dde-a451-6bc98eb5427c
+# ╟─cb5a12e0-433c-4fb7-9b6a-465e4b79806d
+# ╠═4efddb7a-c8c0-4a50-9e4e-920d4f738c0a
+# ╟─34b8697d-c0b8-4ace-b822-1942492cc498
 # ╟─4afbe891-959a-4e81-878a-8df219a273bf
 # ╟─be5e6ea8-38c1-4023-92ea-8ea6d5523656
 # ╠═15402f0c-dfe2-4ece-b386-3334d68a0d6b
@@ -1003,6 +1108,10 @@ version = "17.4.0+0"
 # ╠═18e5ffc8-5aaf-492a-b1a8-9d7faf1715d6
 # ╟─c9a5f8a6-3c95-4f4d-86e0-dac0b01483df
 # ╟─01334a18-cd46-4b6f-bab1-46d887cae0a2
+# ╟─4a673d0e-b1f2-460e-8b99-a51c7424ce8b
+# ╟─a512c6b8-8d64-45cb-8c42-db8af3f3399a
+# ╠═f525ab6d-7b59-4e4a-8149-b295e283cc83
+# ╟─cc5041c1-a4bb-4532-a701-a53c2a1d745c
 # ╟─7f837c37-1f11-451d-a212-4ec8fe98b0ce
 # ╟─5f470f66-787d-4c0d-91e4-45ecfd3fd765
 # ╟─f4ac91f7-2c6d-4707-a863-d744f7f15311
@@ -1022,17 +1131,23 @@ version = "17.4.0+0"
 # ╟─32ae19a3-33b9-4621-be62-d8b68ca6cad8
 # ╠═7fa73e47-2d80-4b77-bb4b-3d4016c90a29
 # ╠═66a1bb0a-d424-4ddd-8e0d-e4ccdf362635
+# ╟─38adac30-0a31-494c-ae42-6c07a99a1460
 # ╟─9f067d53-82df-41e6-b21f-a9b21d8671dd
 # ╟─8ec7e1ee-2404-4800-8554-7b9e0031c9fb
 # ╠═3114e44d-8920-405d-a31b-db8e723a52de
 # ╟─5379829e-0431-4099-ac8f-bde6d6740b5f
 # ╠═23e22307-cb91-4378-b9bc-8c2012065ad4
+# ╟─0076853f-7f42-4796-8330-c641c8e595c2
 # ╟─d049b64c-231f-49c0-89a7-7d26e4cf8a10
 # ╟─a34782fa-e947-43df-a4d0-77b4bbc498be
 # ╠═ac8d70f0-6c91-4e6f-b1f9-facda9b9dd4f
 # ╟─4e140ca3-41df-493b-8653-57335fa648ae
 # ╟─47c47f7d-344d-4702-8a8a-4fcbaefc4b90
 # ╠═db6114e0-f40e-4bdf-855e-68618720de7a
+# ╟─bc861da7-04ba-463c-874f-4d099631185e
+# ╟─34fe420c-5d4a-43fc-92e9-5ed0cac7f8ac
+# ╠═def08918-6841-45e9-b5fb-7cc670b9f76a
+# ╟─7631ea81-deea-45b7-84e2-a7a7a6e072c8
 # ╟─f2d7aa7b-4ad4-4d63-bf24-5effd198c3aa
 # ╟─68e9829b-0c3b-486f-8ecb-9e508b4d0334
 # ╠═32858b13-fc6b-4b09-aabb-d64f154476a4
