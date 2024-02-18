@@ -43,6 +43,12 @@
                 "notebook_path": "notebooks/Lect07/Lect07_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+            {
+                "name": "Data Analysis Techniques",
+                "notebook_path": "notebooks/Lect08/Lect08_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
         ]
     },
@@ -50,8 +56,8 @@
         "title": "Applications",
         "contents": [
 	        {
-                "name": "Exchanges Rates Data via Web APIs",
-                "notebook_path": "notebooks/Lect08/Lect08_noSol.jl",
+                "name": "Getting Data from Yahoo Finance",
+                "notebook_path": "notebooks/Lect09/Lect09_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
