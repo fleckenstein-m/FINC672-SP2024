@@ -8,4 +8,3 @@
 | 4       | Julia Data Structures III           | Feb 15, 2024  | [Link](/assets/notebooksolutions/Lect04/Lect04.html) |
 | 5       | Julia Dates and Missing Values      | Feb 15, 2024  | [Link](/assets/notebooksolutions/Lect05/Lect05.html) |
 | 6       | Tabular Data and File I/O           | Feb 20, 2024  | [Link](/assets/notebooksolutions/Lect06/Lect06.html) |
-| 7       | Data Visualization                  | Feb 22, 2024  | [Link](/assets/notebooksolutions/Lect07/Lect07.html) |
