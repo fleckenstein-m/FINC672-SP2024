@@ -92,7 +92,10 @@ md"""
 """
 
 # ╔═╡ 61aa2ea3-46a6-4c43-8c71-7733cd4b19b4
-
+begin
+	file = "https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Participation.csv"
+	
+end
 
 # ╔═╡ 78c749ee-29d1-46f7-9669-e373d4057f5c
 md"""
@@ -172,6 +175,17 @@ md"""
 """
 
 # ╔═╡ aa30b527-30f3-4c1f-b374-cfaf693aa70e
+
+
+# ╔═╡ 896ab261-6860-4351-9854-f750060584a0
+vspace
+
+# ╔═╡ 1053961b-f8ae-428f-a305-556a67686967
+md"""
+- An alternative way to change a DataFrame is to use `transform`.
+"""
+
+# ╔═╡ 9b2fa057-d8b6-4090-bd9d-d78b8d16d658
 
 
 # ╔═╡ 26a92ab1-642e-4bdd-aa04-4fdc299e4fcf
@@ -510,9 +524,9 @@ version = "0.11.4"
 
 [[deps.Compat]]
 deps = ["TOML", "UUIDs"]
-git-tree-sha1 = "75bd5b6fc5089df449b5d35fa501c846c9b6549b"
+git-tree-sha1 = "d2c021fbdde94f6cdaa799639adfeeaa17fd67f5"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
-version = "4.12.0"
+version = "4.13.0"
 weakdeps = ["Dates", "LinearAlgebra"]
 
     [deps.Compat.extensions]
@@ -541,9 +555,9 @@ version = "1.3.6"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "ac67408d9ddf207de5cfa9a97e114352430f01ed"
+git-tree-sha1 = "1fb174f0d48fe7d142e1109a10636bc1d14f5ac2"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.18.16"
+version = "0.18.17"
 
 [[deps.DataValueInterfaces]]
 git-tree-sha1 = "bfc1187b79289637fa0ef6d4436ebdfe6905cbd6"
@@ -721,9 +735,9 @@ version = "1.10.0"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "211cdf570992b0d977fda3745f72772e0d5423f2"
+git-tree-sha1 = "a6783c887ca59ce7e97ed630b74ca1f10aefb74d"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.56"
+version = "0.7.57"
 
 [[deps.PooledArrays]]
 deps = ["DataAPI", "Future"]
@@ -922,6 +936,9 @@ version = "17.4.0+2"
 # ╠═0a4e500b-1e0d-49b7-bd5a-acbbe03cf9f9
 # ╟─4046c2e8-b240-4dfe-abb0-0cbfec5e358b
 # ╠═aa30b527-30f3-4c1f-b374-cfaf693aa70e
+# ╟─896ab261-6860-4351-9854-f750060584a0
+# ╟─1053961b-f8ae-428f-a305-556a67686967
+# ╠═9b2fa057-d8b6-4090-bd9d-d78b8d16d658
 # ╟─26a92ab1-642e-4bdd-aa04-4fdc299e4fcf
 # ╟─965946dd-6308-493f-b412-d8b2a8107a45
 # ╟─1e55aabe-fffb-4c34-ab6a-847996165b10
