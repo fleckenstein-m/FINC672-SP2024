@@ -12,11 +12,11 @@ begin
 
 	using Pkg
 	#Pkg.upgrade_manifest()
-	Pkg.update()
-	Pkg.resolve()
+	#Pkg.update()
+	#Pkg.resolve()
 	
 
-	
+
 	
 	#Define html elements
 	nbsp = html"&nbsp" #non-breaking space
@@ -100,6 +100,9 @@ end
 # ╔═╡ 2ff2be70-af14-11ee-3d58-9b67f9c734c7
 using YFinance, DataFrames, PlutoPlotly,   Statistics, Dates
 
+# ╔═╡ f49aceef-3fea-4661-abdd-e7bebad9c9dc
+using PlutoUI
+
 # ╔═╡ 9e980f1f-3897-493d-99ef-7883eaf174d6
 html"""
 	<p align=left style="font-size:32px; font-family:family:Georgia"> <b> FINC 672: Workshop in Finance - Empirical Methods</b> <p>
@@ -152,9 +155,6 @@ vspace
 md"""
 - Next, we define interactive elements, allowing us to select a stock ticker and start/end dates for the stock price data.
 """
-
-# ╔═╡ 178cb555-5aa3-4c8c-b355-2ac065c7622f
-
 
 # ╔═╡ 904559d5-5a0c-4c6c-9175-23aae545e55f
 
@@ -336,6 +336,7 @@ LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PlutoPlotly = "8e989ff0-3d88-8e9f-f020-2b208a939ff0"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 YFinance = "e4b3b0a2-f9a3-42f3-aabb-32142cceaf77"
@@ -345,6 +346,7 @@ DataFrames = "~1.6.1"
 HypertextLiteral = "~0.9.5"
 LaTeXStrings = "~1.3.1"
 PlutoPlotly = "~0.4.4"
+PlutoUI = "~0.7.58"
 YFinance = "~0.1.4"
 """
 
@@ -354,7 +356,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "ba111b073b4a5281c45d4f8fb146945ded04c408"
+project_hash = "a602bb34bd8bc669782e649a0b22f93706266484"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -512,11 +514,23 @@ git-tree-sha1 = "ac7b73d562b8f4287c3b67b4c66a5395a19c1ae8"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 version = "1.10.2"
 
+[[deps.Hyperscript]]
+deps = ["Test"]
+git-tree-sha1 = "179267cfa5e712760cd43dcae385d7ea90cc25a4"
+uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
+version = "0.0.5"
+
 [[deps.HypertextLiteral]]
 deps = ["Tricks"]
 git-tree-sha1 = "7134810b1afce04bbc1045ca1985fbe81ce17653"
 uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 version = "0.9.5"
+
+[[deps.IOCapture]]
+deps = ["Logging", "Random"]
+git-tree-sha1 = "8b72179abc660bfab5e28472e019392b97d0985c"
+uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
+version = "0.2.4"
 
 [[deps.InlineStrings]]
 deps = ["Parsers"]
@@ -606,6 +620,11 @@ deps = ["Dates", "Logging"]
 git-tree-sha1 = "c1dd6d7978c12545b4179fb6153b9250c96b0075"
 uuid = "e6f89c97-d47a-5376-807f-9c37f3926c36"
 version = "1.0.3"
+
+[[deps.MIMEs]]
+git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "0.1.4"
 
 [[deps.Markdown]]
 deps = ["Base64"]
@@ -697,6 +716,12 @@ version = "0.4.5"
     [deps.PlutoPlotly.weakdeps]
     PlotlyKaleido = "f2990250-8cf9-495f-b13a-cce12b45703c"
     Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[[deps.PlutoUI]]
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "71a22244e352aa8c5f0f2adde4150f62368a3f2e"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.58"
 
 [[deps.PooledArrays]]
 deps = ["DataAPI", "Future"]
@@ -900,7 +925,7 @@ version = "17.4.0+2"
 # ╠═2ff2be70-af14-11ee-3d58-9b67f9c734c7
 # ╟─2acfb967-e2ad-4772-a81d-d0cc98dd7355
 # ╟─20ceda13-98fb-41c8-a853-7a55de45e65e
-# ╠═178cb555-5aa3-4c8c-b355-2ac065c7622f
+# ╠═f49aceef-3fea-4661-abdd-e7bebad9c9dc
 # ╠═904559d5-5a0c-4c6c-9175-23aae545e55f
 # ╠═8a07bf20-fdc8-4867-a781-3b19f1ce6436
 # ╠═bf514c3e-1f3b-460e-9f43-e924e6eb8280
