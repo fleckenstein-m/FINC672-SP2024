@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+end
+
 # ╔═╡ 99b44d29-ae23-4011-a108-42bfd71b22e5
 # ╠═╡ show_logs = false
 begin
@@ -152,16 +162,16 @@ md"""
 """
 
 # ╔═╡ f2cb8ae6-6bcf-4d17-bbd7-12b07565fd52
-
+# using PlutoPlotly
 
 # ╔═╡ 904559d5-5a0c-4c6c-9175-23aae545e55f
-
+# @bind symbols Select(["AAPL","MSFT"])
 
 # ╔═╡ 8a07bf20-fdc8-4867-a781-3b19f1ce6436
-
+# @bind start_date TextField(default="2012-01-01")
 
 # ╔═╡ bf514c3e-1f3b-460e-9f43-e924e6eb8280
-
+# @bind end_date TextField(default="2024-01-01")
 
 # ╔═╡ 593af85e-e1a9-4ab1-bc70-31188111b5ab
 vspace
@@ -172,7 +182,10 @@ md"""
 """
 
 # ╔═╡ 6413c68f-84ed-47e8-b62e-e900e83b51e1
-
+# function get_symbol_prices(symbols::Vector{String}, start_date::String, end_date::String)
+# 	prices_dict = get_prices.(symbols, startdt= start_date, enddt=end_date)
+# 	vcat([DataFrame(i) for i in prices_dict]...)
+# end
 
 # ╔═╡ 30be2eb0-bf49-4951-be28-f0f577667281
 vspace
@@ -183,7 +196,7 @@ md"""
 """
 
 # ╔═╡ 0cdc0c2b-4990-448b-be62-e83b01080cf1
-
+# prices = get_symbol_prices([symbols], start_date, end_date)
 
 # ╔═╡ d7f05838-c922-44ba-b2cd-29cae6a063c3
 vspace
@@ -196,7 +209,33 @@ md"""
 # ╔═╡ 6a41b8b1-f492-43f0-9a1a-74da21b1a03f
 # ╠═╡ skip_as_script = true
 #=╠═╡
+# function plot_layout(title="") 
+    
+# 	l =  Layout(
+#         title_text = "<b>$(title)</b>",
+#         paper_bgcolor =:white,
+#         plot_bgcolor =:white,
+# 		width=600,height=500,
+#         yaxis = attr(
+#             gridcolor=:lightgrey,
+#             griddash="dot",
+#             zerolinecolor=:lightgrey),
+#         xaxis=attr(
+#             gridcolor=:lightgrey,
+#             griddash="dot",
+#             zerolinecolor=:lightgrey,
+#             rangeslider_visible=true,
+#             rangeselector=attr(
+#                 buttons=[
+#                     attr(count=1, label="1m", step="month", stepmode="backward"),
+#                     attr(count=6, label="6m", step="month", stepmode="backward"),
+#                     attr(count=1, label="YTD", step="year", stepmode="todate"),
+#                     attr(count=1, label="1y", step="year", stepmode="backward"),
+#                     attr(step="all")
+#                     ]))) 
+#     return l
 
+# end;
   ╠═╡ =#
 
 # ╔═╡ ca4150d7-9fe6-4e61-960c-5eb5c7077008
@@ -291,7 +330,24 @@ md"""
 """
 
 # ╔═╡ a238d349-b9fc-4c7b-b8f7-8ab89711069c
+# function create_barplot()
+	
 
+
+#     layout = Layout(barmode="group",
+# 		width=600,
+#         height=600,
+#         legend=attr(
+#             x=1,
+#             y=52.02,
+#             yanchor="bottom",
+#             xanchor="right",
+#             orientation="h"),
+#             paper_bgcolor =:white,
+#             plot_bgcolor =:white)
+
+
+# end
 
 # ╔═╡ 15a03116-4372-4138-a7b7-d8a63305d111
 vspace
