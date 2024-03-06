@@ -89,7 +89,7 @@ md"""
 """
 
 # ╔═╡ cb474bf7-7699-4ef4-8c5f-de7048b8dbf3
-(S,K,m,y,σ) = (42,42,0.5,0.05,0.2)
+
 
 # ╔═╡ 694990b6-36db-460f-bfd5-8c5db46c4eed
 # ╠═╡ show_logs = false
@@ -105,11 +105,14 @@ md"""
 """
 
 # ╔═╡ 0afd4964-3b48-4696-b6a2-8aef8506e3c5
-with_terminal() do
-		println("Option prices at S=$S and K=$K: ")
-end
+
 
 # ╔═╡ 41053b95-3f0e-48eb-a76e-eb4322b2fe57
+begin
+	
+end
+
+# ╔═╡ d7aabd94-cb71-4670-a269-e0d5f208db2c
 
 
 # ╔═╡ 86fe929c-9095-49c4-b6d3-eb4bbae7eb36
@@ -122,7 +125,9 @@ md"""
 """
 
 # ╔═╡ 61df8eb6-da0b-42b2-89f8-9afc4641dd28
-
+let
+	
+end
 
 # ╔═╡ abcf2dfd-6732-49d8-9404-f0dc0d4b4edd
 vspace
@@ -134,7 +139,9 @@ md"""
 """
 
 # ╔═╡ f052a5e1-ba09-42c6-b4e6-7be65cf18900
+let
 
+end
 
 # ╔═╡ 5adf7659-c608-49b0-9db8-7df970a73cbd
 vspace
@@ -167,10 +174,9 @@ Generate a table which only has the call options with the smallest strike price 
 """
 
 # ╔═╡ 6baad067-2357-4337-b77d-1938b34fe8b2
+begin
 
-
-# ╔═╡ 5d4d511f-4528-4a0f-ae0e-374763fd2ab4
-
+end
 
 # ╔═╡ db248494-ac03-4992-94b2-15a1fb349de0
 vspace
@@ -210,7 +216,12 @@ Note: You can assume that the strike prices are ordered in ascending order. In o
 """
 
 # ╔═╡ 1d65c803-b46a-456a-b79e-26ada91a5ab7
+begin
 
+end
+
+# ╔═╡ a448a919-4101-4487-8523-f77d691df02e
+vspace
 
 # ╔═╡ bafa86e5-b340-4b99-b3d6-c31908824eaa
 # ╠═╡ show_logs = false
@@ -449,9 +460,12 @@ end
 # ╔═╡ 35e6b686-2daa-40f6-b348-6987406ba95b
 # ╠═╡ show_logs = false
 begin
-		
-	using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
+using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
 
+	#import Pkg
+	#Pkg.upgrade_manifest()
+	#Pkg.update()
+	#Pkg.resolve()
 	
 	#Define html elements
 	nbsp = html"&nbsp" #non-breaking space
@@ -513,9 +527,9 @@ begin
 	#round to digits, e.g. 6 digits then prec=1e-6
 	roundmult(val, prec) = (inv_prec = 1 / prec; round(val * inv_prec) / inv_prec); 
 
-	using Logging
-	global_logger(NullLogger())
-	display("")
+	#using Logging
+	#global_logger(NullLogger())
+	#display("")
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -526,7 +540,6 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
-Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
@@ -547,7 +560,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "1aac7764a7215fb340a66e79a5d0b8b4586a67d9"
+project_hash = "98c57c9b23973b457e33aa26a351a942244c3144"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1835,6 +1848,7 @@ version = "1.4.1+1"
 # ╟─1a37fc9e-e58c-453c-b68d-9adccbed44fe
 # ╟─0afd4964-3b48-4696-b6a2-8aef8506e3c5
 # ╠═41053b95-3f0e-48eb-a76e-eb4322b2fe57
+# ╠═d7aabd94-cb71-4670-a269-e0d5f208db2c
 # ╟─86fe929c-9095-49c4-b6d3-eb4bbae7eb36
 # ╟─350ef27b-5dfc-4ac7-a6f2-bc37067d7f7c
 # ╠═61df8eb6-da0b-42b2-89f8-9afc4641dd28
@@ -1847,13 +1861,13 @@ version = "1.4.1+1"
 # ╟─c66bda0d-703f-43cb-97b1-71312b1fd683
 # ╟─b62e6fe3-dc2c-48c1-b176-da843b487813
 # ╠═6baad067-2357-4337-b77d-1938b34fe8b2
-# ╠═5d4d511f-4528-4a0f-ae0e-374763fd2ab4
 # ╟─db248494-ac03-4992-94b2-15a1fb349de0
 # ╟─3ba99faf-755f-4816-98e3-11beb9ab49b2
 # ╟─f5e501aa-4265-4f55-a212-8fe479d91c94
 # ╠═feacec73-c81e-43e1-bd41-8592e261d084
 # ╟─ff809144-783c-431e-a587-cf0c3d6b830a
 # ╠═1d65c803-b46a-456a-b79e-26ada91a5ab7
+# ╟─a448a919-4101-4487-8523-f77d691df02e
 # ╟─bafa86e5-b340-4b99-b3d6-c31908824eaa
 # ╟─35e6b686-2daa-40f6-b348-6987406ba95b
 # ╟─00000000-0000-0000-0000-000000000001
