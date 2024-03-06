@@ -4,6 +4,81 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 35e6b686-2daa-40f6-b348-6987406ba95b
+# ╠═╡ show_logs = false
+begin
+using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
+
+	#using Pkg
+	#Pkg.upgrade_manifest()
+	#Pkg.update()
+	#Pkg.resolve()
+	
+	#Define html elements
+	nbsp = html"&nbsp" #non-breaking space
+	vspace = html"""<div style="margin-bottom:2cm;"></div>"""
+	br = html"<br>"
+
+	#Sets the height of displayed tables
+	html"""<style>
+		pluto-output.scroll_y {
+			max-height: 650px; /* changed this from 400 to 550 */
+		}
+		"""
+	
+	#Two-column cell
+	struct TwoColumn{A, B}
+		left::A
+		right::B
+	end
+	
+	function Base.show(io, mime::MIME"text/html", tc::TwoColumn)
+		write(io,
+			"""
+			<div style="display: flex;">
+				<div style="flex: 50%;">
+			""")
+		show(io, mime, tc.left)
+		write(io,
+			"""
+				</div>
+				<div style="flex: 50%;">
+			""")
+		show(io, mime, tc.right)
+		write(io,
+			"""
+				</div>
+			</div>
+		""")
+	end
+
+	#Creates a foldable cell
+	struct Foldable{C}
+		title::String
+		content::C
+	end
+	
+	function Base.show(io, mime::MIME"text/html", fld::Foldable)
+		write(io,"<details><summary>$(fld.title)</summary><p>")
+		show(io, mime, fld.content)
+		write(io,"</p></details>")
+	end
+	
+	html"""<style>
+		main {
+			max-width: 900px;
+		}
+	"""
+	
+	#helper functions
+	#round to digits, e.g. 6 digits then prec=1e-6
+	roundmult(val, prec) = (inv_prec = 1 / prec; round(val * inv_prec) / inv_prec); 
+
+	using Logging
+	global_logger(NullLogger())
+	display("")
+end
+
 # ╔═╡ 83806080-8c00-11ec-0f46-01e9cff3af6f
 html"""
 	<p align=left style="font-size:32px; font-family:family:Georgia"> <b> FINC 672: Workshop in Finance - Empirical Methods</b> <p>
@@ -454,81 +529,6 @@ end
 display("Custom Printing functions")
 end
 
-# ╔═╡ 35e6b686-2daa-40f6-b348-6987406ba95b
-# ╠═╡ show_logs = false
-begin
-using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
-
-	using Pkg
-	#Pkg.upgrade_manifest()
-	#Pkg.update()
-	#Pkg.resolve()
-	
-	#Define html elements
-	nbsp = html"&nbsp" #non-breaking space
-	vspace = html"""<div style="margin-bottom:2cm;"></div>"""
-	br = html"<br>"
-
-	#Sets the height of displayed tables
-	html"""<style>
-		pluto-output.scroll_y {
-			max-height: 650px; /* changed this from 400 to 550 */
-		}
-		"""
-	
-	#Two-column cell
-	struct TwoColumn{A, B}
-		left::A
-		right::B
-	end
-	
-	function Base.show(io, mime::MIME"text/html", tc::TwoColumn)
-		write(io,
-			"""
-			<div style="display: flex;">
-				<div style="flex: 50%;">
-			""")
-		show(io, mime, tc.left)
-		write(io,
-			"""
-				</div>
-				<div style="flex: 50%;">
-			""")
-		show(io, mime, tc.right)
-		write(io,
-			"""
-				</div>
-			</div>
-		""")
-	end
-
-	#Creates a foldable cell
-	struct Foldable{C}
-		title::String
-		content::C
-	end
-	
-	function Base.show(io, mime::MIME"text/html", fld::Foldable)
-		write(io,"<details><summary>$(fld.title)</summary><p>")
-		show(io, mime, fld.content)
-		write(io,"</p></details>")
-	end
-	
-	html"""<style>
-		main {
-			max-width: 900px;
-		}
-	"""
-	
-	#helper functions
-	#round to digits, e.g. 6 digits then prec=1e-6
-	roundmult(val, prec) = (inv_prec = 1 / prec; round(val * inv_prec) / inv_prec); 
-
-	using Logging
-	global_logger(NullLogger())
-	display("")
-end
-
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -538,7 +538,6 @@ Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
-Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
@@ -559,7 +558,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "b87a319d2afa50820e0ab16499b87f273d441769"
+project_hash = "1aac7764a7215fb340a66e79a5d0b8b4586a67d9"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1830,6 +1829,7 @@ version = "1.4.1+1"
 
 # ╔═╡ Cell order:
 # ╟─f5450eab-0f9f-4b7f-9b80-992d3c553ba9
+# ╟─35e6b686-2daa-40f6-b348-6987406ba95b
 # ╟─83806080-8c00-11ec-0f46-01e9cff3af6f
 # ╟─dd534d9e-624b-4db7-ba7f-27fa15359317
 # ╟─505b3598-d700-4d9e-8ac2-4e096550a76b
@@ -1868,6 +1868,5 @@ version = "1.4.1+1"
 # ╟─ff809144-783c-431e-a587-cf0c3d6b830a
 # ╠═1d65c803-b46a-456a-b79e-26ada91a5ab7
 # ╟─bafa86e5-b340-4b99-b3d6-c31908824eaa
-# ╟─35e6b686-2daa-40f6-b348-6987406ba95b
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
