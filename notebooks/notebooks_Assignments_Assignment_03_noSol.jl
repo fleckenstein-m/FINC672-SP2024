@@ -4,81 +4,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 35e6b686-2daa-40f6-b348-6987406ba95b
-# ╠═╡ show_logs = false
-begin
-using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
-
-	#using Pkg
-	#Pkg.upgrade_manifest()
-	#Pkg.update()
-	#Pkg.resolve()
-	
-	#Define html elements
-	nbsp = html"&nbsp" #non-breaking space
-	vspace = html"""<div style="margin-bottom:2cm;"></div>"""
-	br = html"<br>"
-
-	#Sets the height of displayed tables
-	html"""<style>
-		pluto-output.scroll_y {
-			max-height: 650px; /* changed this from 400 to 550 */
-		}
-		"""
-	
-	#Two-column cell
-	struct TwoColumn{A, B}
-		left::A
-		right::B
-	end
-	
-	function Base.show(io, mime::MIME"text/html", tc::TwoColumn)
-		write(io,
-			"""
-			<div style="display: flex;">
-				<div style="flex: 50%;">
-			""")
-		show(io, mime, tc.left)
-		write(io,
-			"""
-				</div>
-				<div style="flex: 50%;">
-			""")
-		show(io, mime, tc.right)
-		write(io,
-			"""
-				</div>
-			</div>
-		""")
-	end
-
-	#Creates a foldable cell
-	struct Foldable{C}
-		title::String
-		content::C
-	end
-	
-	function Base.show(io, mime::MIME"text/html", fld::Foldable)
-		write(io,"<details><summary>$(fld.title)</summary><p>")
-		show(io, mime, fld.content)
-		write(io,"</p></details>")
-	end
-	
-	html"""<style>
-		main {
-			max-width: 900px;
-		}
-	"""
-	
-	#helper functions
-	#round to digits, e.g. 6 digits then prec=1e-6
-	roundmult(val, prec) = (inv_prec = 1 / prec; round(val * inv_prec) / inv_prec); 
-
-	using Logging
-	global_logger(NullLogger())
-	display("")
-end
-
 # ╔═╡ 83806080-8c00-11ec-0f46-01e9cff3af6f
 html"""
 	<p align=left style="font-size:32px; font-family:family:Georgia"> <b> FINC 672: Workshop in Finance - Empirical Methods</b> <p>
@@ -164,7 +89,7 @@ md"""
 """
 
 # ╔═╡ cb474bf7-7699-4ef4-8c5f-de7048b8dbf3
-
+(S,K,m,y,σ) = (42,42,0.5,0.05,0.2)
 
 # ╔═╡ 694990b6-36db-460f-bfd5-8c5db46c4eed
 # ╠═╡ show_logs = false
@@ -180,14 +105,11 @@ md"""
 """
 
 # ╔═╡ 0afd4964-3b48-4696-b6a2-8aef8506e3c5
-
-
-# ╔═╡ 41053b95-3f0e-48eb-a76e-eb4322b2fe57
-begin
-	
+with_terminal() do
+		println("Option prices at S=$S and K=$K: ")
 end
 
-# ╔═╡ d7aabd94-cb71-4670-a269-e0d5f208db2c
+# ╔═╡ 41053b95-3f0e-48eb-a76e-eb4322b2fe57
 
 
 # ╔═╡ 86fe929c-9095-49c4-b6d3-eb4bbae7eb36
@@ -200,9 +122,7 @@ md"""
 """
 
 # ╔═╡ 61df8eb6-da0b-42b2-89f8-9afc4641dd28
-let
-	
-end
+
 
 # ╔═╡ abcf2dfd-6732-49d8-9404-f0dc0d4b4edd
 vspace
@@ -214,9 +134,7 @@ md"""
 """
 
 # ╔═╡ f052a5e1-ba09-42c6-b4e6-7be65cf18900
-let
 
-end
 
 # ╔═╡ 5adf7659-c608-49b0-9db8-7df970a73cbd
 vspace
@@ -249,9 +167,10 @@ Generate a table which only has the call options with the smallest strike price 
 """
 
 # ╔═╡ 6baad067-2357-4337-b77d-1938b34fe8b2
-begin
 
-end
+
+# ╔═╡ 5d4d511f-4528-4a0f-ae0e-374763fd2ab4
+
 
 # ╔═╡ db248494-ac03-4992-94b2-15a1fb349de0
 vspace
@@ -291,9 +210,7 @@ Note: You can assume that the strike prices are ordered in ascending order. In o
 """
 
 # ╔═╡ 1d65c803-b46a-456a-b79e-26ada91a5ab7
-begin
 
-end
 
 # ╔═╡ bafa86e5-b340-4b99-b3d6-c31908824eaa
 # ╠═╡ show_logs = false
@@ -529,6 +446,78 @@ end
 display("Custom Printing functions")
 end
 
+# ╔═╡ 35e6b686-2daa-40f6-b348-6987406ba95b
+# ╠═╡ show_logs = false
+begin
+		
+	using PlutoUI, Printf, LaTeXStrings, HypertextLiteral
+
+	
+	#Define html elements
+	nbsp = html"&nbsp" #non-breaking space
+	vspace = html"""<div style="margin-bottom:2cm;"></div>"""
+	br = html"<br>"
+
+	#Sets the height of displayed tables
+	html"""<style>
+		pluto-output.scroll_y {
+			max-height: 650px; /* changed this from 400 to 550 */
+		}
+		"""
+	
+	#Two-column cell
+	struct TwoColumn{A, B}
+		left::A
+		right::B
+	end
+	
+	function Base.show(io, mime::MIME"text/html", tc::TwoColumn)
+		write(io,
+			"""
+			<div style="display: flex;">
+				<div style="flex: 50%;">
+			""")
+		show(io, mime, tc.left)
+		write(io,
+			"""
+				</div>
+				<div style="flex: 50%;">
+			""")
+		show(io, mime, tc.right)
+		write(io,
+			"""
+				</div>
+			</div>
+		""")
+	end
+
+	#Creates a foldable cell
+	struct Foldable{C}
+		title::String
+		content::C
+	end
+	
+	function Base.show(io, mime::MIME"text/html", fld::Foldable)
+		write(io,"<details><summary>$(fld.title)</summary><p>")
+		show(io, mime, fld.content)
+		write(io,"</p></details>")
+	end
+	
+	html"""<style>
+		main {
+			max-width: 900px;
+		}
+	"""
+	
+	#helper functions
+	#round to digits, e.g. 6 digits then prec=1e-6
+	roundmult(val, prec) = (inv_prec = 1 / prec; round(val * inv_prec) / inv_prec); 
+
+	using Logging
+	global_logger(NullLogger())
+	display("")
+end
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -562,9 +551,9 @@ project_hash = "1aac7764a7215fb340a66e79a5d0b8b4586a67d9"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
-git-tree-sha1 = "c278dfab760520b8bb7e9511b968bf4ba38b7acc"
+git-tree-sha1 = "0f748c81756f2e5e6854298f11ad8b2dfae6911a"
 uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.2.3"
+version = "1.3.0"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -682,9 +671,9 @@ version = "1.6.1"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "1fb174f0d48fe7d142e1109a10636bc1d14f5ac2"
+git-tree-sha1 = "0f4b5d62a88d8f59003e43c25a8a90de9eb76317"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.18.17"
+version = "0.18.18"
 
 [[deps.DataValueInterfaces]]
 git-tree-sha1 = "bfc1187b79289637fa0ef6d4436ebdfe6905cbd6"
@@ -791,11 +780,10 @@ git-tree-sha1 = "21efd19106a55620a188615da6d3d06cd7f6ee03"
 uuid = "a3f928ae-7b40-5064-980b-68af3947d34b"
 version = "2.13.93+0"
 
-[[deps.Formatting]]
-deps = ["Printf"]
-git-tree-sha1 = "8339d61043228fdd3eb658d86c926cb282ae72a8"
-uuid = "59287772-0a20-5a39-b81b-1366585eb4c0"
-version = "0.4.2"
+[[deps.Format]]
+git-tree-sha1 = "f3cf88025f6d03c194d73f5d13fee9004a108329"
+uuid = "1fa38f19-a742-5d3f-a2b9-30dd87b9d5f8"
+version = "1.3.6"
 
 [[deps.FreeType2_jll]]
 deps = ["Artifacts", "Bzip2_jll", "JLLWrappers", "Libdl", "Zlib_jll"]
@@ -856,9 +844,9 @@ version = "1.0.2"
 
 [[deps.HTTP]]
 deps = ["Base64", "CodecZlib", "ConcurrentUtilities", "Dates", "ExceptionUnwrapping", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "ac7b73d562b8f4287c3b67b4c66a5395a19c1ae8"
+git-tree-sha1 = "db864f2d91f68a5912937af80327d288ea1f3aee"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.10.2"
+version = "1.10.3"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg"]
@@ -969,10 +957,10 @@ uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.3.1"
 
 [[deps.Latexify]]
-deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "OrderedCollections", "Printf", "Requires"]
-git-tree-sha1 = "f428ae552340899a935973270b8d98e5a31c49fe"
+deps = ["Format", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "OrderedCollections", "Requires"]
+git-tree-sha1 = "cad560042a7cc108f5a4c24ea1431a9221f22c1b"
 uuid = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
-version = "0.16.1"
+version = "0.16.2"
 
     [deps.Latexify.extensions]
     DataFramesExt = "DataFrames"
@@ -1052,10 +1040,10 @@ uuid = "89763e89-9b03-5906-acba-b20f662cd828"
 version = "4.5.1+1"
 
 [[deps.Libuuid_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "7f3efec06033682db852f8b3bc3c1d2b0a0ab066"
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "e5edc369a598dfde567269dc6add5812cfa10cd5"
 uuid = "38a345b3-de98-5d2b-a5d3-14cd9215e700"
-version = "2.36.0+0"
+version = "2.39.3+0"
 
 [[deps.LinearAlgebra]]
 deps = ["Libdl", "OpenBLAS_jll", "libblastrampoline_jll"]
@@ -1158,9 +1146,9 @@ version = "0.8.1+2"
 
 [[deps.OpenSSL]]
 deps = ["BitFlags", "Dates", "MozillaCACerts_jll", "OpenSSL_jll", "Sockets"]
-git-tree-sha1 = "51901a49222b09e3743c65b8847687ae5fc78eb2"
+git-tree-sha1 = "af81a32750ebc831ee28bdaaba6e1067decef51e"
 uuid = "4d8831e6-92b7-49fb-bdf8-b643e874388c"
-version = "1.4.1"
+version = "1.4.2"
 
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1226,9 +1214,9 @@ version = "3.1.0"
 
 [[deps.PlotUtils]]
 deps = ["ColorSchemes", "Colors", "Dates", "PrecompileTools", "Printf", "Random", "Reexport", "Statistics"]
-git-tree-sha1 = "862942baf5663da528f66d24996eb6da85218e76"
+git-tree-sha1 = "7b1a9df27f072ac4c9c7cbe5efb198489258d1f5"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "1.4.0"
+version = "1.4.1"
 
 [[deps.Plots]]
 deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "PrecompileTools", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "UnitfulLatexify", "Unzip"]
@@ -1270,9 +1258,9 @@ version = "1.2.0"
 
 [[deps.Preferences]]
 deps = ["TOML"]
-git-tree-sha1 = "00805cd429dcb4870060ff49ef443486c262e38e"
+git-tree-sha1 = "9306f6085165d270f7e3db02af26a400d580f5c6"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
-version = "1.4.1"
+version = "1.4.3"
 
 [[deps.PrettyTables]]
 deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "Reexport", "StringManipulation", "Tables"]
@@ -1480,9 +1468,9 @@ deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.TranscodingStreams]]
-git-tree-sha1 = "54194d92959d8ebaa8e26227dbe3cdefcdcd594f"
+git-tree-sha1 = "3caa21522e7efac1ba21834a03734c57b4611c7e"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
-version = "0.10.3"
+version = "0.10.4"
 weakdeps = ["Random", "Test"]
 
     [deps.TranscodingStreams.extensions]
@@ -1556,9 +1544,9 @@ version = "1.31.0+0"
 
 [[deps.XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Zlib_jll"]
-git-tree-sha1 = "801cbe47eae69adc50f36c3caec4758d2650741b"
+git-tree-sha1 = "07e470dabc5a6a4254ffebc29a1b3fc01464e105"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.12.2+0"
+version = "2.12.5+0"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
@@ -1568,9 +1556,9 @@ version = "1.1.34+0"
 
 [[deps.XZ_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "ac88fb95ae6447c8dda6a5503f3bafd496ae8632"
+git-tree-sha1 = "37195dcb94a5970397ad425b95a9a26d0befce3a"
 uuid = "ffd25f8a-64ca-5728-b0f7-c24cf3aae800"
-version = "5.4.6+0"
+version = "5.6.0+0"
 
 [[deps.Xorg_libICE_jll]]
 deps = ["Libdl", "Pkg"]
@@ -1782,9 +1770,9 @@ version = "1.18.0+0"
 
 [[deps.libpng_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Zlib_jll"]
-git-tree-sha1 = "873b4f805771d3e4bafe63af759a26ea8ca84d14"
+git-tree-sha1 = "1ea2ebe8ffa31f9c324e8c1d6e86b4165b84a024"
 uuid = "b53b4c65-9356-5827-b1ea-8c7a1a84506f"
-version = "1.6.42+0"
+version = "1.6.43+0"
 
 [[deps.libvorbis_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Ogg_jll", "Pkg"]
@@ -1829,7 +1817,6 @@ version = "1.4.1+1"
 
 # ╔═╡ Cell order:
 # ╟─f5450eab-0f9f-4b7f-9b80-992d3c553ba9
-# ╟─35e6b686-2daa-40f6-b348-6987406ba95b
 # ╟─83806080-8c00-11ec-0f46-01e9cff3af6f
 # ╟─dd534d9e-624b-4db7-ba7f-27fa15359317
 # ╟─505b3598-d700-4d9e-8ac2-4e096550a76b
@@ -1848,7 +1835,6 @@ version = "1.4.1+1"
 # ╟─1a37fc9e-e58c-453c-b68d-9adccbed44fe
 # ╟─0afd4964-3b48-4696-b6a2-8aef8506e3c5
 # ╠═41053b95-3f0e-48eb-a76e-eb4322b2fe57
-# ╠═d7aabd94-cb71-4670-a269-e0d5f208db2c
 # ╟─86fe929c-9095-49c4-b6d3-eb4bbae7eb36
 # ╟─350ef27b-5dfc-4ac7-a6f2-bc37067d7f7c
 # ╠═61df8eb6-da0b-42b2-89f8-9afc4641dd28
@@ -1861,6 +1847,7 @@ version = "1.4.1+1"
 # ╟─c66bda0d-703f-43cb-97b1-71312b1fd683
 # ╟─b62e6fe3-dc2c-48c1-b176-da843b487813
 # ╠═6baad067-2357-4337-b77d-1938b34fe8b2
+# ╠═5d4d511f-4528-4a0f-ae0e-374763fd2ab4
 # ╟─db248494-ac03-4992-94b2-15a1fb349de0
 # ╟─3ba99faf-755f-4816-98e3-11beb9ab49b2
 # ╟─f5e501aa-4265-4f55-a212-8fe479d91c94
@@ -1868,5 +1855,6 @@ version = "1.4.1+1"
 # ╟─ff809144-783c-431e-a587-cf0c3d6b830a
 # ╠═1d65c803-b46a-456a-b79e-26ada91a5ab7
 # ╟─bafa86e5-b340-4b99-b3d6-c31908824eaa
+# ╟─35e6b686-2daa-40f6-b348-6987406ba95b
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
