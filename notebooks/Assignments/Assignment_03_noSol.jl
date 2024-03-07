@@ -106,16 +106,16 @@ vspace
 
 # ╔═╡ b744d4a6-7aa9-43a1-b5c8-cd21f3d60106
 md"""
-The Black-Scholes formula for a European call option on an asset with a continuous dividend rate $\delta$, $m$ years to maturity, and riskfree interest rate $y$ is
+The Black-Scholes formula for a European call option on an asset with a continuous dividend rate $\delta$, $m$ years to maturity, strike price $K$, and riskfree interest rate $y$ is
 
 $$C=e^{-\delta\, m}\,S \Phi(d_1) - e^{-y\,m}\,K \Phi(d_2)$$
 where
 
-$$d_1 = \frac{\ln(S/B)+(y-\delta+\sigma^2/2)\,m}{\sigma\,\sqrt(m)}$$
+$$d_1 = \frac{\ln(S/K)+(y-\delta+\sigma^2/2)\,m}{\sigma\,\sqrt(m)}$$
 
 and $d_2 = d_1 - \sigma \sqrt(m)$.
 
-Here, $\Phi(d)$ denotes the probability of $x\leq d$ when $x$ has an $N(0,1)$ distribution. In other words,  $\Phi(d)$ is the cumulative distribution function of the $N(0,1)$ distribution.
+Here, $\Phi(d)$ denotes the probability of $x\leq d$ when $x$ has an $N(0,1)$ distribution. In other words,  $\Phi(d)$ is the cumulative distribution function of the $N(0,1)$ distribution. $S$ is the underlying asset's price.
 """
 
 # ╔═╡ 22213151-d045-43b4-baca-2f9ac179e515
