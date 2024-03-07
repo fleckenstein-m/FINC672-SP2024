@@ -12,6 +12,7 @@
 | 8       | Empirical Data Analysis using DataFrames  | Feb  27, 2024  | [Empirical Data Analysis using DataFrames](/assets/notebooksolutions/Lect08/Lect08.html)        |                      |
 | 9       | Getting Data from Yahoo Finance    | Feb  27, 2024  | [Getting Data from Yahoo Finance](/assets/notebooksolutions/Lect09/Lect09.html)        |                      |
 | 10      | Interactive Data Visualization     | Feb  29, 2024  | [Interactive Data Visualization](/assets/notebooksolutions/Lect10/Lect10.html)        |                      |
+| 11      | Using Web APIs for Data Collection | Mar  12, 2024  | [Using Web APIs for Data Collection](/assets/notebooksolutions/Lect11/Lect11.html)        |                      |
 
 
 ## Assignments
@@ -19,4 +20,5 @@
 |         | Title                                      | Due Date          | Assignment                                              |
 |:-------:|:------------------------------------------:|:-----------------:|:-------------------------------------------------------:|
 | 1       | Homework 1                                 | Feb 20, 2024      | Assignment 01      |
-| 2       | Homework 1                                 | Feb 27, 2024      | Assignment 02      |
+| 2       | Homework 2                                 | Feb 27, 2024      | Assignment 02      |
+| 3       | Homework 3                                 | Mar 12, 2024      | Assignment 03      |
