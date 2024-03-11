@@ -103,7 +103,9 @@ Your final grade is based on i) two midterm exams, ii) a final exam, and iii) cl
   - Time: 11.10am - 12.30pm. 
   - Location: Memorial Hall 126
 - Final Exam
-  - Date and Time set by Registrar's Office.
+  - *May 19, 2024*
+  - Time: 11.30am - 1.30pm
+  - Location: FINTECH 514
 
 
 ## Assessment Component: Class Participation
