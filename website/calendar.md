@@ -15,6 +15,7 @@
 | 11      | Using Web APIs for Data Collection | Mar  12, 2024  | [Using Web APIs for Data Collection](/assets/notebooksolutions/Lect11/Lect11.html)        |                      |
 | 12      | Using Web APIs for Data Collection | Mar  14, 2024  | [Using Web APIs for Data Collection](/assets/notebooksolutions/Lect11/Lect11.html)        |                      |
 | 13      | Introduction to Portfolio Mathematics | Mar  19, 2024  | [Introduction to Portfolio Mathematics](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
+| 14      | Introduction to Portfolio Mathematics | Mar  21, 2024  | [Introduction to Portfolio Mathematics](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
 
 
 
@@ -26,3 +27,4 @@
 | 2       | Homework 2                                 | Feb 27, 2024      | Assignment 02      |
 | 3       | Homework 3                                 | Mar 12, 2024      | Assignment 03      |
 | 4       | Homework 4                                 | Mar 19, 2024      | Assignment 04      |
+| 5       | Homework 6                                 | Apr 02, 2024      | Assignment 05      |
