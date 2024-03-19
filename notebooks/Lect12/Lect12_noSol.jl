@@ -553,8 +553,8 @@ $$Var(R_p) = \left[ {\matrix{
    {{w_A}} & {{w_B}}  \cr 
 
  } } \right]\left[ {\matrix{
-   {{\sigma _{A,B}}} & {\sigma _A^2}  \cr 
-   {\sigma _B^2} & {{\sigma _{A,B}}}  \cr 
+   {{\sigma _A^2}} & {\sigma _{A,B}}  \cr 
+   {{\sigma _{A,B}}} & {\sigma _B^2}  \cr 
 
  } } \right]\left[ {\matrix{
    {{w_A}}  \cr 
@@ -1352,9 +1352,9 @@ version = "1.4.3"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
-git-tree-sha1 = "03b4c25b43cb84cee5c90aa9b5ea0a78fd848d2f"
+git-tree-sha1 = "5aa36f7049a63a1528fe8f7c3f2113413ffd4e1f"
 uuid = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
-version = "1.2.0"
+version = "1.2.1"
 
 [[deps.Preferences]]
 deps = ["TOML"]
@@ -1454,9 +1454,9 @@ deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.TranscodingStreams]]
-git-tree-sha1 = "3caa21522e7efac1ba21834a03734c57b4611c7e"
+git-tree-sha1 = "a09c933bebed12501890d8e92946bbab6a1690f1"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
-version = "0.10.4"
+version = "0.10.5"
 weakdeps = ["Random", "Test"]
 
     [deps.TranscodingStreams.extensions]
