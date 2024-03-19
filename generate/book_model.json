@@ -78,7 +78,14 @@
                 "notebook_path": "notebooks/Lect12/Lect12_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+            {
+                "name": "Mean-Variance Analysis",
+                "notebook_path": "notebooks/Lect12/Lect13_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
+
         ]
     },    
     {
@@ -105,6 +112,12 @@
             {
                 "name": "Assignment 04",
                 "notebook_path": "notebooks/Assignments/Assignment_04_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+            {
+                "name": "Assignment 05",
+                "notebook_path": "notebooks/Assignments/Assignment_05_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
