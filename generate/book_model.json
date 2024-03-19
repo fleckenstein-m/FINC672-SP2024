@@ -81,7 +81,7 @@
             },
             {
                 "name": "Mean-Variance Analysis",
-                "notebook_path": "notebooks/Lect12/Lect13_noSol.jl",
+                "notebook_path": "notebooks/Lect13/Lect13_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
