@@ -13,3 +13,4 @@
 | 9       | Getting Data from Yahoo Finance    | Feb  27, 2024  | [Link](/assets/notebooksolutions/Lect09/Lect09.html)        |                      |
 | 10      | Interactive Data Visualization     | Feb  29, 2024  | [Link](/assets/notebooksolutions/Lect10/Lect10.html)        |                      |
 | 11      | Using Web APIs for Data Collection  | Mar  12, 2024  | [Link](/assets/notebooksolutions/Lect11/Lect11.html)        |                      |
+| 12      | Intro to Portfolio Mathematics  | Mar  19, 2024  | [Link](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
