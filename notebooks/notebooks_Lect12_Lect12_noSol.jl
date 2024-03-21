@@ -58,7 +58,7 @@ vspace
 
 # ╔═╡ 2a5055b4-2137-447d-bfd2-a26cc4b14735
 #Load Packages
-using Chain, CSV, DataFrames, Dates, ShiftedArrays, Statistics
+using Chain, CSV,  Dates, DataFrames, ShiftedArrays, Statistics
 
 # ╔═╡ 2ff3a933-14ba-43e4-96a8-99667f31811a
 vspace
@@ -83,24 +83,24 @@ Let's look at an example where we have a stock with three price observations.
 """
 
 # ╔═╡ 6c19fbf2-342d-48ff-97d7-983bb1ae1122
-# let
+let
 	
-# 		P = 
-# 		D = 
+		P = [100,108,109]                     #prices (after dividends) for t=1,2,3
+		D = [0,2,0]                           #dividends, could also use [0;2;0]
 	
-# 		R = 
+		R = zeros(length(P))                  #where to store the results
 		
-# 		for t = 
-# 			R[t] = 
-# 		end
+		for t = 2:length(P)                   #P[2] is the 2nd element of P  
+			R[t] = (P[t] + D[t])/P[t-1] - 1
+		end
 		
-		
+		popfirst!(R)                          #get rid of R[1] since we have no return there
 
-# 	with_terminal() do 
-		
-# 	end
+	with_terminal() do 
+		printmat(R*100,colNames=["return, %"],rowNames=2:3,cell00="period",width=15)
+	end
 	
-# end
+end
 
 # ╔═╡ 5d4fc0ee-e3aa-404a-8983-bdf73cd4abe1
 vspace
@@ -122,17 +122,17 @@ If the return series is an excess return, add the riskfree rate to convert it to
 """
 
 # ╔═╡ c1a5ff0e-ce5e-4390-bed7-af5be140a145
-# let
-# 	R    = 
-# 	V   = 
-# 	lnV = 
-# 	expLnV = 
+let
+	R    = [20,-35,25]/100                #returns for t=1,2,3
+	V   = cumprod(1.0 .+ R)              #V(t) = V(t-1)*(1+R(t)), starting at 1 in t=0
+	lnV = cumsum(log.(1.0 .+ R))         #lnV(t) = lnV(t-1) + r(t) 
+	expLnV = exp.(lnV)
 		
-# 	#Display results
-# 	with_terminal() do
-		
-# 	end
-# end
+	#Display results
+	with_terminal() do
+		printmat(R,V,lnV,expLnV,colNames=["R","V","lnV","ExpLnV"],rowNames=1:3,cell00="period")
+	end
+end
 
 # ╔═╡ 5b46d617-14f3-4c85-8e79-76a75c324fc5
 vspace
@@ -236,74 +236,76 @@ $$\text{Cov}(R_q,R_p) = w^T\Sigma w$$.
 vspace
 
 # ╔═╡ e89ecb62-4c0f-4266-863b-529694cca1c0
-# let
-# 	w = 
-# 	R = 
-# 	Rp = 
+let
+	w = [0.8,0.2]
+	R = [10,5]/100          #returns of asset 1 and 2
+	Rp = w'R
 
-# 	with_terminal() do 
-# 		printred("Portfolio weights:")
-		
+	with_terminal() do 
+		printred("Portfolio weights:")
+		printmat(w,rowNames=["asset 1","asset 2"])
 
-# 		printred("Returns:")
-		
+		printred("Returns:")
+		printmat(R,rowNames=["asset 1","asset 2"])
 
-# 		printred("Portfolio return: ")
-		
-# 	end
-# end
+		printred("Portfolio return: ")
+		printlnPs(Rp)
+	end
+end
 
 # ╔═╡ 3d30fa0b-2fcd-4fe8-a258-7efda3b528d2
 vspace
 
 # ╔═╡ 3369be71-2a11-4dc8-8d1b-d2b1d7749c5f
-# let
-# 	μ = 
-# 	Σ = 
+let
+	μ = [9,6]/100                    #\mu[TAB] to get μ
+	Σ = [256 96;                     #\Sigma[TAB]
+		 96 144]/100^2
 
-# 	with_terminal() do
-# 		printred("expected returns*100: ")
+	with_terminal() do
+		printred("expected returns*100: ")
+		printmat(μ*100,rowNames=["asset 1","asset 2"])
 
-
-# 		printred("covariance matrix*100^2:")
-
-# 	end
+		printred("covariance matrix*100^2:")
+		printmat(Σ*100^2,rowNames=["asset 1","asset 2"],colNames=["asset 1","asset 2"])
+	end
 	
-# end
+end
 
 # ╔═╡ 3d9c2bd4-1915-449d-8d79-824b424d4425
 vspace
 
 # ╔═╡ 4dece1db-3305-4b94-8a1b-f5c833d67444
-# let
-# 	w = 
-# 	R = 
-# 	μ = 
-# 	Σ = 
-		
-# 	ERp   = 
-# 	VarRp = 
+let
+	w = [0.8,0.2]
+	R = [10,5]/100 #returns of asset 1 and 2
+	μ = [9,6]/100                    #\mu[TAB] to get μ
+	Σ = [256 96;                     #\Sigma[TAB]
+		 96 144]/100^2
+	ERp   = w'μ
+	VarRp = w'Σ*w
 
-# 	with_terminal() do
-# 		printlnPs("Expected portfolio return: ",ERp)
-# 		printlnPs("Portfolio variance and std:",VarRp,sqrt(VarRp))
-# 	end
+	with_terminal() do
+		printlnPs("Expected portfolio return: ",ERp)
+		printlnPs("Portfolio variance and std:",VarRp,sqrt(VarRp))
+	end
 		
-# end
+end
 
 # ╔═╡ c68b9ff3-8948-4478-99ed-5c6606375838
 vspace
 
 # ╔═╡ e5318e00-c074-4074-8eb4-3245ceceb4c4
-# let
-# 	w = 
-# 	μ = 
-# 	Σb =
+let
+	w = [0.8,0.2]
+	μ = [9,6]/100  
+	Σb = [256 -96;                #another covariance matrix
+          -96 144]/100^2
 
-# 	with_terminal() do
-# 		printlnPs("Portfolio std if the assets were negatively correlated: ", )
-# 	end
-# end
+	with_terminal() do
+		printlnPs("Portfolio std if the assets were negatively correlated: ",sqrt(w'Σb*w))
+	end
+end
 
 # ╔═╡ d9de859c-a0df-4d9e-9918-b6c22c73a4e6
 vspace
@@ -329,7 +331,7 @@ md"""
 vspace
 
 # ╔═╡ 2a18e0ef-4332-4a11-af9f-3efea3f8f69d
- # CRSP = 
+ #CRSP = CSV.read("CRSP_monthly.csv",DataFrame)
 
 # ╔═╡ b0d48d1a-8a41-4382-9627-247e33227ba2
 vspace
@@ -340,7 +342,7 @@ md"""
 """
 
 # ╔═╡ aee2e708-6b13-4609-b60c-a33cbd741023
-
+#describe(CRSP)
 
 # ╔═╡ a06f82d6-89b5-4a8f-8a94-122b51875da4
 vspace
@@ -423,7 +425,6 @@ vspace
 # ╔═╡ 6cb63947-6490-4a02-8b74-55eb5e2efa96
 let
 
-	
 end
 
 # ╔═╡ 18675b31-2a97-4b2f-91b9-7c070b396c29
@@ -437,6 +438,7 @@ md"""
 # ╔═╡ a0cf0361-422a-4bcd-8b9e-943dc00044b3
 # @chain CRSP begin
 	
+# 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
 	
 # end
 
@@ -451,7 +453,11 @@ md"""
 # ╔═╡ 0cf85da2-a538-402d-9785-094425260bdb
 # @chain CRSP begin
 	
-	
+# 	#Apple stock
+# 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
+
+
 # end
 
 # ╔═╡ 1861c6a9-1fb1-4332-8c50-3ed5fd429f14
@@ -466,6 +472,9 @@ md"""
 # begin
 # 	df = @chain CRSP begin
 		
+# 		#Apple stock
+# 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
 		
 # 	end
 # end
@@ -480,8 +489,12 @@ md"""
 
 # ╔═╡ 446e0db1-8107-4724-b774-561c5d37f87a
 # begin
-# 	 = @chain CRSP begin
+# 	AAPL = @chain CRSP begin
 		
+# 		#Select Apple stock
+# 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
+
 # 	end
 # end
 
@@ -502,6 +515,7 @@ md"""
 # ╔═╡ 83a3993e-073f-4e84-acfe-61bfc76dde3a
 # @chain AAPL begin
 
+	
 # end
 
 # ╔═╡ 470363be-fe40-40f1-9d53-2b5e2a15f2a0
@@ -513,10 +527,14 @@ md"""
 """
 
 # ╔═╡ 9b816236-f9de-4aad-aea0-b5f8fbfc6b11
-
+# function GetRx(Px_t,Px_tminus,div)
+	
+# end
 
 # ╔═╡ d300be65-f494-4181-9924-e69cc6c04f09
+# function GetLogRx(Px_t,Px_tminus,div)
 
+# end
 
 # ╔═╡ c0b48b52-0dfb-4553-b1c7-f089e36f893a
 vspace
@@ -528,6 +546,7 @@ md"""
 
 # ╔═╡ a23a366d-fa73-4672-b59c-e14b2b817ce8
 # AAPL_Rx = @chain AAPL begin
+
 	
 # end
 
@@ -540,10 +559,14 @@ md"""
 """
 
 # ╔═╡ 0c821308-45ca-4317-80b3-9e87c6840465
-
+# @chain AAPL_Rx begin
+	
+# end
 
 # ╔═╡ 8c58cbc6-cfbd-43de-9e68-bbaf447213fa
-
+# @chain AAPL_Rx begin
+	
+# end
 
 # ╔═╡ b4d7b148-6750-4538-9407-bd4ba02bafde
 vspace
@@ -561,7 +584,7 @@ Let's pick 5 stocks: AAPL, BA, DIS, GS and JNJ.
 # ╔═╡ 99c0ee6b-e040-4261-992c-0f5a0eb8158c
 # Portfolio = @chain CRSP begin
 	
-	
+# 	dropmissing(:TICKER)
 	
 # end
 
@@ -574,7 +597,9 @@ md"""
 """
 
 # ╔═╡ da35b9a0-5ac8-4608-8dc5-2c08901cc2e3
+# @chain Portfolio begin
 
+# end
 
 # ╔═╡ 3a003855-e6cc-4e30-95c3-02cb04435d9c
 vspace
@@ -585,7 +610,7 @@ md"""
 """
 
 # ╔═╡ e5c2b68f-4f1e-4bd1-8240-ac52d268304b
-#w = [0.2,0.2,0.2,0.2,0.2]
+# w = [0.2,0.2,0.2,0.2,0.2]
 
 
 # ╔═╡ 31d90f3b-0699-4c63-9c51-a558a1ee70b1
@@ -628,7 +653,9 @@ That is we have one column for the TICKER and one column for the return for each
 """
 
 # ╔═╡ cdda5183-46c6-4283-a66f-168ed5790a77
+# @chain PortfRx begin
 
+# end
 
 # ╔═╡ e7b781db-dee4-4905-93bd-d5e2be32d0e6
 vspace
@@ -640,7 +667,7 @@ md"""
 
 # ╔═╡ b1a76909-a53f-492a-bec2-5415d90d5de4
 # PortfSummary = @chain PortfRx begin
-	
+
 # end
 
 # ╔═╡ ba8d8e35-aef4-458d-ba2d-742714ef4977
@@ -652,7 +679,7 @@ md"""
 """
 
 # ╔═╡ 80865386-79cf-45b0-836d-e55a1ca64174
-
+# cov(Matrix(PortfRx[:,Not(:date)]))
 
 # ╔═╡ 7addc4e7-d90f-404c-91dc-375bf93eef95
 vspace
@@ -664,7 +691,7 @@ md"""
 
 # ╔═╡ fa05b130-4ab5-49ea-8a8c-f6d9fcfd1656
 # let
-# 	assets = 
+# 	assets = filter(:TICKER => (x->x!="PortfRx"), PortfSummary)
 # 	μ = 
 # 	Σ = 
 
@@ -673,13 +700,13 @@ md"""
 	
 # 	with_terminal() do
 # 		printyellow("expected returns*100: ")
-# 		printmat(μ*100,rowNames= )
+
 
 # 		printyellow("covariance matrix*100^2:")
-# 		printmat(Σ*100^2,rowNames=assets.TICKER,colNames= )
 
-# 		printlnPs("Expected portfolio return: ", )
-# 		printlnPs("Portfolio variance and std:",)
+
+# 		printlnPs("Expected portfolio return: ",ERp)
+
 		
 # 	end
 
@@ -780,10 +807,10 @@ end
 begin
 
 	
-	using Pkg
+	#import Pkg
 	#Pkg.upgrade_manifest()
-	Pkg.update()
-	Pkg.resolve()
+	#Pkg.update()
+	#Pkg.resolve()
 	
 
 	
@@ -1064,7 +1091,6 @@ Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
-Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 ShiftedArrays = "1277b4bf-5013-50f5-be3d-901d8477a67a"
@@ -1072,12 +1098,12 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 CSV = "~0.10.2"
-Chain = "~0.4.10"
-DataFrames = "~1.3.2"
+Chain = "~0.6.0"
+DataFrames = "~1.6.1"
 HypertextLiteral = "~0.9.4"
 LaTeXStrings = "~1.3.0"
 PlutoUI = "~0.7.49"
-ShiftedArrays = "~1.0.0"
+ShiftedArrays = "~2.0.0"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -1086,7 +1112,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "69ed774a83f71858bde209f890139bb9ebb64281"
+project_hash = "4c558f4fb79e6f7af92f1c1dee28e0ed29afa0eb"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1111,9 +1137,9 @@ uuid = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 version = "0.10.13"
 
 [[deps.Chain]]
-git-tree-sha1 = "339237319ef4712e6e5df7758d0bccddf5c237d9"
+git-tree-sha1 = "9ae9be75ad8ad9d26395bf625dea9beac6d519f1"
 uuid = "8be319e6-bccf-4806-a6f7-6fae938471bc"
-version = "0.4.10"
+version = "0.6.0"
 
 [[deps.CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
@@ -1153,10 +1179,10 @@ uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.16.0"
 
 [[deps.DataFrames]]
-deps = ["Compat", "DataAPI", "Future", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrettyTables", "Printf", "REPL", "Reexport", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
-git-tree-sha1 = "db2a9cb664fcea7836da4b414c3278d71dd602d2"
+deps = ["Compat", "DataAPI", "DataStructures", "Future", "InlineStrings", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrecompileTools", "PrettyTables", "Printf", "REPL", "Random", "Reexport", "SentinelArrays", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
+git-tree-sha1 = "04c738083f29f86e62c8afc341f0967d8717bdb8"
 uuid = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-version = "1.3.6"
+version = "1.6.1"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
@@ -1192,12 +1218,6 @@ deps = ["Statistics"]
 git-tree-sha1 = "335bfdceacc84c5cdf16aadc768aa5ddfc5383cc"
 uuid = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
 version = "0.8.4"
-
-[[deps.Formatting]]
-deps = ["Logging", "Printf"]
-git-tree-sha1 = "fb409abab2caf118986fc597ba84b50cbaf00b87"
-uuid = "59287772-0a20-5a39-b81b-1366585eb4c0"
-version = "0.4.3"
 
 [[deps.Future]]
 deps = ["Random"]
@@ -1363,10 +1383,10 @@ uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.4.3"
 
 [[deps.PrettyTables]]
-deps = ["Crayons", "Formatting", "Markdown", "Reexport", "Tables"]
-git-tree-sha1 = "dfb54c4e414caa595a1f2ed759b160f5a3ddcba5"
+deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "Reexport", "StringManipulation", "Tables"]
+git-tree-sha1 = "88b895d13d53b5577fd53379d913b9ab9ac82660"
 uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "1.3.1"
+version = "2.3.1"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1399,9 +1419,9 @@ version = "1.4.1"
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
 [[deps.ShiftedArrays]]
-git-tree-sha1 = "22395afdcf37d6709a5a0766cc4a5ca52cb85ea0"
+git-tree-sha1 = "503688b59397b3307443af35cd953a13e8005c16"
 uuid = "1277b4bf-5013-50f5-be3d-901d8477a67a"
-version = "1.0.0"
+version = "2.0.0"
 
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
@@ -1421,6 +1441,12 @@ version = "1.10.0"
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 version = "1.10.0"
+
+[[deps.StringManipulation]]
+deps = ["PrecompileTools"]
+git-tree-sha1 = "a04cabe79c5f01f4d723cc6704070ada0b9d46d5"
+uuid = "892a3eda-7b42-436c-8928-eab12a02cf0e"
+version = "0.3.4"
 
 [[deps.SuiteSparse_jll]]
 deps = ["Artifacts", "Libdl", "libblastrampoline_jll"]
