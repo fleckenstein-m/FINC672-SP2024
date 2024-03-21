@@ -342,7 +342,7 @@ md"""
 """
 
 # ╔═╡ aee2e708-6b13-4609-b60c-a33cbd741023
-#describe(CRSP)
+describe(CRSP)
 
 # ╔═╡ a06f82d6-89b5-4a8f-8a94-122b51875da4
 vspace
@@ -423,9 +423,13 @@ md"""
 vspace
 
 # ╔═╡ 6cb63947-6490-4a02-8b74-55eb5e2efa96
-let
-
-end
+# let
+	
+# df = @chain CRSP begin
+# 	filter(:TICKER => (x-> ismissing(x) ? false :  x=="AAPL"),_)
+# end
+	
+# end
 
 # ╔═╡ 18675b31-2a97-4b2f-91b9-7c070b396c29
 vspace
@@ -439,6 +443,25 @@ md"""
 # @chain CRSP begin
 	
 # 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+	
+# 	groupby(:date)
+# 	# combine(_) do sdf
+# 	# 	if nrow(sdf) == 1
+# 	# 		DataFrame()
+# 	# 	else
+# 	# 		sdf
+# 	# 	end
+# 	# end
+
+# 	combine(_) do sdf
+# 		if nrow(sdf)>1
+# 			sdf
+# 		else
+# 			DataFrame()
+# 		end
+
+		
+# 	end
 	
 # end
 
@@ -456,7 +479,14 @@ md"""
 # 	#Apple stock
 # 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
 
-
+# 	groupby(:date)
+# 	combine(_) do sdf
+# 		if nrow(sdf)>=2
+# 			DataFrame(sdf[2,:])
+# 		else
+# 			sdf
+# 		end
+# 	end
 
 # end
 
@@ -475,6 +505,18 @@ md"""
 # 		#Apple stock
 # 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
 
+# 		groupby(:date)
+# 		combine(_) do sdf
+# 			if nrow(sdf)>=2
+# 				DataFrame(sdf[2,:])
+# 			else
+# 				sdf
+# 			end
+# 		end
+
+# 		#Adjust for stock splits
+# 		transform( [:PRC, :CFACPR] => ByRow( (p,c)->p/c ) => :PRC,
+# 		           [:DIVAMT, :CFACPR]  => ByRow( (d,c)->d/c ) => :DIVAMT)
 		
 # 	end
 # end
@@ -489,13 +531,30 @@ md"""
 
 # ╔═╡ 446e0db1-8107-4724-b774-561c5d37f87a
 # begin
+
 # 	AAPL = @chain CRSP begin
 		
 # 		#Select Apple stock
 # 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
 
+# 		groupby(:date)
+# 		combine(_) do sdf
+# 			if nrow(sdf)>=2
+# 				DataFrame(sdf[2,:])
+# 			else
+# 				sdf
+# 			end
+# 		end
+
+# 		#Adjust for stock splits
+# 		transform( [:PRC, :CFACPR] => ByRow( (p,c)->p/c ) => :PRC,
+# 		           [:DIVAMT, :CFACPR]  => ByRow( (d,c)->d/c ) => :DIVAMT)
+
+# 		select(:date, :TICKER, :PERMCO, :PERMNO, :PRC, :DIVAMT)
+# 		sort(:date)
 
 # 	end
+
 # end
 
 # ╔═╡ 0bd40ffd-8e71-4709-917c-04c9fca25e37
@@ -515,6 +574,9 @@ md"""
 # ╔═╡ 83a3993e-073f-4e84-acfe-61bfc76dde3a
 # @chain AAPL begin
 
+# 	sort(:date)
+# 	groupby(:TICKER)
+# 	transform( :PRC => (x-> ShiftedArrays.lag(x)) => :PRC_L)
 	
 # end
 
@@ -527,14 +589,39 @@ md"""
 """
 
 # ╔═╡ 9b816236-f9de-4aad-aea0-b5f8fbfc6b11
-# function GetRx(Px_t,Px_tminus,div)
+function GetRx(Px_t,Px_tminus,div)
+
+	divAmt = 0.0
+	if !ismissing(div)
+		divAmt = div
+	end
+
+	if any( ismissing.([Px_t,Px_tminus])  )
+		return missing
+	else
+		return (Px_t + divAmt - Px_tminus)/Px_tminus
+	end
 	
-# end
+end
 
 # ╔═╡ d300be65-f494-4181-9924-e69cc6c04f09
-# function GetLogRx(Px_t,Px_tminus,div)
+function GetLogRx(Px_t,Px_tminus,div)
 
-# end
+
+	divAmt = 0.0
+	if !ismissing(div)
+		divAmt = div
+	end
+
+	if any( ismissing.([Px_t,Px_tminus])  )
+		return missing
+	else
+		return log( (Px_t + divAmt) / Px_tminus )
+	end
+	
+	
+	
+end
 
 # ╔═╡ c0b48b52-0dfb-4553-b1c7-f089e36f893a
 vspace
@@ -547,6 +634,17 @@ md"""
 # ╔═╡ a23a366d-fa73-4672-b59c-e14b2b817ce8
 # AAPL_Rx = @chain AAPL begin
 
+# 	sort(:date)
+# 	groupby(:TICKER)
+# 	transform( :PRC => (x-> ShiftedArrays.lag(x)) => :PRC_L)
+
+# 	#calculate the return
+# 	transform( [:PRC, :PRC_L, :DIVAMT] => ByRow( (p,pl,d) -> GetRx(p,pl,d) ) => :Rx ) 
+
+# 	#calculate log return
+# 	transform( [:PRC, :PRC_L, :DIVAMT] => ByRow( (p,pl,d) -> GetLogRx(p,pl,d) ) => :LogRx ) 
+	
+# 	dropmissing(:Rx)
 	
 # end
 
@@ -560,12 +658,12 @@ md"""
 
 # ╔═╡ 0c821308-45ca-4317-80b3-9e87c6840465
 # @chain AAPL_Rx begin
-	
+# 	combine(:Rx => (rx-> prod( 1 .+ rx)) => :V_T)	
 # end
 
 # ╔═╡ 8c58cbc6-cfbd-43de-9e68-bbaf447213fa
 # @chain AAPL_Rx begin
-	
+# 	combine(:LogRx => (rx -> exp(sum(rx))) => :V_T )
 # end
 
 # ╔═╡ b4d7b148-6750-4538-9407-bd4ba02bafde
@@ -585,6 +683,36 @@ Let's pick 5 stocks: AAPL, BA, DIS, GS and JNJ.
 # Portfolio = @chain CRSP begin
 	
 # 	dropmissing(:TICKER)
+# 	filter(:TICKER => (x-> x ∈ ["AAPL","BA","DIS","GS","JNJ"]),_)
+	
+
+# 	groupby([:date,:TICKER])
+# 	combine(_) do sdf
+#        if nrow(sdf) == 2 
+#             DataFrame(sdf[2,:])
+#        else
+#             sdf
+#        end
+#     end
+
+	
+# 	#Adjust for stock splits
+# 	transform( [:PRC,:CFACPR] => ByRow(  (x,y) -> x/y) => :PRC,
+# 	 		   [:DIVAMT,:CFACPR] => ByRow(  (x,y) -> any(ismissing.([x,y])) ? missing             : x/y) => :DIVAMT)	
+
+	
+# 	select(:date, :TICKER, :PERMCO, :PERMNO, :PRC, :DIVAMT)
+
+# 	sort([:TICKER,:date])
+	
+# 	groupby([:TICKER])
+# 	transform(:PRC => (x-> ShiftedArrays.lag(x)) => :PRC_L)
+	
+# 	transform([:PRC, :PRC_L, :DIVAMT] => ByRow((Px_t,Px_tminus,div) -> GetRx(Px_t,Px_tminus,div)) => :Rx,
+# 			  [:PRC, :PRC_L, :DIVAMT] => ByRow((Px_t,Px_tminus,div) -> GetLogRx(Px_t,Px_tminus,div)) => :LogRx)
+	
+# 	dropmissing(:Rx)
+# 	select(:date, :TICKER, :PERMCO, :PERMNO, :PRC, :PRC_L, :DIVAMT, :Rx, :LogRx)
 	
 # end
 
