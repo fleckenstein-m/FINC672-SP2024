@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ 2a5055b4-2137-447d-bfd2-a26cc4b14735
 #Load Packages
-using Chain, CSV, DataFrames, Dates, ShiftedArrays, Statistics
+using Chain, CSV,  Dates, DataFrames, ShiftedArrays, Statistics
 
 # ╔═╡ 97840d49-e48d-40be-ab09-e3dea866143c
 # ╠═╡ show_logs = false
@@ -81,15 +81,640 @@ begin
 
 end
 
+# ╔═╡ 2027e83e-ead0-4e05-9bd8-bf157f90778c
+html"""
+	<p align=left style="font-size:32px; font-family:family:Georgia"> <b> FINC 672: Workshop in Finance - Empirical Methods</b> <p>
+	"""
+
+# ╔═╡ c62078fa-1047-4b7a-babb-c724f358f136
+	html"""
+	<p style="padding-bottom:1cm"> </p>
+	<div align=center style="font-size:25px; font-family:family:Georgia"> FINC-672: Workshop in Finance - Empirical Methods </div>
+	<p style="padding-bottom:1cm"> </p>
+	<p align=center style="font-size:25px; font-family:family:Georgia"> <b> Introduction to Portfolio Mathematics </b> <p>
+	<p style="padding-bottom:1cm"> </p>
+	<p align=center style="font-size:25px; font-family:family:Georgia"> Spring 2024 <p>
+	<p style="padding-bottom:0.5cm"> </p>
+	<div align=center style="font-size:20px; font-family:family:Georgia"> Prof. Matt Fleckenstein </div>
+	<p style="padding-bottom:0.05cm"> </p>
+	<div align=center style="font-size:20px; font-family:family:Georgia"> University of Delaware, 
+	Lerner College of Business and Economics </div>
+	<p style="padding-bottom:0.5cm"> </p>
+	"""
+
+# ╔═╡ 95a3731a-f718-42ce-ae12-aa317a4dc0c6
+vspace
+
+# ╔═╡ e81bdf26-48fa-4474-8b0d-65c94d499edf
+TableOfContents(aside=true, depth=1)
+
+# ╔═╡ a548314b-511d-4319-8f7b-95a3158ba90c
+html"""
+<fieldset>      
+<legend>Goals for today</legend>      
+<br>
+  <input type="checkbox" value="">Understand the basics of portfolio mathematics. <br>      
+<br>
+  <input type="checkbox" value="">Implement functions to calculate portfolio statistics.<br>
+<br>
+  <input type="checkbox" value="">Be familiar with CRSP data.<br>      
+<br>
+</fieldset>      
+"""
+
+# ╔═╡ 0d02bf71-e376-4ac8-bfb5-6ec6330f7b73
+vspace
+
+# ╔═╡ 9f37984d-ef99-4c89-840a-1e6ead25b385
+md"""
+**Reminder**: Read the pdf `Reading_Introduction to Portfolio Mathematics` on Canvas prior to this lecture.
+"""
+
+# ╔═╡ 0bf6824c-6b69-4eb3-92a2-2eb4ff2f2e4c
+vspace
+
+# ╔═╡ 2ff3a933-14ba-43e4-96a8-99667f31811a
+vspace
+
+# ╔═╡ bd352f2e-3b7f-4b5b-ae43-fd244447347a
+md"""
+# Return Calculations
+
+The return of holding the asset between $t-1$ and $t$ is
+
+$$R_t = (P_t+D_t)/P_{t-1} - 1,$$
+
+where $P_t$ is the price (measured after dividends) and $D_t$ is the dividend.
+
+We can calculate the returns by a loop or by a more compact notation, see below.
+
+"""
+
+# ╔═╡ 6334d495-fa91-4428-a203-4d8234324ece
+md"""
+Let's look at an example where we have a stock with three price observations.
+"""
+
+# ╔═╡ 5d4fc0ee-e3aa-404a-8983-bdf73cd4abe1
+vspace
+
+# ╔═╡ 75007c57-94e8-49fc-8bbb-3d39d6207fa2
+md"""
+# Cumulating Returns
+Net returns can be cumulated into a portfolio value as
+
+$$V_t = V_{t-1}(1+R_t),$$
+
+where we need a starting value (initial investment) for the portfolio (a common choice is to normalise to $V_0=1$).
+
+With log returns, $r_t=\log(1+R_t)$, we instead do
+
+$$\ln V_t = \ln V_{t-1} + r_t$$
+
+If the return series is an excess return, add the riskfree rate to convert it to get net returns - and then cumulate as described above.
+"""
+
+# ╔═╡ 5b46d617-14f3-4c85-8e79-76a75c324fc5
+vspace
+
+# ╔═╡ e6c198f4-5abd-468c-841c-8a7b032f1dc2
+md"""
+# Portfolio Returns
+Recall from Investments that the return of a portfolio of two stocks (let's call them stock A and B) is
+
+$R_p = w_A \times R_A + w_B \times R_B$
+
+The expected return is 
+
+$$\text{E}R_p = w_A \times \mu_A + w_B \times \mu_B $$ 
+
+and the portfolio variance is
+
+$$\text{Var}(R_p) = w_A^2 \times \sigma_A^2 + w_B^2 \times \sigma_B^2 + 2\times w_A \times w_B \times \sigma_{A,B}$$
+
+"""
+
+# ╔═╡ 6751abe5-ef25-4d89-bed7-7cf7811fa2d8
+vspace
+
+# ╔═╡ 1cfe8c37-83ce-42fb-b4ad-c9ccb20bff52
+md"""
+You might also recall that we can use matrix algebra to write the above as
+
+$$R_p = \left[ {\matrix{
+   {{w_A}} & {{w_B}}  \cr 
+
+ } } \right]\left[ {\matrix{
+   {{r_A}}  \cr 
+   {{r_B}}  \cr 
+
+ } } \right] = {\left[ {\matrix{
+   {{w_A}}  \cr 
+   {{w_B}}  \cr 
+
+ } } \right]^T}\left[ {\matrix{
+   {{r_A}}  \cr 
+   {{r_B}}  \cr 
+
+ } } \right] = {w^T}R$$
+
+
+$$ER_p = \left[ {\matrix{
+   {{w_A}} & {{w_B}}  \cr 
+
+ } } \right]\left[ {\matrix{
+   {{\mu_A}}  \cr 
+   {{\mu_B}}  \cr 
+
+ } } \right] = {\left[ {\matrix{
+   {{w_A}}  \cr 
+   {{w_B}}  \cr 
+
+ } } \right]^T}\left[ {\matrix{
+   {{\mu_A}}  \cr 
+   {{\mu_B}}  \cr 
+
+ } } \right] = {w^T}\mu$$
+
+
+$$Var(R_p) = \left[ {\matrix{
+   {{w_A}} & {{w_B}}  \cr 
+
+ } } \right]\left[ {\matrix{
+   {{\sigma _A^2}} & {\sigma _{A,B}}  \cr 
+   {{\sigma _{A,B}}} & {\sigma _B^2}  \cr 
+
+ } } \right]\left[ {\matrix{
+   {{w_A}}  \cr 
+   {{w_B}}  \cr 
+
+ } } \right] = {w^T}\Sigma w$$
+
+"""
+
+# ╔═╡ 82a86a66-53de-46d4-837c-2dce5b1f1f44
+vspace
+
+# ╔═╡ b65a5a50-b811-41c2-b136-a2b98797f05a
+md"""
+We form a portfolio by combining $n$ assets: $w$ is the vector of $n$ portfolio weights, $R$ is a vector of returns, $\mu$ a vector of expected expected (average) returns and $\Sigma$ the $n \times n$ covariance matrix.
+
+The portfolio return, the expected portfolio return and the portfolio variance can be computed as:
+
+$$R_p = w^TR,$$
+
+$$\text{E}R_p = w^T\mu$$ and
+
+$$\text{Var}(R_p) = w^T\Sigma w$$
+
+The covariance of two portfolios (with weights $v$ and $w$, respectively) can be computed as
+
+$$\text{Cov}(R_q,R_p) = w^T\Sigma w$$.
+"""
+
+# ╔═╡ 3575ad64-b633-4384-9c1d-a040a26a23c1
+vspace
+
+# ╔═╡ 3d30fa0b-2fcd-4fe8-a258-7efda3b528d2
+vspace
+
+# ╔═╡ 3d9c2bd4-1915-449d-8d79-824b424d4425
+vspace
+
+# ╔═╡ c68b9ff3-8948-4478-99ed-5c6606375838
+vspace
+
+# ╔═╡ d9de859c-a0df-4d9e-9918-b6c22c73a4e6
+vspace
+
+# ╔═╡ c537a2e6-114f-4a86-9323-cc7e7b94ceb3
+md"""
+# CRSP Dataset
+"""
+
+# ╔═╡ 98083989-a006-4cf3-afd1-0b3495e1d5b6
+md"""
+To illustrate the concepts, we will be working with the CRSP dataset from WRDS.
+
+> From CANVAS, download the csv file **CRSP_monthly.csv** from the dataset section.
+"""
+
+# ╔═╡ e3529bed-ac89-4e5f-a1e2-e2a7d4c7b073
+md"""
+**Let's first read the data into a dataframe.**
+"""
+
+# ╔═╡ ded59ba8-2be9-4641-88e6-a7c205c64da9
+vspace
+
+# ╔═╡ 2a18e0ef-4332-4a11-af9f-3efea3f8f69d
+ #CRSP = CSV.read("CRSP_monthly.csv",DataFrame)
+
+# ╔═╡ b0d48d1a-8a41-4382-9627-247e33227ba2
+vspace
+
+# ╔═╡ ad26e54b-85b1-4631-b1ed-531873ba712a
+md"""
+**Let's describe the data to get a sense of the variables and their types**
+"""
+
+# ╔═╡ aee2e708-6b13-4609-b60c-a33cbd741023
+#describe(CRSP)
+
+# ╔═╡ a06f82d6-89b5-4a8f-8a94-122b51875da4
+vspace
+
+# ╔═╡ d99160b7-9421-404d-bef4-55f634d6e586
+md"""
+**Let's consider a set of stocks in the Dow Jones Index**
+"""
+
+# ╔═╡ 22073910-f676-4e8b-8b80-38fed57bf399
+md"""
+Ticker | Company Name
+:------|:-------------
+AAPL | 	Apple Inc
+AMGN | 	Amgen Inc
+AXP  | 	American Express Co
+BA   | 	Boeing Co/The
+CAT  | 	Caterpillar Inc
+CRM  | 	salesforce.com Inc
+CSCO | 	Cisco Systems Inc/Delaware
+CVX  | 	Chevron Corp
+DIS  | 	Walt Disney Co/The
+DOW  | 	Dow Inc
+GS   | 	Goldman Sachs Group Inc/The
+HD   | 	Home Depot Inc/The
+HON  | 	Honeywell International Inc
+IBM  | 	International Business Machines Corp
+INTC | 	Intel Corp
+JNJ  | 	Johnson & Johnson
+JPM  | 	JPMorgan Chase & Co
+KO   | 	Coca-Cola Co/The
+MCD  | 	McDonald's Corp
+MMM  | 	3M Co
+MRK  | 	Merck & Co Inc
+MSFT | 	Microsoft Corp
+NKE  | 	NIKE Inc
+PG   | 	Procter & Gamble Co/The
+TRV  | 	Travelers Cos Inc/The
+UNH  | 	UnitedHealth Group Inc
+V    | 	Visa Inc
+VZ   | 	Verizon Communications Inc
+WBA  | 	Walgreens Boots Alliance Inc
+WMT  | 	Walmart Inc
+"""
+
+# ╔═╡ 695258ec-d833-4fd7-8d5b-ad8706ecb158
+vspace
+
+# ╔═╡ 8980a963-b6c0-48cd-9316-b96df2acf4c6
+md"""
+**Let's work with a single stock first. We will pick AAPL.**
+"""
+
+# ╔═╡ 6a25c898-54b3-4afc-b771-e13c7cda66eb
+md"""
+#### Apple (AAPL)
+"""
+
+# ╔═╡ 456211a1-3828-458c-a597-cb35a88c35ca
+md"""
+**How can we deal with missing data?**
+"""
+
+# ╔═╡ 590799eb-b5e0-4ee0-bdb5-ae4bd01f5576
+md"""
+If we try to filter out AAPL from the dataset, we get an error message.
+>AAPL = filter(:TICKER => (x-> x=="AAPL"),CRSP)
+
+This is because :TICKER has missing data, and we need to give instructions to the `filter` function how `missing` values ought to be dealt with.
+"""
+
+# ╔═╡ d86c3764-81fb-4dcc-af04-094356a25216
+md"""
+**Let's see how to do this.**
+"""
+
+# ╔═╡ 043efd52-9dc8-473d-950e-e2bf48f2a666
+vspace
+
+# ╔═╡ 6cb63947-6490-4a02-8b74-55eb5e2efa96
+let
+
+end
+
+# ╔═╡ 18675b31-2a97-4b2f-91b9-7c070b396c29
+vspace
+
+# ╔═╡ b8051d63-ed26-4e21-8a98-f564a3b8a967
+md"""
+**Notice that there are two rows in the data for August 2020.**
+"""
+
+# ╔═╡ a0cf0361-422a-4bcd-8b9e-943dc00044b3
+# @chain CRSP begin
+	
+# 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+	
+# end
+
+# ╔═╡ a909cc2f-ac8f-4c29-9daa-c1117bc821f2
+vspace
+
+# ╔═╡ 6b720ade-5e4c-4f58-8fcd-f609df29df7b
+md"""
+**We care about the second row since it has the information about the dividend and the stock split we need.**
+"""
+
+# ╔═╡ 0cf85da2-a538-402d-9785-094425260bdb
+# @chain CRSP begin
+	
+# 	#Apple stock
+# 	filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
+
+
+# end
+
+# ╔═╡ 1861c6a9-1fb1-4332-8c50-3ed5fd429f14
+vspace
+
+# ╔═╡ a65fa0ae-1ceb-451e-ab37-08c0d23a508e
+md"""
+**Next, we adjust the prices for stock splits. This is done via the variable "CFACPR" (cumulative adjustment factor).**
+"""
+
+# ╔═╡ 523e0191-237e-4bdb-b9a3-53079b9e92d5
+# begin
+# 	df = @chain CRSP begin
+		
+# 		#Apple stock
+# 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
+		
+# 	end
+# end
+
+# ╔═╡ 5d055fb4-5026-40aa-920d-f39d261e65a2
+vspace
+
+# ╔═╡ 8a869ecb-a6ed-499d-873b-131c9bc2e0b1
+md"""
+**Let's now create a new dataframe with all the changes we want to make.**
+"""
+
+# ╔═╡ 446e0db1-8107-4724-b774-561c5d37f87a
+# begin
+# 	AAPL = @chain CRSP begin
+		
+# 		#Select Apple stock
+# 		filter(:TICKER => (x-> ismissing(x) ? false : x=="AAPL"),_)
+
+
+# 	end
+# end
+
+# ╔═╡ 0bd40ffd-8e71-4709-917c-04c9fca25e37
+vspace
+
+# ╔═╡ 45868894-a317-4370-9631-6ef3c31661e3
+md"""
+**Next, let's calculate monthly returns for AAPL/**
+"""
+
+# ╔═╡ 7b666951-b303-4100-8dd2-feb8e2d22b14
+md"""
+**To do this, we need to add the lagged price.**
+>The `ShiftedArrays` package allows us to do this.
+"""
+
+# ╔═╡ 83a3993e-073f-4e84-acfe-61bfc76dde3a
+# @chain AAPL begin
+
+	
+# end
+
+# ╔═╡ 470363be-fe40-40f1-9d53-2b5e2a15f2a0
+vspace
+
+# ╔═╡ 4805e8a6-34d6-49f0-8706-88c916e4689f
+md"""
+**As the next step, we need two functions. One to calculate arithmetic returns, and another to calculate log returns.**
+"""
+
+# ╔═╡ 9b816236-f9de-4aad-aea0-b5f8fbfc6b11
+# function GetRx(Px_t,Px_tminus,div)
+	
+# end
+
+# ╔═╡ d300be65-f494-4181-9924-e69cc6c04f09
+# function GetLogRx(Px_t,Px_tminus,div)
+
+# end
+
+# ╔═╡ c0b48b52-0dfb-4553-b1c7-f089e36f893a
+vspace
+
+# ╔═╡ 2bd1674d-2254-45a8-9f02-5caa5bd0bd1c
+md"""
+**Let's now create a new dataframe with the returns for AAPL.**
+"""
+
+# ╔═╡ a23a366d-fa73-4672-b59c-e14b2b817ce8
+# AAPL_Rx = @chain AAPL begin
+
+	
+# end
+
+# ╔═╡ c30fa7dc-3c4c-4332-a724-d24f32cf5cb4
+vspace
+
+# ╔═╡ 5baa1a9f-7ad5-4bfc-b468-9e0b40438548
+md"""
+**Now, we can calculate the cumulative return over the period from January 2000 to December 2020 from investing $1 in AAPL.**
+"""
+
+# ╔═╡ 0c821308-45ca-4317-80b3-9e87c6840465
+# @chain AAPL_Rx begin
+	
+# end
+
+# ╔═╡ 8c58cbc6-cfbd-43de-9e68-bbaf447213fa
+# @chain AAPL_Rx begin
+	
+# end
+
+# ╔═╡ b4d7b148-6750-4538-9407-bd4ba02bafde
+vspace
+
+# ╔═╡ a488a679-6dc0-4a33-b327-9d0f6e3b9eb2
+md"""
+**Next, let's work with a portfolio of stocks.**
+"""
+
+# ╔═╡ 76adf9cb-db2c-4b76-9614-be12bb9c5764
+md"""
+Let's pick 5 stocks: AAPL, BA, DIS, GS and JNJ.
+"""
+
+# ╔═╡ 99c0ee6b-e040-4261-992c-0f5a0eb8158c
+# Portfolio = @chain CRSP begin
+	
+# 	dropmissing(:TICKER)
+	
+# end
+
+# ╔═╡ 286aadfd-c2f1-428b-babc-943e0a46200d
+vspace
+
+# ╔═╡ 0eefd0af-f5dd-4b87-9be0-391d86cf8bf9
+md"""
+**To form a portfolio, it is more convenient to work with the data in *wide format*. This means that we want to put the five stocks in columns (one for each stock).**
+"""
+
+# ╔═╡ da35b9a0-5ac8-4608-8dc5-2c08901cc2e3
+# @chain Portfolio begin
+
+# end
+
+# ╔═╡ 3a003855-e6cc-4e30-95c3-02cb04435d9c
+vspace
+
+# ╔═╡ 6572bd2f-76e8-4735-9dff-d371fe7f69bd
+md"""
+**Next, let's pick a vector of portfolio weights.**
+"""
+
+# ╔═╡ e5c2b68f-4f1e-4bd1-8240-ac52d268304b
+# w = [0.2,0.2,0.2,0.2,0.2]
+
+
+# ╔═╡ 31d90f3b-0699-4c63-9c51-a558a1ee70b1
+vspace
+
+# ╔═╡ 16cc7074-d786-4bb5-a735-187465e815e2
+md"""
+**Then, we calculate the portfolio return in each month.**
+"""
+
+# ╔═╡ 87099910-dfde-4fee-8910-1d6bd25d5170
+# PortfRx = @chain Portfolio begin
+	
+# end
+
+# ╔═╡ 775e1297-84ff-4982-99f4-44a85892f936
+vspace
+
+# ╔═╡ c63e96e7-0ea0-4daf-a230-26b258f12e79
+md"""
+**Let's get a sense of the stock returns by using `describe`.**
+"""
+
+# ╔═╡ 07e767e6-d6fc-4f52-8b9d-72ca7c633955
+# describe(PortfRx)
+
+# ╔═╡ 42f876a7-4c63-49f8-ae01-5745cdfa8fd8
+vspace
+
+# ╔═╡ fb69d701-e623-443e-b6f0-c75180b9be1b
+md"""
+**Let's create a table with summary statistics that we are interested in:**
+average return, standard deviation of returns, minimum, median, and the maximum of monthly returns.
+"""
+
+# ╔═╡ cb78be8c-f039-434e-acbb-9375f3174588
+md"""
+**To create this table, it is easier to work with the data in `long` format.**
+That is we have one column for the TICKER and one column for the return for each date. In this format, it is easier to group the data and to apply a data transformation.
+"""
+
+# ╔═╡ cdda5183-46c6-4283-a66f-168ed5790a77
+# @chain PortfRx begin
+
+# end
+
+# ╔═╡ e7b781db-dee4-4905-93bd-d5e2be32d0e6
+vspace
+
+# ╔═╡ c799f1ad-b82b-4421-bb71-d07cb7b6afd7
+md"""
+**Let's now make the final table with the summary statistics for the returns.**
+"""
+
+# ╔═╡ b1a76909-a53f-492a-bec2-5415d90d5de4
+# PortfSummary = @chain PortfRx begin
+
+# end
+
+# ╔═╡ ba8d8e35-aef4-458d-ba2d-742714ef4977
+vspace
+
+# ╔═╡ 4cfeda6b-6b12-4ffa-9379-15c00b53a49d
+md"""
+**Next, let's calculate the covariance matrix of returns.**
+"""
+
+# ╔═╡ 80865386-79cf-45b0-836d-e55a1ca64174
+# cov(Matrix(PortfRx[:,Not(:date)]))
+
+# ╔═╡ 7addc4e7-d90f-404c-91dc-375bf93eef95
+vspace
+
+# ╔═╡ aa21f05c-1e78-4919-86fa-57ae89d4d633
+md"""
+**Lastly, let's use what we have learned about portfolio mathematics at the beginning of this lecuture and apply it to our portfolio of stocks.**
+"""
+
+# ╔═╡ fa05b130-4ab5-49ea-8a8c-f6d9fcfd1656
+# let
+# 	assets = filter(:TICKER => (x->x!="PortfRx"), PortfSummary)
+# 	μ = 
+# 	Σ = 
+
+# 	ERp   = 
+# 	VarRp = 
+	
+# 	with_terminal() do
+# 		printyellow("expected returns*100: ")
+
+
+# 		printyellow("covariance matrix*100^2:")
+
+
+# 		printlnPs("Expected portfolio return: ",ERp)
+
+		
+# 	end
+
+# end
+
+# ╔═╡ f44df415-9970-4501-9e4e-2b2a7db50d6d
+vspace
+
+# ╔═╡ 76809cbd-d487-4d7a-acfc-d45cae769573
+html"""
+<fieldset>      
+<legend>Goals for today</legend>      
+<br>
+  <input type="checkbox" value="" checked>Understand the basics of portfolio mathematics. <br>      
+<br>
+  <input type="checkbox" value="" checked>Implement functions to calculate portfolio statistics.<br>
+<br>
+  <input type="checkbox" value="" checked>Be familiar with CRSP data.<br>      
+<br>
+</fieldset>      
+"""
+
 # ╔═╡ e796c131-5a67-4a99-8df2-b7ea52a03056
 # ╠═╡ show_logs = false
 begin
 
 	
-	using Pkg
+	#import Pkg
 	#Pkg.upgrade_manifest()
-	Pkg.update()
-	Pkg.resolve()
+	#Pkg.update()
+	#Pkg.resolve()
 	
 
 	
@@ -360,699 +985,101 @@ display("")
 	
 end
 
-# ╔═╡ 2027e83e-ead0-4e05-9bd8-bf157f90778c
-html"""
-	<p align=left style="font-size:32px; font-family:family:Georgia"> <b> FINC 672: Workshop in Finance - Empirical Methods</b> <p>
-	"""
-
-# ╔═╡ c62078fa-1047-4b7a-babb-c724f358f136
-	html"""
-	<p style="padding-bottom:1cm"> </p>
-	<div align=center style="font-size:25px; font-family:family:Georgia"> FINC-672: Workshop in Finance - Empirical Methods </div>
-	<p style="padding-bottom:1cm"> </p>
-	<p align=center style="font-size:25px; font-family:family:Georgia"> <b> Introduction to Portfolio Mathematics </b> <p>
-	<p style="padding-bottom:1cm"> </p>
-	<p align=center style="font-size:25px; font-family:family:Georgia"> Spring 2024 <p>
-	<p style="padding-bottom:0.5cm"> </p>
-	<div align=center style="font-size:20px; font-family:family:Georgia"> Prof. Matt Fleckenstein </div>
-	<p style="padding-bottom:0.05cm"> </p>
-	<div align=center style="font-size:20px; font-family:family:Georgia"> University of Delaware, 
-	Lerner College of Business and Economics </div>
-	<p style="padding-bottom:0.5cm"> </p>
-	"""
-
-# ╔═╡ 95a3731a-f718-42ce-ae12-aa317a4dc0c6
-vspace
-
-# ╔═╡ e81bdf26-48fa-4474-8b0d-65c94d499edf
-TableOfContents(aside=true, depth=1)
-
-# ╔═╡ a548314b-511d-4319-8f7b-95a3158ba90c
-html"""
-<fieldset>      
-<legend>Goals for today</legend>      
-<br>
-  <input type="checkbox" value="">Understand the basics of portfolio mathematics. <br>      
-<br>
-  <input type="checkbox" value="">Implement functions to calculate portfolio statistics.<br>
-<br>
-  <input type="checkbox" value="">Be familiar with CRSP data.<br>      
-<br>
-</fieldset>      
-"""
-
-# ╔═╡ 0d02bf71-e376-4ac8-bfb5-6ec6330f7b73
-vspace
-
-# ╔═╡ 9f37984d-ef99-4c89-840a-1e6ead25b385
-md"""
-**Reminder**: Read the pdf `Reading_Introduction to Portfolio Mathematics` on Canvas prior to this lecture.
-"""
-
-# ╔═╡ 0bf6824c-6b69-4eb3-92a2-2eb4ff2f2e4c
-vspace
-
-# ╔═╡ 2ff3a933-14ba-43e4-96a8-99667f31811a
-vspace
-
-# ╔═╡ bd352f2e-3b7f-4b5b-ae43-fd244447347a
-md"""
-# Return Calculations
-
-The return of holding the asset between $t-1$ and $t$ is
-
-$$R_t = (P_t+D_t)/P_{t-1} - 1,$$
-
-where $P_t$ is the price (measured after dividends) and $D_t$ is the dividend.
-
-We can calculate the returns by a loop or by a more compact notation, see below.
-
-"""
-
-# ╔═╡ 6334d495-fa91-4428-a203-4d8234324ece
-md"""
-Let's look at an example where we have a stock with three price observations.
-"""
-
 # ╔═╡ 6c19fbf2-342d-48ff-97d7-983bb1ae1122
-# let
-	
-# 		P = 
-# 		D = 
-	
-# 		R = 
-		
-# 		for t = 
-# 			R[t] = 
-# 		end
-		
-		
-
-# 	with_terminal() do 
-		
-# 	end
-	
-# end
-
-# ╔═╡ 5d4fc0ee-e3aa-404a-8983-bdf73cd4abe1
-vspace
-
-# ╔═╡ 75007c57-94e8-49fc-8bbb-3d39d6207fa2
-md"""
-# Cumulating Returns
-Net returns can be cumulated into a portfolio value as
-
-$$V_t = V_{t-1}(1+R_t),$$
-
-where we need a starting value (initial investment) for the portfolio (a common choice is to normalise to $V_0=1$).
-
-With log returns, $r_t=\log(1+R_t)$, we instead do
-
-$$\ln V_t = \ln V_{t-1} + r_t$$
-
-If the return series is an excess return, add the riskfree rate to convert it to get net returns - and then cumulate as described above.
-"""
-
-# ╔═╡ c1a5ff0e-ce5e-4390-bed7-af5be140a145
-# let
-# 	R    = 
-# 	V   = 
-# 	lnV = 
-# 	expLnV = 
-		
-# 	#Display results
-# 	with_terminal() do
-		
-# 	end
-# end
-
-# ╔═╡ 5b46d617-14f3-4c85-8e79-76a75c324fc5
-vspace
-
-# ╔═╡ e6c198f4-5abd-468c-841c-8a7b032f1dc2
-md"""
-# Portfolio Returns
-Recall from Investments that the return of a portfolio of two stocks (let's call them stock A and B) is
-
-$R_p = w_A \times R_A + w_B \times R_B$
-
-The expected return is 
-
-$$\text{E}R_p = w_A \times \mu_A + w_B \times \mu_B $$ 
-
-and the portfolio variance is
-
-$$\text{Var}(R_p) = w_A^2 \times \sigma_A^2 + w_B^2 \times \sigma_B^2 + 2\times w_A \times w_B \times \sigma_{A,B}$$
-
-"""
-
-# ╔═╡ 6751abe5-ef25-4d89-bed7-7cf7811fa2d8
-vspace
-
-# ╔═╡ 1cfe8c37-83ce-42fb-b4ad-c9ccb20bff52
-md"""
-You might also recall that we can use matrix algebra to write the above as
-
-$$R_p = \left[ {\matrix{
-   {{w_A}} & {{w_B}}  \cr 
-
- } } \right]\left[ {\matrix{
-   {{r_A}}  \cr 
-   {{r_B}}  \cr 
-
- } } \right] = {\left[ {\matrix{
-   {{w_A}}  \cr 
-   {{w_B}}  \cr 
-
- } } \right]^T}\left[ {\matrix{
-   {{r_A}}  \cr 
-   {{r_B}}  \cr 
-
- } } \right] = {w^T}R$$
-
-
-$$ER_p = \left[ {\matrix{
-   {{w_A}} & {{w_B}}  \cr 
-
- } } \right]\left[ {\matrix{
-   {{\mu_A}}  \cr 
-   {{\mu_B}}  \cr 
-
- } } \right] = {\left[ {\matrix{
-   {{w_A}}  \cr 
-   {{w_B}}  \cr 
-
- } } \right]^T}\left[ {\matrix{
-   {{\mu_A}}  \cr 
-   {{\mu_B}}  \cr 
-
- } } \right] = {w^T}\mu$$
-
-
-$$Var(R_p) = \left[ {\matrix{
-   {{w_A}} & {{w_B}}  \cr 
-
- } } \right]\left[ {\matrix{
-   {{\sigma _A^2}} & {\sigma _{A,B}}  \cr 
-   {{\sigma _{A,B}}} & {\sigma _B^2}  \cr 
-
- } } \right]\left[ {\matrix{
-   {{w_A}}  \cr 
-   {{w_B}}  \cr 
-
- } } \right] = {w^T}\Sigma w$$
-
-"""
-
-# ╔═╡ 82a86a66-53de-46d4-837c-2dce5b1f1f44
-vspace
-
-# ╔═╡ b65a5a50-b811-41c2-b136-a2b98797f05a
-md"""
-We form a portfolio by combining $n$ assets: $w$ is the vector of $n$ portfolio weights, $R$ is a vector of returns, $\mu$ a vector of expected expected (average) returns and $\Sigma$ the $n \times n$ covariance matrix.
-
-The portfolio return, the expected portfolio return and the portfolio variance can be computed as:
-
-$$R_p = w^TR,$$
-
-$$\text{E}R_p = w^T\mu$$ and
-
-$$\text{Var}(R_p) = w^T\Sigma w$$
-
-The covariance of two portfolios (with weights $v$ and $w$, respectively) can be computed as
-
-$$\text{Cov}(R_q,R_p) = w^T\Sigma w$$.
-"""
-
-# ╔═╡ 3575ad64-b633-4384-9c1d-a040a26a23c1
-vspace
-
-# ╔═╡ e89ecb62-4c0f-4266-863b-529694cca1c0
-# let
-# 	w = 
-# 	R = 
-# 	Rp = 
-
-# 	with_terminal() do 
-# 		printred("Portfolio weights:")
-		
-
-# 		printred("Returns:")
-		
-
-# 		printred("Portfolio return: ")
-		
-# 	end
-# end
-
-# ╔═╡ 3d30fa0b-2fcd-4fe8-a258-7efda3b528d2
-vspace
-
-# ╔═╡ 3369be71-2a11-4dc8-8d1b-d2b1d7749c5f
-# let
-# 	μ = 
-# 	Σ = 
-
-# 	with_terminal() do
-# 		printred("expected returns*100: ")
-
-
-# 		printred("covariance matrix*100^2:")
-
-# 	end
-	
-# end
-
-# ╔═╡ 3d9c2bd4-1915-449d-8d79-824b424d4425
-vspace
-
-# ╔═╡ 4dece1db-3305-4b94-8a1b-f5c833d67444
-# let
-# 	w = 
-# 	R = 
-# 	μ = 
-# 	Σ = 
-		
-# 	ERp   = 
-# 	VarRp = 
-
-# 	with_terminal() do
-# 		printlnPs("Expected portfolio return: ",ERp)
-# 		printlnPs("Portfolio variance and std:",VarRp,sqrt(VarRp))
-# 	end
-		
-# end
-
-# ╔═╡ c68b9ff3-8948-4478-99ed-5c6606375838
-vspace
-
-# ╔═╡ e5318e00-c074-4074-8eb4-3245ceceb4c4
-# let
-# 	w = 
-# 	μ = 
-# 	Σb =
-
-# 	with_terminal() do
-# 		printlnPs("Portfolio std if the assets were negatively correlated: ", )
-# 	end
-# end
-
-# ╔═╡ d9de859c-a0df-4d9e-9918-b6c22c73a4e6
-vspace
-
-# ╔═╡ c537a2e6-114f-4a86-9323-cc7e7b94ceb3
-md"""
-# CRSP Dataset
-"""
-
-# ╔═╡ 98083989-a006-4cf3-afd1-0b3495e1d5b6
-md"""
-To illustrate the concepts, we will be working with the CRSP dataset from WRDS.
-
-> From CANVAS, download the csv file **CRSP_monthly.csv** from the dataset section.
-"""
-
-# ╔═╡ e3529bed-ac89-4e5f-a1e2-e2a7d4c7b073
-md"""
-**Let's first read the data into a dataframe.**
-"""
-
-# ╔═╡ ded59ba8-2be9-4641-88e6-a7c205c64da9
-vspace
-
-# ╔═╡ 2a18e0ef-4332-4a11-af9f-3efea3f8f69d
- # CRSP = 
-
-# ╔═╡ b0d48d1a-8a41-4382-9627-247e33227ba2
-vspace
-
-# ╔═╡ ad26e54b-85b1-4631-b1ed-531873ba712a
-md"""
-**Let's describe the data to get a sense of the variables and their types**
-"""
-
-# ╔═╡ aee2e708-6b13-4609-b60c-a33cbd741023
-
-
-# ╔═╡ a06f82d6-89b5-4a8f-8a94-122b51875da4
-vspace
-
-# ╔═╡ d99160b7-9421-404d-bef4-55f634d6e586
-md"""
-**Let's consider a set of stocks in the Dow Jones Index**
-"""
-
-# ╔═╡ 22073910-f676-4e8b-8b80-38fed57bf399
-md"""
-Ticker | Company Name
-:------|:-------------
-AAPL | 	Apple Inc
-AMGN | 	Amgen Inc
-AXP  | 	American Express Co
-BA   | 	Boeing Co/The
-CAT  | 	Caterpillar Inc
-CRM  | 	salesforce.com Inc
-CSCO | 	Cisco Systems Inc/Delaware
-CVX  | 	Chevron Corp
-DIS  | 	Walt Disney Co/The
-DOW  | 	Dow Inc
-GS   | 	Goldman Sachs Group Inc/The
-HD   | 	Home Depot Inc/The
-HON  | 	Honeywell International Inc
-IBM  | 	International Business Machines Corp
-INTC | 	Intel Corp
-JNJ  | 	Johnson & Johnson
-JPM  | 	JPMorgan Chase & Co
-KO   | 	Coca-Cola Co/The
-MCD  | 	McDonald's Corp
-MMM  | 	3M Co
-MRK  | 	Merck & Co Inc
-MSFT | 	Microsoft Corp
-NKE  | 	NIKE Inc
-PG   | 	Procter & Gamble Co/The
-TRV  | 	Travelers Cos Inc/The
-UNH  | 	UnitedHealth Group Inc
-V    | 	Visa Inc
-VZ   | 	Verizon Communications Inc
-WBA  | 	Walgreens Boots Alliance Inc
-WMT  | 	Walmart Inc
-"""
-
-# ╔═╡ 695258ec-d833-4fd7-8d5b-ad8706ecb158
-vspace
-
-# ╔═╡ 8980a963-b6c0-48cd-9316-b96df2acf4c6
-md"""
-**Let's work with a single stock first. We will pick AAPL.**
-"""
-
-# ╔═╡ 6a25c898-54b3-4afc-b771-e13c7cda66eb
-md"""
-#### Apple (AAPL)
-"""
-
-# ╔═╡ 456211a1-3828-458c-a597-cb35a88c35ca
-md"""
-**How can we deal with missing data?**
-"""
-
-# ╔═╡ 590799eb-b5e0-4ee0-bdb5-ae4bd01f5576
-md"""
-If we try to filter out AAPL from the dataset, we get an error message.
->AAPL = filter(:TICKER => (x-> x=="AAPL"),CRSP)
-
-This is because :TICKER has missing data, and we need to give instructions to the `filter` function how `missing` values ought to be dealt with.
-"""
-
-# ╔═╡ d86c3764-81fb-4dcc-af04-094356a25216
-md"""
-**Let's see how to do this.**
-"""
-
-# ╔═╡ 043efd52-9dc8-473d-950e-e2bf48f2a666
-vspace
-
-# ╔═╡ 6cb63947-6490-4a02-8b74-55eb5e2efa96
 let
+	
+		P = [100,108,109]                     #prices (after dividends) for t=1,2,3
+		D = [0,2,0]                           #dividends, could also use [0;2;0]
+	
+		R = zeros(length(P))                  #where to store the results
+		
+		for t = 2:length(P)                   #P[2] is the 2nd element of P  
+			R[t] = (P[t] + D[t])/P[t-1] - 1
+		end
+		
+		popfirst!(R)                          #get rid of R[1] since we have no return there
 
+	with_terminal() do 
+		printmat(R*100,colNames=["return, %"],rowNames=2:3,cell00="period",width=15)
+	end
 	
 end
 
-# ╔═╡ 18675b31-2a97-4b2f-91b9-7c070b396c29
-vspace
-
-# ╔═╡ b8051d63-ed26-4e21-8a98-f564a3b8a967
-md"""
-**Notice that there are two rows in the data for August 2020.**
-"""
-
-# ╔═╡ a0cf0361-422a-4bcd-8b9e-943dc00044b3
-# @chain CRSP begin
-	
-	
-# end
-
-# ╔═╡ a909cc2f-ac8f-4c29-9daa-c1117bc821f2
-vspace
-
-# ╔═╡ 6b720ade-5e4c-4f58-8fcd-f609df29df7b
-md"""
-**We care about the second row since it has the information about the dividend and the stock split we need.**
-"""
-
-# ╔═╡ 0cf85da2-a538-402d-9785-094425260bdb
-# @chain CRSP begin
-	
-	
-# end
-
-# ╔═╡ 1861c6a9-1fb1-4332-8c50-3ed5fd429f14
-vspace
-
-# ╔═╡ a65fa0ae-1ceb-451e-ab37-08c0d23a508e
-md"""
-**Next, we adjust the prices for stock splits. This is done via the variable "CFACPR" (cumulative adjustment factor).**
-"""
-
-# ╔═╡ 523e0191-237e-4bdb-b9a3-53079b9e92d5
-# begin
-# 	df = @chain CRSP begin
+# ╔═╡ c1a5ff0e-ce5e-4390-bed7-af5be140a145
+let
+	R    = [20,-35,25]/100                #returns for t=1,2,3
+	V   = cumprod(1.0 .+ R)              #V(t) = V(t-1)*(1+R(t)), starting at 1 in t=0
+	lnV = cumsum(log.(1.0 .+ R))         #lnV(t) = lnV(t-1) + r(t) 
+	expLnV = exp.(lnV)
 		
+	#Display results
+	with_terminal() do
+		printmat(R,V,lnV,expLnV,colNames=["R","V","lnV","ExpLnV"],rowNames=1:3,cell00="period")
+	end
+end
+
+# ╔═╡ e89ecb62-4c0f-4266-863b-529694cca1c0
+let
+	w = [0.8,0.2]
+	R = [10,5]/100          #returns of asset 1 and 2
+	Rp = w'R
+
+	with_terminal() do 
+		printred("Portfolio weights:")
+		printmat(w,rowNames=["asset 1","asset 2"])
+
+		printred("Returns:")
+		printmat(R,rowNames=["asset 1","asset 2"])
+
+		printred("Portfolio return: ")
+		printlnPs(Rp)
+	end
+end
+
+# ╔═╡ 3369be71-2a11-4dc8-8d1b-d2b1d7749c5f
+let
+	μ = [9,6]/100                    #\mu[TAB] to get μ
+	Σ = [256 96;                     #\Sigma[TAB]
+		 96 144]/100^2
+
+	with_terminal() do
+		printred("expected returns*100: ")
+		printmat(μ*100,rowNames=["asset 1","asset 2"])
+
+		printred("covariance matrix*100^2:")
+		printmat(Σ*100^2,rowNames=["asset 1","asset 2"],colNames=["asset 1","asset 2"])
+	end
+	
+end
+
+# ╔═╡ 4dece1db-3305-4b94-8a1b-f5c833d67444
+let
+	w = [0.8,0.2]
+	R = [10,5]/100 #returns of asset 1 and 2
+	μ = [9,6]/100                    #\mu[TAB] to get μ
+	Σ = [256 96;                     #\Sigma[TAB]
+		 96 144]/100^2
+	ERp   = w'μ
+	VarRp = w'Σ*w
+
+	with_terminal() do
+		printlnPs("Expected portfolio return: ",ERp)
+		printlnPs("Portfolio variance and std:",VarRp,sqrt(VarRp))
+	end
 		
-# 	end
-# end
+end
 
-# ╔═╡ 5d055fb4-5026-40aa-920d-f39d261e65a2
-vspace
+# ╔═╡ e5318e00-c074-4074-8eb4-3245ceceb4c4
+let
+	w = [0.8,0.2]
+	μ = [9,6]/100  
+	Σb = [256 -96;                #another covariance matrix
+          -96 144]/100^2
 
-# ╔═╡ 8a869ecb-a6ed-499d-873b-131c9bc2e0b1
-md"""
-**Let's now create a new dataframe with all the changes we want to make.**
-"""
-
-# ╔═╡ 446e0db1-8107-4724-b774-561c5d37f87a
-# begin
-# 	 = @chain CRSP begin
-		
-# 	end
-# end
-
-# ╔═╡ 0bd40ffd-8e71-4709-917c-04c9fca25e37
-vspace
-
-# ╔═╡ 45868894-a317-4370-9631-6ef3c31661e3
-md"""
-**Next, let's calculate monthly returns for AAPL/**
-"""
-
-# ╔═╡ 7b666951-b303-4100-8dd2-feb8e2d22b14
-md"""
-**To do this, we need to add the lagged price.**
->The `ShiftedArrays` package allows us to do this.
-"""
-
-# ╔═╡ 83a3993e-073f-4e84-acfe-61bfc76dde3a
-# @chain AAPL begin
-
-# end
-
-# ╔═╡ 470363be-fe40-40f1-9d53-2b5e2a15f2a0
-vspace
-
-# ╔═╡ 4805e8a6-34d6-49f0-8706-88c916e4689f
-md"""
-**As the next step, we need two functions. One to calculate arithmetic returns, and another to calculate log returns.**
-"""
-
-# ╔═╡ 9b816236-f9de-4aad-aea0-b5f8fbfc6b11
-
-
-# ╔═╡ d300be65-f494-4181-9924-e69cc6c04f09
-
-
-# ╔═╡ c0b48b52-0dfb-4553-b1c7-f089e36f893a
-vspace
-
-# ╔═╡ 2bd1674d-2254-45a8-9f02-5caa5bd0bd1c
-md"""
-**Let's now create a new dataframe with the returns for AAPL.**
-"""
-
-# ╔═╡ a23a366d-fa73-4672-b59c-e14b2b817ce8
-# AAPL_Rx = @chain AAPL begin
-	
-# end
-
-# ╔═╡ c30fa7dc-3c4c-4332-a724-d24f32cf5cb4
-vspace
-
-# ╔═╡ 5baa1a9f-7ad5-4bfc-b468-9e0b40438548
-md"""
-**Now, we can calculate the cumulative return over the period from January 2000 to December 2020 from investing $1 in AAPL.**
-"""
-
-# ╔═╡ 0c821308-45ca-4317-80b3-9e87c6840465
-
-
-# ╔═╡ 8c58cbc6-cfbd-43de-9e68-bbaf447213fa
-
-
-# ╔═╡ b4d7b148-6750-4538-9407-bd4ba02bafde
-vspace
-
-# ╔═╡ a488a679-6dc0-4a33-b327-9d0f6e3b9eb2
-md"""
-**Next, let's work with a portfolio of stocks.**
-"""
-
-# ╔═╡ 76adf9cb-db2c-4b76-9614-be12bb9c5764
-md"""
-Let's pick 5 stocks: AAPL, BA, DIS, GS and JNJ.
-"""
-
-# ╔═╡ 99c0ee6b-e040-4261-992c-0f5a0eb8158c
-# Portfolio = @chain CRSP begin
-	
-	
-	
-# end
-
-# ╔═╡ 286aadfd-c2f1-428b-babc-943e0a46200d
-vspace
-
-# ╔═╡ 0eefd0af-f5dd-4b87-9be0-391d86cf8bf9
-md"""
-**To form a portfolio, it is more convenient to work with the data in *wide format*. This means that we want to put the five stocks in columns (one for each stock).**
-"""
-
-# ╔═╡ da35b9a0-5ac8-4608-8dc5-2c08901cc2e3
-
-
-# ╔═╡ 3a003855-e6cc-4e30-95c3-02cb04435d9c
-vspace
-
-# ╔═╡ 6572bd2f-76e8-4735-9dff-d371fe7f69bd
-md"""
-**Next, let's pick a vector of portfolio weights.**
-"""
-
-# ╔═╡ e5c2b68f-4f1e-4bd1-8240-ac52d268304b
-#w = [0.2,0.2,0.2,0.2,0.2]
-
-
-# ╔═╡ 31d90f3b-0699-4c63-9c51-a558a1ee70b1
-vspace
-
-# ╔═╡ 16cc7074-d786-4bb5-a735-187465e815e2
-md"""
-**Then, we calculate the portfolio return in each month.**
-"""
-
-# ╔═╡ 87099910-dfde-4fee-8910-1d6bd25d5170
-# PortfRx = @chain Portfolio begin
-	
-# end
-
-# ╔═╡ 775e1297-84ff-4982-99f4-44a85892f936
-vspace
-
-# ╔═╡ c63e96e7-0ea0-4daf-a230-26b258f12e79
-md"""
-**Let's get a sense of the stock returns by using `describe`.**
-"""
-
-# ╔═╡ 07e767e6-d6fc-4f52-8b9d-72ca7c633955
-# describe(PortfRx)
-
-# ╔═╡ 42f876a7-4c63-49f8-ae01-5745cdfa8fd8
-vspace
-
-# ╔═╡ fb69d701-e623-443e-b6f0-c75180b9be1b
-md"""
-**Let's create a table with summary statistics that we are interested in:**
-average return, standard deviation of returns, minimum, median, and the maximum of monthly returns.
-"""
-
-# ╔═╡ cb78be8c-f039-434e-acbb-9375f3174588
-md"""
-**To create this table, it is easier to work with the data in `long` format.**
-That is we have one column for the TICKER and one column for the return for each date. In this format, it is easier to group the data and to apply a data transformation.
-"""
-
-# ╔═╡ cdda5183-46c6-4283-a66f-168ed5790a77
-
-
-# ╔═╡ e7b781db-dee4-4905-93bd-d5e2be32d0e6
-vspace
-
-# ╔═╡ c799f1ad-b82b-4421-bb71-d07cb7b6afd7
-md"""
-**Let's now make the final table with the summary statistics for the returns.**
-"""
-
-# ╔═╡ b1a76909-a53f-492a-bec2-5415d90d5de4
-# PortfSummary = @chain PortfRx begin
-	
-# end
-
-# ╔═╡ ba8d8e35-aef4-458d-ba2d-742714ef4977
-vspace
-
-# ╔═╡ 4cfeda6b-6b12-4ffa-9379-15c00b53a49d
-md"""
-**Next, let's calculate the covariance matrix of returns.**
-"""
-
-# ╔═╡ 80865386-79cf-45b0-836d-e55a1ca64174
-
-
-# ╔═╡ 7addc4e7-d90f-404c-91dc-375bf93eef95
-vspace
-
-# ╔═╡ aa21f05c-1e78-4919-86fa-57ae89d4d633
-md"""
-**Lastly, let's use what we have learned about portfolio mathematics at the beginning of this lecuture and apply it to our portfolio of stocks.**
-"""
-
-# ╔═╡ fa05b130-4ab5-49ea-8a8c-f6d9fcfd1656
-# let
-# 	assets = 
-# 	μ = 
-# 	Σ = 
-
-# 	ERp   = 
-# 	VarRp = 
-	
-# 	with_terminal() do
-# 		printyellow("expected returns*100: ")
-# 		printmat(μ*100,rowNames= )
-
-# 		printyellow("covariance matrix*100^2:")
-# 		printmat(Σ*100^2,rowNames=assets.TICKER,colNames= )
-
-# 		printlnPs("Expected portfolio return: ", )
-# 		printlnPs("Portfolio variance and std:",)
-		
-# 	end
-
-# end
-
-# ╔═╡ f44df415-9970-4501-9e4e-2b2a7db50d6d
-vspace
-
-# ╔═╡ 76809cbd-d487-4d7a-acfc-d45cae769573
-html"""
-<fieldset>      
-<legend>Goals for today</legend>      
-<br>
-  <input type="checkbox" value="" checked>Understand the basics of portfolio mathematics. <br>      
-<br>
-  <input type="checkbox" value="" checked>Implement functions to calculate portfolio statistics.<br>
-<br>
-  <input type="checkbox" value="" checked>Be familiar with CRSP data.<br>      
-<br>
-</fieldset>      
-"""
+	with_terminal() do
+		printlnPs("Portfolio std if the assets were negatively correlated: ",sqrt(w'Σb*w))
+	end
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1064,7 +1091,6 @@ Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
-Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 ShiftedArrays = "1277b4bf-5013-50f5-be3d-901d8477a67a"
@@ -1072,12 +1098,12 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 CSV = "~0.10.2"
-Chain = "~0.4.10"
-DataFrames = "~1.3.2"
+Chain = "~0.6.0"
+DataFrames = "~1.6.1"
 HypertextLiteral = "~0.9.4"
 LaTeXStrings = "~1.3.0"
 PlutoUI = "~0.7.49"
-ShiftedArrays = "~1.0.0"
+ShiftedArrays = "~2.0.0"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -1086,7 +1112,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "69ed774a83f71858bde209f890139bb9ebb64281"
+project_hash = "4c558f4fb79e6f7af92f1c1dee28e0ed29afa0eb"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1111,9 +1137,9 @@ uuid = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 version = "0.10.13"
 
 [[deps.Chain]]
-git-tree-sha1 = "339237319ef4712e6e5df7758d0bccddf5c237d9"
+git-tree-sha1 = "9ae9be75ad8ad9d26395bf625dea9beac6d519f1"
 uuid = "8be319e6-bccf-4806-a6f7-6fae938471bc"
-version = "0.4.10"
+version = "0.6.0"
 
 [[deps.CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
@@ -1153,10 +1179,10 @@ uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.16.0"
 
 [[deps.DataFrames]]
-deps = ["Compat", "DataAPI", "Future", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrettyTables", "Printf", "REPL", "Reexport", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
-git-tree-sha1 = "db2a9cb664fcea7836da4b414c3278d71dd602d2"
+deps = ["Compat", "DataAPI", "DataStructures", "Future", "InlineStrings", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrecompileTools", "PrettyTables", "Printf", "REPL", "Random", "Reexport", "SentinelArrays", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
+git-tree-sha1 = "04c738083f29f86e62c8afc341f0967d8717bdb8"
 uuid = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-version = "1.3.6"
+version = "1.6.1"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
@@ -1192,12 +1218,6 @@ deps = ["Statistics"]
 git-tree-sha1 = "335bfdceacc84c5cdf16aadc768aa5ddfc5383cc"
 uuid = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
 version = "0.8.4"
-
-[[deps.Formatting]]
-deps = ["Logging", "Printf"]
-git-tree-sha1 = "fb409abab2caf118986fc597ba84b50cbaf00b87"
-uuid = "59287772-0a20-5a39-b81b-1366585eb4c0"
-version = "0.4.3"
 
 [[deps.Future]]
 deps = ["Random"]
@@ -1363,10 +1383,10 @@ uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.4.3"
 
 [[deps.PrettyTables]]
-deps = ["Crayons", "Formatting", "Markdown", "Reexport", "Tables"]
-git-tree-sha1 = "dfb54c4e414caa595a1f2ed759b160f5a3ddcba5"
+deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "Reexport", "StringManipulation", "Tables"]
+git-tree-sha1 = "88b895d13d53b5577fd53379d913b9ab9ac82660"
 uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "1.3.1"
+version = "2.3.1"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1399,9 +1419,9 @@ version = "1.4.1"
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
 [[deps.ShiftedArrays]]
-git-tree-sha1 = "22395afdcf37d6709a5a0766cc4a5ca52cb85ea0"
+git-tree-sha1 = "503688b59397b3307443af35cd953a13e8005c16"
 uuid = "1277b4bf-5013-50f5-be3d-901d8477a67a"
-version = "1.0.0"
+version = "2.0.0"
 
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
@@ -1421,6 +1441,12 @@ version = "1.10.0"
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 version = "1.10.0"
+
+[[deps.StringManipulation]]
+deps = ["PrecompileTools"]
+git-tree-sha1 = "a04cabe79c5f01f4d723cc6704070ada0b9d46d5"
+uuid = "892a3eda-7b42-436c-8928-eab12a02cf0e"
+version = "0.3.4"
 
 [[deps.SuiteSparse_jll]]
 deps = ["Artifacts", "Libdl", "libblastrampoline_jll"]
