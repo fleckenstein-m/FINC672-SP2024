@@ -108,7 +108,8 @@ pages = [
 	(page = "/installation/", title = "Software installation"),
 	(page = "/whyjulia/", title = "Why Julia?"),
 	(page = "/notebooksolutions/", title = "Solutions to Lecture Notebooks"),
-	(page = "/assignmentsolutions/", title = "Solutions to Assignments")
+	(page = "/assignmentsolutions/", title = "Solutions to Assignments"),
+	(page = "/cheatsheet/", title = "Cheatsheet")
 	]
 
 # ╔═╡ c0768146-5ea0-4736-94f8-2c1a2affa922
