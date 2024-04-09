@@ -424,15 +424,15 @@ md"""
 # ╔═╡ 48ae81d0-a594-4b9a-8d1f-4785576e1184
 let
 
-# μ = 
-# Σ = [        ;               #covariance matrix
-#              ]/100^2
+μ = [11.5, 6]/100            #expected returns
+Σ = [166   58;               #covariance matrix
+      58  100]/100^2
 
-# printyellow("expected returns, %:")
-# printmat(,rowNames=["asset 1","asset 2"])
+printyellow("expected returns, %:")
+printmat(μ*100,rowNames=["asset 1","asset 2"])
 
-# printyellow("covariance matrix, bp:")
-# printmat(,rowNames=["asset 1","asset 2"],colNames=["asset 1","asset 2"])
+printyellow("covariance matrix, bp:")
+printmat(Σ*100^2,rowNames=["asset 1","asset 2"],colNames=["asset 1","asset 2"])
 
 end
 
@@ -447,33 +447,33 @@ md"""
 # ╔═╡ a5c28138-8f15-4636-908f-0a43ca9321e3
 begin
 	
-#μ_2 = []/100 
-#Σ_2 = [       ;
-#              ]/100^2
+μ_2 = [11.5, 6]/100            #expected returns
+Σ_2 = [166   58;               #covariance matrix
+       58  100]/100^2
 	
-#L_2        = 
-#w₁_range_2 = 
+L_2        = 41
+w₁_range_2 = range(1.5,-0.5,length=L_2)           #different possible weights on asset 1
 
-#(ERₚ_2,StdRₚ_2) = 
+(ERₚ_2,StdRₚ_2) = (fill(NaN,L_2),fill(NaN,L_2))   #to put the results in
 	
-#for i = 1:L_2
-#    w_2        = 
-#    ERₚ_2[i]   = 
-#    StdRₚ_2[i] = 
-#end
+for i = 1:L_2
+    w_2        = [w₁_range_2[i];1-w₁_range_2[i]]  #weights on asset 1 and 2
+    ERₚ_2[i]   = w_2'μ_2
+    StdRₚ_2[i] = sqrt(w_2'Σ_2*w_2)
+end
 
-# p_2 = plot( 
-#            legend = nothing,
-#            linecolor = :red,
-#            xlim = 
-#            ylim = 
-#            title = "Mean vs standard deviation",
-#            xlabel = "Std(Rₚ), %",
-#            ylabel = "ERₚ, %" )
+p_2 = plot( StdRₚ_2*100,ERₚ_2*100,
+           legend = nothing,
+           linecolor = :red,
+           xlim = (0,15),
+           ylim = (0,15),
+           title = "Mean vs standard deviation",
+           xlabel = "Std(Rₚ), %",
+           ylabel = "ERₚ, %" )
 
-#scatter!( , ,markercolor=:red)
+scatter!(sqrt.(diag(Σ_2))*100,μ_2*100,markercolor=:red)
 
-#p_2
+p_2
 	
 end
 
@@ -489,22 +489,21 @@ md"""
 
 # ╔═╡ 652dc6ae-6f9d-4ebd-9251-00821a8ee09d
 begin
+μ_3 = [0.115, 0.095, 0.06]    #expected returns
+Σ_3 = [166  34  58;           #covariance matrix
+	    34  64   4;
+	    58   4 100]/100^2
+Rf_3 = 0.03
+
+assetNames_3 = ["A","B","C"]
+
 	
-# μ_3 = 
-# Σ_3 = [         ;           #covariance matrix
-# 	              ;
-# 	              ]/100^2
-# Rf_3 = 
+printyellow("μ and Rf in %:")
+printmat(μ_3*100,rowNames=assetNames_3)
+printmat(Rf_3*100)
 
-# assetNames_3 = ["A","B","C"]
-
-	
-# printyellow("μ and Rf in %:")
-# printmat(,rowNames=assetNames_3)
-# printmat()
-
-# printyellow("Σ in bp:")
-# printmat(;rowNames=assetNames_3,colNames=assetNames_3)
+printyellow("Σ in bp:")
+printmat(Σ_3*100^2;rowNames=assetNames_3,colNames=assetNames_3)
 	
 end
 
@@ -517,23 +516,23 @@ md"""
 """
 
 # ╔═╡ 3259e4c6-4275-497d-9831-da7bcf767e3d
-# begin
+begin
 
-# w_3 = [                 ;
-#                         ;
-#                         ]
-# K_3 = 
+w_3 = [0 0.22 0.02 0.25;            #different portfolios (one in each column)
+        1 0.30 0.63 0.68;
+        0 0.48 0.35 0.07]
+K_3 = size(w_3,2)                     #number of different portfolios
 
-# (ERₚ_3,StdRₚ_3) = 
-# for i = 1:K_3
-#     ERₚ_3[i]   = 
-#     StdRₚ_3[i] = 
-# end
+(ERₚ_3,StdRₚ_3) = (fill(NaN,K_3),fill(NaN,K_3))
+for i = 1:K_3
+    ERₚ_3[i]   = w_3[:,i]'μ_3
+    StdRₚ_3[i] = sqrt(w_3[:,i]'Σ_3*w_3[:,i])
+end
 
-# printyellow("mean and std (in %) of portfolio: ")
-# printmat(,colNames=["A","1","2","3"],rowNames=["mean","std"])
+printyellow("mean and std (in %) of portfolio: ")
+printmat([ERₚ_3';StdRₚ_3']*100,colNames=["A","1","2","3"],rowNames=["mean","std"])
 	
-# end
+end
 
 # ╔═╡ b4da6bba-d8a0-4d50-bc0d-fc31566e07a5
 vspace
@@ -544,23 +543,23 @@ md"""
 """
 
 # ╔═╡ a599bc02-5a02-4b31-b75d-2c3e6a732b13
-# begin
+begin
 	
-# p_3 = scatter( 
-#               markercolor = :red,
-#               label = "original assets",
-#               xlim = 
-#               ylim = 
-#               title = "Mean vs standard deviation",
-#               xlabel = "Std(Rₚ), %",
-#               ylabel = "ERₚ, %",
-#               legend = :topleft )
+p_3 = scatter( sqrt.(diag(Σ_3))*100,μ_3*100,
+              markercolor = :red,
+              label = "original assets",
+              xlim = (0,15),
+              ylim = (0,15),
+              title = "Mean vs standard deviation",
+              xlabel = "Std(Rₚ), %",
+              ylabel = "ERₚ, %",
+              legend = :topleft )
 
-# scatter!( ,marker=:xcross,markercolor=:blue,label="some portfolios")
+scatter!(StdRₚ_3*100,ERₚ_3*100,marker=:xcross,markercolor=:blue,label="some portfolios")
 
-# p_3
+p_3
 
-# end
+end
 
 # ╔═╡ 29da3b0b-b027-4da2-a31c-d3c7c0bfceb0
 vspace
@@ -606,20 +605,27 @@ w\\
 vspace
 
 # ╔═╡ 3fca5d0e-c342-4520-867c-917116495ac2
-# """
-#     MVCalc(μstar,μ,Σ)
+"""
+    MVCalc(μstar,μ,Σ)
 
-# Calculate the std and weights of a portfolio (with mean return μstar) on MVF of risky assets.
+Calculate the std and weights of a portfolio (with mean return μstar) on MVF of risky assets.
 
-# - Remark
-#   - Only (λ,δ) and thus (w,stdRp) depend on μstar. We could therefore speed up the computations a bit by doing the loop over different μstar values inside the function (and thus not recalculate Σ_1,a,b,c).
-#   - See p. 60 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
-# """
-# function MVCalc(μstar,μ,Σ)
-
-
-	
-# end
+- Remark
+  - Only (λ,δ) and thus (w,stdRp) depend on μstar. We could therefore speed up the computations a bit by doing the loop over different μstar values inside the function (and thus not recalculate Σ_1,a,b,c).
+  - See p. 60 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
+"""
+function MVCalc(μstar,μ,Σ)
+    n    = length(μ)
+    Σ_1  = inv(Σ)
+    a    = μ'Σ_1*μ
+    b    = μ'Σ_1*ones(n)
+    c    = ones(n)'Σ_1*ones(n)
+    λ    = (c*μstar - b)/(a*c-b^2)
+    δ    = (a-b*μstar)/(a*c-b^2)
+    w    = Σ_1 *(μ*λ.+δ)
+    StdRp = sqrt(w'Σ*w)
+    return StdRp,w
+end
 
 # ╔═╡ f6ccdc25-091b-4205-b6df-46fa49427e34
 vspace
@@ -630,17 +636,17 @@ md"""
 """
 
 # ╔═╡ dc66ea04-4cad-4f47-9435-f7448394169d
-# begin
+begin
 
-# (StdAt10,wAt10) = 
-# printyellow("Testing: the portfolio with a mean return of 10%")
-# printlnPs("\nstd: ", )
+(StdAt10,wAt10) = MVCalc(0.1,μ_3,Σ_3)
+printyellow("Testing: the portfolio with a mean return of 10%")
+printlnPs("\nstd: ",StdAt10)
 
-# printlnPs("\nw and its sum: ")
-# printmat( ,rowNames=[assetNames_3;"sum"])
+printlnPs("\nw and its sum: ")
+printmat([wAt10;sum(wAt10)],rowNames=[assetNames_3;"sum"])
 
 	
-# end
+end
 
 # ╔═╡ d31feaf5-97f1-41c3-a13e-36d410ed97fc
 vspace
@@ -651,28 +657,28 @@ md"""
 """
 
 # ╔═╡ 95a13699-95b4-4f7b-baaa-80627f33841f
-# begin
+begin
 	
-# 	μstar_range_MV = 
-# 	L_MV           = 
+	μstar_range_MV = range(Rf_3,0.15,length=101)
+	L_MV           = length(μstar_range_MV)
 	
-# 	StdRₚ_MV  = 
+	StdRₚ_MV  = fill(NaN,L_MV)  #loop over different required average returns, (μstar_range)
 
-# 	for i = 1:L_MV
-# 	    StdRₚ_MV[i] = 
-# 	end
+	for i = 1:L_MV
+	    StdRₚ_MV[i] = MVCalc(μstar_range_MV[i],μ_3,Σ_3)[1]   #[1] picks out the first function output
+	end
 	
-# 	p_MV = plot( 
-# 	           legend = nothing,
-# 	           linecolor = :red,
-# 	           xlim = 
-# 	           ylim = 
-# 	           title = "Mean vs standard deviation",
-# 	           xlabel = "Std(Rₚ), %",
-# 	           ylabel = "ERₚ, %" )
+	p_MV = plot( StdRₚ_MV*100,μstar_range_MV*100,
+	           legend = nothing,
+	           linecolor = :red,
+	           xlim = (0,15),
+	           ylim = (0,15),
+	           title = "Mean vs standard deviation",
+	           xlabel = "Std(Rₚ), %",
+	           ylabel = "ERₚ, %" )
 	
 	
-# end
+end
 
 # ╔═╡ 0994b91b-0048-41ca-a485-836f267300c4
 vspace
@@ -683,21 +689,21 @@ md"""
 """
 
 # ╔═╡ c40dc723-1169-4826-941d-ba162d2bf7b8
-# begin
+begin
 	
-# 	#Add Asset A
-# 	p_MV2 = scatter!(,,, markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
-# 	annotate!(p_MV2, , ,"A")
+	#Add Asset A
+	p_MV2 = scatter!(p_MV,[sqrt.(Σ_3[1,1])*100],[μ_3[1]*100], markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
+	annotate!(p_MV2,[sqrt.(Σ_3[1,1])*100+1],[μ_3[1]*100],"A")
 	
-# 	#Add Asset B
-# 	scatter!(p_MV2, , , markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
-# 	annotate!(p_MV2, , ,"B")
+	#Add Asset B
+	scatter!(p_MV2,[sqrt.(Σ_3[2,2])*100],[μ_3[2]*100], markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
+	annotate!(p_MV2,[sqrt.(Σ_3[2,2])*100+1],[μ_3[2]*100],"B")
 	
-# 	#Add Asset C
-# 	scatter!(p_MV2,  ,  , markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
-# 	annotate!(p_MV2,  ,  ,"C")
+	#Add Asset C
+	scatter!(p_MV2,[sqrt.(Σ_3[3,3])*100],[μ_3[3]*100], markershape=:circle,markersize=6, markerstrokewidth=1, markercolor=:red,label="")
+	annotate!(p_MV2,[sqrt.(Σ_3[3,3])*100+1],[μ_3[3]*100],"C")
 	
-# end
+end
 
 # ╔═╡ 33845c97-5df5-403c-996c-7d9583b6a0ba
 vspace
@@ -724,17 +730,17 @@ md"""
 """
 
 # ╔═╡ 212685c3-9049-42e9-b535-6e515f19153b
-# begin
+begin
 	
-#  df_MV = DataFrame(P1=[],P2=[],P3=[])
+ df_MV = DataFrame(P1=[0.72,0.08,0.20],P2=[0.15,0.35,0.60],P3=[0.05,0.15,0.8])
 	
-#  df_MV_μ = 
+ df_MV_μ = combine(df_MV, [:P1,:P2,:P3] .=> (x->x'μ_3*100), renamecols=false)
 	
-#  df_MV_σ = 
+ df_MV_σ = combine(df_MV, [:P1,:P2,:P3] .=> (x->sqrt(x'Σ_3*x)*100), renamecols=false)	
 
-#  df_MV_μσ = 
+ df_MV_μσ = vcat(df_MV_μ,df_MV_σ)
 	
-# end
+end
 
 # ╔═╡ 62d63384-ce4b-4bc0-9fb7-b25d4b276d99
 vspace
@@ -745,23 +751,23 @@ md"""
 """
 
 # ╔═╡ f3f52640-d079-4d6c-8c2a-63f89c53b061
-# begin
+begin
 	
-# 	#add other portfolios
+	#add other portfolios
 	
-# 	#1
-# 	p_MV3 = scatter!(p_MV2,  ,  , markershape=:diamond,markersize=3, label="")
-# 	annotate!(p_MV3,  ,  ,("1",12,:green))
+	#1
+	p_MV3 = scatter!(p_MV2,[df_MV_μσ[2,:P1]], [df_MV_μσ[1,:P1]], markershape=:diamond,markersize=3, label="")
+	annotate!(p_MV3,[df_MV_μσ[2,:P1]+0.2],[df_MV_μσ[1,:P1]],("1",12,:green))
 	
-# 	#2
-# 	scatter!(p_MV3,  ,  , markershape=:diamond,markersize=3, label="")
-# 	annotate!(p_MV3,  ,  ,("2",12,:green))
+	#2
+	scatter!(p_MV3,[df_MV_μσ[2,:P2]], [df_MV_μσ[1,:P2]], markershape=:diamond,markersize=3, label="")
+	annotate!(p_MV3,[df_MV_μσ[2,:P2]+0.2],[df_MV_μσ[1,:P2]],("2",12,:green))
 	
-# 	#3
-# 	scatter!(p_MV3,  ,  , markershape=:diamond,markersize=3, label="")
-# 	annotate!(p_MV3,  , ,("3",12,:green))
+	#3
+	scatter!(p_MV3,[df_MV_μσ[2,:P3]], [df_MV_μσ[1,:P3]], markershape=:diamond,markersize=3, label="")
+	annotate!(p_MV3,[df_MV_μσ[2,:P3]+0.2],[df_MV_μσ[1,:P3]],("3",12,:green))
 	
-# end
+end
 
 # ╔═╡ c383ce27-b36a-4742-9213-d167c10fafd9
 vspace
@@ -792,14 +798,14 @@ We define a function to implement the approach discussed in `lecture_10_Reading.
 """
 
 # ╔═╡ ecf84238-b03d-4036-8fd3-88bcb394c925
-# """
-#     MVCalcRf(μstar,μ,Σ,Rf)
+"""
+    MVCalcRf(μstar,μ,Σ,Rf)
 
-# Calculate the std and portfolio weights of a portfolio (with a given mean, μstar) on MVF of (risky assets,riskfree). See p. 62 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
-# """
-# function MVCalcRf(μstar,μ,Σ,Rf)
-    
-# end
+Calculate the std and portfolio weights of a portfolio (with a given mean, μstar) on MVF of (risky assets,riskfree). See p. 62 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
+"""
+function MVCalcRf(μstar,μ,Σ,Rf)
+ 
+end
 
 # ╔═╡ 9b9170a8-cfcc-45e1-aa4d-57a4ccca9c31
 vspace
@@ -815,12 +821,12 @@ md"""
 # (Std,w) = 
 
 # printyellow("Testing: the portfolio with a mean return of 10%")
-# printlnPs("\nstd: ",Std)
+# printlnPs("\nstd: ",)
 
 # printlnPs("\nw and its sum: ")
-# printmat(  ,rowNames=[assetNames_3;"sum"])
+# printmat(,rowNames=[assetNames_3;"sum"])
 
-# printlnPs("weight on riskfree:", )
+# printlnPs("weight on riskfree:",)
 	
 # end
 
@@ -842,7 +848,7 @@ md"""
 # end
 
 
-# pMVRf = plot(  ,  ,
+# pMVRf = plot( , ,
 #            legend = nothing,
 #            linecolor = :blue,
 #            xlim = (0,15),
@@ -851,7 +857,7 @@ md"""
 #            xlabel = "Std(Rₚ), %",
 #            ylabel = "ERₚ, %" )
 	
-# plot!(pMVRf,   ,   ,
+# plot!(pMVRf, , ,
 #            legend = nothing,
 #            linecolor = [:red :blue],
 #            xlim = (0,15),
@@ -861,7 +867,7 @@ md"""
 #            ylabel = "ERₚ, %" )
 
 	
-# scatter!(pMVRf,  ,  ,markercolor=:red)
+# scatter!(pMVRf,  , ,markercolor=:red)
 	
 # pMVRf
 
@@ -901,7 +907,13 @@ md"""
 # Calculate the tangency portfolio. See p. 65 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
 # """
 # function MVTangencyP(μ,Σ,Rf)           #calculates the tangency portfolio
-#
+#     n    = length(μ)
+#     μe   = μ .- Rf                    #expected excess returns
+#     Σ_1  = inv(Σ)
+#     w    = Σ_1 *μe/(ones(n)'Σ_1*μe)
+#     muT  = w'μ + (1-sum(w))*Rf
+#     StdT = sqrt(w'Σ*w)
+#     return w,muT,StdT                  #portolio weights, mean and std
 # end
 
 
@@ -912,12 +924,11 @@ md"""
 
 # ╔═╡ fc304ff1-e4ff-4047-a8d3-353816202724
 # begin
-# 	(wT,μT,σT) = 
 		
 # 	println("Tangency portfolio: ")
-# 	printmat( ,rowNames=assetNames_3)
-# 	printlnPs("mean and std of tangency portfolio, %: ", )
-# 	printlnPs("sum(w)", )
+# 	printmat(wT,rowNames=assetNames_3)
+# 	printlnPs("mean and std of tangency portfolio, %: ", [μT σT]*100)
+# 	printlnPs("sum(w)",sum(wT))
 # end
 
 # ╔═╡ 391fa810-47bf-41f5-aa20-ff65a25a3f27
@@ -947,7 +958,7 @@ md"""
 # ERᵥ   = 
 # StdRᵥ = 
 
-# pRᵥ = plot( , ,
+# pRᵥ = plot( [StdRₚ_MV StdRpRf]*100,μstar_range_MV*100,
 #            legend= nothing,
 #            linecolor = [:red :blue],
 #            xlim = (0,15),
@@ -955,7 +966,7 @@ md"""
 #            title = "Mean vs standard deviation",
 #            xlabel = "Std(Rₚ), %",
 #            ylabel = "ERₚ, %" )
-# scatter!(  )
+# scatter!(StdRᵥ*100,ERᵥ*100)
 
 # pRᵥ
 
@@ -972,24 +983,24 @@ md"""
 # ╔═╡ 82c61b57-ee82-44db-b430-022e3b116d63
 # let
 
-# μb = [   ]/100                     #means
-# Σb = [    ;
-#            ]/100^2
-# Rfb = 
-# wT, = 
-# printmat( ,rowNames=["asset 1","asset 2"])
-
-# wT, = 
-# printmat( ,rowNames=["asset 1","asset 2"])
-
-# Σb = [        ;
-#                ]
-# wT, = 
+# μb = [9; 6]/100                     #means
+# Σb = [ 256  0;
+#       0    144]/100^2
+# Rfb = 1/100
+# wT, = MVTangencyP(μb,Σb,Rfb)
 # printmat(wT,rowNames=["asset 1","asset 2"])
 
-# Σb = [        ;
-#               ]
-# wT, = 
+# wT, = MVTangencyP([13; 6]/100,Σb,Rfb)
+# printmat(wT,rowNames=["asset 1","asset 2"])
+
+# Σb = [ 1  -0.8;
+#       -0.8    1]
+# wT, = MVTangencyP(μb,Σb,Rfb)
+# printmat(wT,rowNames=["asset 1","asset 2"])
+
+# Σb = [ 1  0.8;
+#       0.8    1]
+# wT, = MVTangencyP(μb,Σb,Rfb)
 # printmat(wT,rowNames=["asset 1","asset 2"])
 	
 # end
@@ -1020,7 +1031,7 @@ WMT  | 	Walmart Inc
 """
 
 # ╔═╡ 296b85d2-2dac-4cf4-aa86-b33f0ca13650
-# StockTicker = []
+# StockTicker = ["AAPL","AXP","CAT","GS","MRK","WMT"]
 
 # ╔═╡ 322112e3-3aee-4e70-8203-6a1227a448de
 md"""
@@ -1046,7 +1057,7 @@ md"""
 """
 
 # ╔═╡ 7465eeed-9af0-4504-9154-be22c8160a4b
-# RF = 
+# RF = @chain FF begin
 
 # end
 
@@ -1057,12 +1068,30 @@ md"""
 
 # ╔═╡ a53c4108-7ee7-4547-afee-dfaacf87d944
 # function GetRx(Px_t,Px_tminus,div)
-
+# 	divAmt = 0.0
+# 	if !ismissing(div)
+# 		divAmt = div
+# 	end
+		
+# 	if any(ismissing.([Px_t,Px_tminus]))
+# 		return missing
+# 	else
+# 		return (Px_t + divAmt - Px_tminus)/Px_tminus
+# 	end
 # end
 
 # ╔═╡ 3d053364-5a63-41b1-b654-9d99e00cc6c3
 # function GetLogRx(Px_t,Px_tminus,div)
-
+# 	divAmt = 0.0
+# 	if !ismissing(div)
+# 		divAmt = div
+# 	end
+		
+# 	if any(ismissing.([Px_t,Px_tminus]))
+# 		return missing
+# 	else
+# 		return log((Px_t + divAmt)) - log(Px_tminus)
+# 	end
 # end
 
 # ╔═╡ db15e7a8-6912-49ae-81b4-c22abc40aac5
@@ -1073,6 +1102,37 @@ md"""
 # ╔═╡ 5deea522-f60b-4242-8c9f-26ee7c243677
 # df = @chain CRSP begin
 	
+# 	dropmissing(:TICKER)
+	
+# 	filter(:TICKER => (x-> x ∈ StockTicker),_)
+	
+# 	select(:date, :TICKER, :PERMCO, :PERMNO, :PRC, :DIVAMT, :CFACPR)
+
+# 	groupby([:date,:TICKER])
+# 	combine(_) do sdf
+#        if nrow(sdf) == 2 
+#             DataFrame(sdf[2,:])
+#        else
+#             sdf
+#        end
+#     end
+	
+# 	#Adjust for stock splits
+# 	transform( [:PRC,:CFACPR] => ByRow(  (x,y) -> x/y) => :PRC,
+# 			   [:DIVAMT,:CFACPR] => ByRow(  (x,y) -> any(ismissing.([x,y])) ? missing : x/y) => :DIVAMT)
+
+	
+	
+	
+#     sort([:TICKER,:date])
+# 	groupby([:TICKER])
+# 	transform(:PRC => (x-> lag(x)) => :PRC_L)
+	
+# 	transform([:PRC, :PRC_L, :DIVAMT] => ByRow((Px_t,Px_tminus,div) -> GetRx(Px_t,Px_tminus,div)) => :Rx,
+# 			  [:PRC, :PRC_L, :DIVAMT] => ByRow((Px_t,Px_tminus,div) -> GetLogRx(Px_t,Px_tminus,div)) => :LogRx)
+# 	dropmissing(:Rx)
+
+# 	select(:date, :TICKER, :PERMCO, :PERMNO, :PRC, :PRC_L, :DIVAMT, :Rx, :LogRx)
 	
 # end
 
@@ -1083,7 +1143,7 @@ md"""
 
 # ╔═╡ 3f2eb8f8-b30f-487d-a915-bcfa6ebd0954
 # Stocks = @chain df begin
-	
+
 # end
 
 # ╔═╡ b4a689de-eb5a-42a0-b7f1-274bb81884f4
@@ -1108,6 +1168,8 @@ md"""
 # begin
 # 	Rf_Stocks = @chain RF begin
 # 		
+# 		
+# 		
 # 	end
 		
 # 	with_terminal() do
@@ -1127,14 +1189,14 @@ md"""
 
 # ╔═╡ 41b4f432-2218-427b-b9b0-c882e3e4c0f0
 # begin
-# 	μ_MVStocks = 
-# 	σ_MVStocks = 
+# 	μ_MVStocks = collect(0.0010:0.0001:0.15)
+# 	σ_MVStocks = Array{Float64}(undef,length(μ_MVStocks))
 	
-# 	for (i,mu) in 
-
+# 	for (i,mu) in enumerate(μ_MVStocks)
+# 		σ_MVStocks[i] = 
 # 	end
 	
-# 	p_MVStocks = plot( ,  , color=:blue, xlim=(0,0.10), ylim=(0,0.03), xlabel=L"\sigma", ylabel=L"\mu", label="MV Frontier", legend=:topleft)
+# 	p_MVStocks = plot(σ_MVStocks,μ_MVStocks, color=:blue, xlim=(0,0.10), ylim=(0,0.03), xlabel=L"\sigma", ylabel=L"\mu", label="MV Frontier", legend=:topleft)
 # end
 
 # ╔═╡ 0d2c744c-cfbc-4ee7-b50f-56fa5f2faef6
@@ -1144,11 +1206,11 @@ md"""
 
 # ╔═╡ 68c13c22-274b-4e9b-ba45-6cd7054b1642
 # begin
-# 	p_MVStocks2 = plot(  ,  , color=:blue, xlim=(0,0.15), ylim=(0,0.03), xlabel=L"\sigma", ylabel=L"\mu", label="MV Frontier", legend=:topleft)	
-
+# 	p_MVStocks2 = plot(σ_MVStocks,μ_MVStocks, color=:blue, xlim=(0,0.15), ylim=(0,0.03), xlabel=L"\sigma", ylabel=L"\mu", label="MV Frontier", legend=:topleft)	
+	
 # 	for i=1:length(StockTicker)
-# 		scatter!(p_MVStocks2, , , markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
-# 		annotate!(p_MVStocks2, , , )
+# 		scatter!(p_MVStocks2,[sqrt.((Σ_Stocks[i,i]))],[μ_Stocks[i]], markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
+# 		annotate!(p_MVStocks2,[sqrt.((Σ_Stocks[i,i]))+0.01],[μ_Stocks[i]],(StockTicker[i],10))
 # 	end
 # 	p_MVStocks2
 # end
@@ -1161,17 +1223,17 @@ md"""
 # ╔═╡ 28059fe1-7051-4846-83c4-4dc6a3a0217c
 # begin
 	
-# 	μ_MVRfStocks = 
+# 	μ_MVRfStocks = collect(Rf_Stocks:0.0001:0.10)
 	
-# 	σ_MVRfStocks = 
+# 	σ_MVRfStocks = Array{Float64}(undef,length(μ_MVRfStocks))
 	
-# 	w_MVRfStocks = 
+# 	w_MVRfStocks = Array{Float64}(undef,length(μ_MVRfStocks))
 	
-# 	for (i,mu) in 
+# 	for (i,mu) in enumerate(μ_MVRfStocks)
 # 		σ_MVRfStocks[i] = 
 # 	end
 	
-# 	p_MVRfStocks = plot(  ,  , color=:blue, xlim=(0,0.20), ylim=(0,0.05), xlabel=L"\sigma", ylabel=L"\mu", label="MV/Rf Frontier", legend=:topleft)
+# 	p_MVRfStocks = plot(σ_MVRfStocks,μ_MVRfStocks, color=:blue, xlim=(0,0.20), ylim=(0,0.05), xlabel=L"\sigma", ylabel=L"\mu", label="MV/Rf Frontier", legend=:topleft)
 	
 # end
 
@@ -1185,7 +1247,7 @@ md"""
 	
 # 	p_MVRfStocks2 = p_MVRfStocks
 	
-# 	plot!(p_MVRfStocks2,  ,  , label="MV Frontier", color=:red)
+# 	plot!(p_MVRfStocks2,σ_MVStocks,μ_MVStocks, label="MV Frontier", color=:red)
 	
 # end
 
@@ -1197,6 +1259,7 @@ md"""
 # ╔═╡ 1f75311f-7311-4b1a-bdf7-b904645f3433
 # begin
 # 	wTStocks,muTStocks,stdTStocks = 
+
 # 	df_TStocks = 
 # end
 
@@ -1299,9 +1362,9 @@ md"""
 """
 
 # ╔═╡ 3f1f9312-5aa7-4659-a9cd-a6087325db6f
-# begin
-
-# end
+begin
+	
+end
 
 # ╔═╡ 032fa9cd-59a0-4a8d-a11f-035185b4a68d
 
@@ -1312,7 +1375,7 @@ md"""
 """
 
 # ╔═╡ cf0f4d47-b2a5-4068-9bb4-8a7d92b220a5
-
+# df_JuMP = 
 
 # ╔═╡ 65762150-2f01-483f-a71f-b05a29ace8a1
 vspace
@@ -1363,12 +1426,12 @@ md"""
 # 	ret = 
 # 	risk = 
 	
-# 	MeanVarA = 
+# 	MeanVarA = zeros(N, 2)
 # 	for i in 1:N
-# 	    λ = 
+# 	    λ = λ_vals[i]
 # 	    p = 
-
-# 	    MeanVarA[i, :] = 
+	    
+# 	    MeanVarA[i, :] = [evaluate(ret), evaluate(risk)]
 # 	end
 # end
 
@@ -1382,13 +1445,13 @@ md"""
 # 	w_lower = 
 # 	w_upper = 
 	
-# 	MeanVarB = 
+# 	MeanVarB = zeros(N, 2)   #repeat, but with 0<w[i]<1
 # 	for i in 1:N
 # 	    λ = 
 # 	    p = 
 
-# 	    
-# 	    MeanVarB[i, :] = 
+
+# 	    MeanVarB[i, :] = [evaluate(ret), evaluate(risk)]
 # 	end
 # end
 
@@ -1400,8 +1463,8 @@ md"""
 # ╔═╡ f6c08155-4fa8-453e-b030-f3fd1a848762
 # let
 # 	pOpt = plot(
-# 	    ,
-# 	    ,
+# 	    sqrt.([MeanVarA[:, 2] MeanVarB[:, 2]]),
+# 	    [MeanVarA[:, 1] MeanVarB[:, 1]],
 # 	    xlim = (0, 0.15),
 # 	    ylim = (0, 0.04),
 # 	    title = "Markowitz Efficient Frontier",
@@ -1411,8 +1474,8 @@ md"""
 # 		legend = :topleft
 # 	)
 # 	for i=1:length(StockTicker)
-# 		scatter!(pOpt, , , markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
-# 		annotate!(pOpt,  ,  ,  )
+# 		scatter!(pOpt,[sqrt.((Σ_Stocks[i,i]))],[μ_Stocks[i]], markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
+# 		annotate!(pOpt,[sqrt.((Σ_Stocks[i,i]))+0.01],[μ_Stocks[i]],(StockTicker[i],10))
 # 	end
 # 	pOpt
 # end
@@ -1426,13 +1489,12 @@ We now instead impose a restriction on  $\sum_i |w_i| - 1$, allowing for varying
 # begin
 # 	Lmax = 
 	
-# 	MeanVarC = 
+# 	MeanVarC = zeros(N, 2)   #repeat, but with restriction on Sum(|w[i]|)
 # 	for i in 1:N
 # 	    λ = 
 # 	    p = 
 
-# 	    
-# 	    MeanVarC[i, :] = 
+# 	    MeanVarC[i, :] = [evaluate(ret), evaluate(risk)]
 # 	end
 # end
 
@@ -1444,8 +1506,8 @@ md"""
 # ╔═╡ 6b8170eb-9f1f-4e65-8681-fc6f7018bfd5
 # let
 # 	pOpt = plot(
-# 	    sqrt.(  ,
-# 	     ,
+# 	    sqrt.([MeanVarA[:, 2] MeanVarB[:, 2] MeanVarC[:, 2]]),
+# 	    [MeanVarA[:, 1] MeanVarB[:, 1] MeanVarC[:, 1]],
 # 	    xlim = (0, 0.15),
 # 	    ylim = (0, 0.04),
 # 	    title = "Markowitz Efficient Frontier",
@@ -1455,8 +1517,8 @@ md"""
 # 		legend=:topleft
 # 	)
 # 	for i=1:length(StockTicker)
-# 		scatter!(pOpt,  ,  , markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
-# 		annotate!(pOpt,  ,  , )
+# 		scatter!(pOpt,[sqrt.((Σ_Stocks[i,i]))],[μ_Stocks[i]], markershape=:cross,markersize=4, markerstrokewidth=1, markercolor=:red,label="")
+# 		annotate!(pOpt,[sqrt.((Σ_Stocks[i,i]))+0.01],[μ_Stocks[i]],(StockTicker[i],10))
 # 	end
 # 	pOpt
 # end
@@ -1505,7 +1567,7 @@ md"""
 	
 # 	with_terminal() do
 # 		printred("Portfolio Weights:")
-# 		printmat(  ,colNames="w",rowNames=StockTicker)
+# 		printmat(evaluate(w),colNames="w",rowNames=StockTicker)
 # 	end
 	
 # end
@@ -1569,7 +1631,7 @@ ShiftedArrays = "~1.0.0"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.10.0"
+julia_version = "1.10.2"
 manifest_format = "2.0"
 project_hash = "e956fcdb35ea957e722df8429dbc884c0301c07f"
 
@@ -1710,7 +1772,7 @@ weakdeps = ["Dates", "LinearAlgebra"]
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.5+1"
+version = "1.1.0+0"
 
 [[deps.ConstructionBase]]
 deps = ["LinearAlgebra"]
@@ -2306,7 +2368,7 @@ version = "0.3.21+0"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.23+2"
+version = "0.3.23+4"
 
 [[deps.OpenLibm_jll]]
 deps = ["Artifacts", "Libdl"]
