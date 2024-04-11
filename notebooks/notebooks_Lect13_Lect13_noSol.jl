@@ -804,7 +804,11 @@ We define a function to implement the approach discussed in `lecture_10_Reading.
 Calculate the std and portfolio weights of a portfolio (with a given mean, μstar) on MVF of (risky assets,riskfree). See p. 62 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
 """
 function MVCalcRf(μstar,μ,Σ,Rf)
- 
+    μe    = μ .- Rf
+    Σ_1   = inv(Σ)
+    w     = (μstar-Rf)/(μe'Σ_1*μe) * Σ_1*μe
+    StdRp = sqrt(w'Σ*w)
+    return StdRp,w                    #std and portfolio weights
 end
 
 # ╔═╡ 9b9170a8-cfcc-45e1-aa4d-57a4ccca9c31
@@ -816,19 +820,19 @@ md"""
 """
 
 # ╔═╡ 9eccf04c-f202-4c23-ac85-1b5773501e0f
-# let
+let
 	
-# (Std,w) = 
+(Std,w) = MVCalcRf(0.1,μ_3,Σ_3,Rf_3)
 
-# printyellow("Testing: the portfolio with a mean return of 10%")
-# printlnPs("\nstd: ",)
+printyellow("Testing: the portfolio with a mean return of 10%")
+printlnPs("\nstd: ",Std)
 
-# printlnPs("\nw and its sum: ")
-# printmat(,rowNames=[assetNames_3;"sum"])
+printlnPs("\nw and its sum: ")
+printmat([w;sum(w)],rowNames=[assetNames_3;"sum"])
 
-# printlnPs("weight on riskfree:",)
+printlnPs("weight on riskfree:",1-sum(w))
 	
-# end
+end
 
 # ╔═╡ 7be5e54c-346b-434f-97a2-4f35ff251ddf
 vspace
@@ -839,39 +843,38 @@ md"""
 """
 
 # ╔═╡ e1ac8d53-000e-44d7-8090-334468a6d2ad
-# begin
+begin
 
-# StdRpRf  = 
+StdRpRf  = fill(NaN,L_MV)                 #loop over required average returns (μstar)
+for i = 1:L_MV                            #too bad that R\_f[Tab] is not defined 
+    StdRpRf[i] = MVCalcRf(μstar_range_MV[i],μ_3,Σ_3,Rf_3)[1]
+end
 
-# for i = 1:L_MV   
-#     StdRpRf[i] = 
-# end
 
-
-# pMVRf = plot( , ,
-#            legend = nothing,
-#            linecolor = :blue,
-#            xlim = (0,15),
-#            ylim = (0,15),
-#            title = "Mean vs standard deviation",
-#            xlabel = "Std(Rₚ), %",
-#            ylabel = "ERₚ, %" )
+pMVRf = plot( StdRpRf*100,μstar_range_MV*100,
+           legend = nothing,
+           linecolor = :blue,
+           xlim = (0,15),
+           ylim = (0,15),
+           title = "Mean vs standard deviation",
+           xlabel = "Std(Rₚ), %",
+           ylabel = "ERₚ, %" )
 	
-# plot!(pMVRf, , ,
-#            legend = nothing,
-#            linecolor = [:red :blue],
-#            xlim = (0,15),
-#            ylim = (0,15),
-#            title = "Mean vs standard deviation",
-#            xlabel = "Std(Rₚ), %",
-#            ylabel = "ERₚ, %" )
+plot!(pMVRf, [StdRₚ_MV StdRpRf]*100,μstar_range_MV*100,
+           legend = nothing,
+           linecolor = [:red :blue],
+           xlim = (0,15),
+           ylim = (0,15),
+           title = "Mean vs standard deviation",
+           xlabel = "Std(Rₚ), %",
+           ylabel = "ERₚ, %" )
 
 	
-# scatter!(pMVRf,  , ,markercolor=:red)
+scatter!(pMVRf, sqrt.(diag(Σ_3))*100,μ_3*100,markercolor=:red)
 	
-# pMVRf
+pMVRf
 
-# end
+end
 
 # ╔═╡ 26c13abf-c870-469d-a952-d62c12762e5b
 vspace
@@ -901,20 +904,20 @@ md"""
 
 # ╔═╡ fe44f447-72db-4c05-ba03-6c26e1573bd6
 
-# """
-#     MVTangencyP(μ,Σ,Rf)
+"""
+    MVTangencyP(μ,Σ,Rf)
 
-# Calculate the tangency portfolio. See p. 65 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
-# """
-# function MVTangencyP(μ,Σ,Rf)           #calculates the tangency portfolio
-#     n    = length(μ)
-#     μe   = μ .- Rf                    #expected excess returns
-#     Σ_1  = inv(Σ)
-#     w    = Σ_1 *μe/(ones(n)'Σ_1*μe)
-#     muT  = w'μ + (1-sum(w))*Rf
-#     StdT = sqrt(w'Σ*w)
-#     return w,muT,StdT                  #portolio weights, mean and std
-# end
+Calculate the tangency portfolio. See p. 65 of lecture notes `lecture_10_Reading.pdf` available on Canvas.
+"""
+function MVTangencyP(μ,Σ,Rf)           #calculates the tangency portfolio
+    n    = length(μ)
+    μe   = μ .- Rf                    #expected excess returns
+    Σ_1  = inv(Σ)
+    w    = Σ_1 *μe/(ones(n)'Σ_1*μe)
+    muT  = w'μ + (1-sum(w))*Rf
+    StdT = sqrt(w'Σ*w)
+    return w,muT,StdT                  #portolio weights, mean and std
+end
 
 
 # ╔═╡ 3652b806-8991-47d4-ad82-e8affde497f6
@@ -923,13 +926,14 @@ md"""
 """
 
 # ╔═╡ fc304ff1-e4ff-4047-a8d3-353816202724
-# begin
+begin
+	(wT,μT,σT) = MVTangencyP(μ_3,Σ_3,Rf_3)
 		
-# 	println("Tangency portfolio: ")
-# 	printmat(wT,rowNames=assetNames_3)
-# 	printlnPs("mean and std of tangency portfolio, %: ", [μT σT]*100)
-# 	printlnPs("sum(w)",sum(wT))
-# end
+	println("Tangency portfolio: ")
+	printmat(wT,rowNames=assetNames_3)
+	printlnPs("mean and std of tangency portfolio, %: ",[μT σT]*100)
+	printlnPs("sum(w)",sum(wT))
+end
 
 # ╔═╡ 391fa810-47bf-41f5-aa20-ff65a25a3f27
 vspace
@@ -951,26 +955,26 @@ md"""
 """
 
 # ╔═╡ 83a1fb1d-221b-4f26-8e65-e319ea9b899d
-# begin
+begin
 	
-# v_range = 
+v_range = [0;0.44;1;1.41]      #try different mixes of wT and Rf
 
-# ERᵥ   = 
-# StdRᵥ = 
+ERᵥ   = v_range*μT + (1.0.-v_range)*Rf_3                 
+StdRᵥ = abs.(v_range)*σT
 
-# pRᵥ = plot( [StdRₚ_MV StdRpRf]*100,μstar_range_MV*100,
-#            legend= nothing,
-#            linecolor = [:red :blue],
-#            xlim = (0,15),
-#            ylim = (0,15),
-#            title = "Mean vs standard deviation",
-#            xlabel = "Std(Rₚ), %",
-#            ylabel = "ERₚ, %" )
-# scatter!(StdRᵥ*100,ERᵥ*100)
+pRᵥ = plot( [StdRₚ_MV StdRpRf]*100,μstar_range_MV*100,
+           legend= nothing,
+           linecolor = [:red :blue],
+           xlim = (0,15),
+           ylim = (0,15),
+           title = "Mean vs standard deviation",
+           xlabel = "Std(Rₚ), %",
+           ylabel = "ERₚ, %" )
+scatter!(StdRᵥ*100,ERᵥ*100)
 
-# pRᵥ
+pRᵥ
 
-# end
+end
 
 # ╔═╡ 2c31fd4e-9cc7-43ff-9771-bb154a181d82
 vspace
@@ -981,29 +985,29 @@ md"""
 """
 
 # ╔═╡ 82c61b57-ee82-44db-b430-022e3b116d63
-# let
+let
 
-# μb = [9; 6]/100                     #means
-# Σb = [ 256  0;
-#       0    144]/100^2
-# Rfb = 1/100
-# wT, = MVTangencyP(μb,Σb,Rfb)
-# printmat(wT,rowNames=["asset 1","asset 2"])
+μb = [9; 6]/100                     #means
+Σb = [ 256  0;
+      0    144]/100^2
+Rfb = 1/100
+wT, = MVTangencyP(μb,Σb,Rfb)
+printmat(wT,rowNames=["asset 1","asset 2"])
 
-# wT, = MVTangencyP([13; 6]/100,Σb,Rfb)
-# printmat(wT,rowNames=["asset 1","asset 2"])
+wT, = MVTangencyP([13; 6]/100,Σb,Rfb)
+printmat(wT,rowNames=["asset 1","asset 2"])
 
-# Σb = [ 1  -0.8;
-#       -0.8    1]
-# wT, = MVTangencyP(μb,Σb,Rfb)
-# printmat(wT,rowNames=["asset 1","asset 2"])
+Σb = [ 1  -0.8;
+      -0.8    1]
+wT, = MVTangencyP(μb,Σb,Rfb)
+printmat(wT,rowNames=["asset 1","asset 2"])
 
-# Σb = [ 1  0.8;
-#       0.8    1]
-# wT, = MVTangencyP(μb,Σb,Rfb)
-# printmat(wT,rowNames=["asset 1","asset 2"])
+Σb = [ 1  0.8;
+      0.8    1]
+wT, = MVTangencyP(μb,Σb,Rfb)
+printmat(wT,rowNames=["asset 1","asset 2"])
 	
-# end
+end
 
 # ╔═╡ fe28e36c-c8c9-4c3b-a23e-8d15baf33827
 vspace
