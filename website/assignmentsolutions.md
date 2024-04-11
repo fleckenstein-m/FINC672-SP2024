@@ -7,3 +7,4 @@
 | 3       | Assignment 03                           | Mar 12, 2024  | [Link](/assets/assignmentsolutions/Assignment_03.html)   |
 | 4       | Assignment 04                           | Mar 19, 2024  | [Link](/assets/assignmentsolutions/Assignment_04.html)   |
 | 5       | Assignment 05                           | Apr 02, 2024  | [Link](/assets/assignmentsolutions/Assignment_05.html)   |
+| 6       | Assignment 06                           | Apr 09, 2024  | [Link](/assets/assignmentsolutions/Assignment_06.html)   |
