@@ -1055,7 +1055,7 @@ md"""
 """
 
 # ╔═╡ 624bfb0a-3336-448d-982a-511f9743202c
-# CRSP = 
+# CRSP = CSV.read("CRSP_monthly.csv",DataFrame)
 
 # ╔═╡ e2e22821-c6c1-4e98-a5f4-725595c3f250
 md"""
@@ -1065,7 +1065,7 @@ md"""
 """
 
 # ╔═╡ b3ac63b0-aebd-4fff-9e98-82d0f4bbb8dc
-# FF = 
+# FF = CSV.read("F-F_Research_Data_Factors.csv", DataFrame; header=4,skipto=5)
 
 # ╔═╡ d751ef72-7ab1-45f0-8375-7831175f075f
 md"""
@@ -1074,7 +1074,12 @@ md"""
 
 # ╔═╡ 7465eeed-9af0-4504-9154-be22c8160a4b
 # RF = @chain FF begin
-
+	
+# 	transform(:Date => ByRow(x-> lastdayofmonth( Date( string(x), dateformat"yyyymm"))), 
+# 		      :RF =>(x-> x./100), renamecols=false)
+	
+# 	select(:Date,:RF)
+	
 # end
 
 # ╔═╡ f07348bf-2ec1-4a83-9f1d-6af7787bd42d
@@ -1159,7 +1164,11 @@ md"""
 
 # ╔═╡ 3f2eb8f8-b30f-487d-a915-bcfa6ebd0954
 # Stocks = @chain df begin
-
+	
+# 	select(:date,:TICKER,:Rx) 
+	
+# 	unstack(:date,:TICKER,:Rx)
+	
 # end
 
 # ╔═╡ b4a689de-eb5a-42a0-b7f1-274bb81884f4
@@ -1168,12 +1177,20 @@ md"""
 """
 
 # ╔═╡ 201bdaf1-bcb4-4e9e-8b38-fba457527ba6
-# μ_Stocks = let 
+# begin
+	
+# 	μ_Stocks = @chain Stocks begin
+		
+# 		combine(StockTicker .=> (x-> mean(x)), renamecols=false)
+		
+# 	end
 
+# 	μ_Stocks = Array(μ_Stocks[1,:])
+	
 # end
 
 # ╔═╡ 1af038cd-1f76-4473-9abb-ca25efd5ef5b
-# Σ_Stocks= 
+# Σ_Stocks= cov(Matrix(Stocks[:,Not(:date)]))
 
 # ╔═╡ b10c5e71-2cd7-46ff-9a49-c749312becc9
 md"""
