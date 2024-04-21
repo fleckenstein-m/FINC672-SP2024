@@ -84,6 +84,12 @@
                 "notebook_path": "notebooks/Lect13/Lect13_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+            {
+                "name": "CAPM",
+                "notebook_path": "notebooks/Lect14/Lect14_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
 
         ]
