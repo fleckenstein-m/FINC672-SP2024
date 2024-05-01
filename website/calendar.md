@@ -17,7 +17,8 @@
 | 13      | Introduction to Portfolio Mathematics | Mar  19, 2024  | [Introduction to Portfolio Mathematics](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
 | 14      | Introduction to Portfolio Mathematics | Mar  21, 2024  | [Introduction to Portfolio Mathematics](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
 | 15      | Mean-Variance Analysis              | Mar  21, 2024  | [Mean Variance Analysis](/assets/notebooksolutions/Lect13/Lect13.html)        |                      |
-| 15      | Mean-Variance Analysis              | Apr 23, 2024  | [CAPM](/assets/notebooksolutions/Lect14/Lect14.html)        |                      |
+| 16      | CAPM                                | Apr 23, 2024  | [CAPM](/assets/notebooksolutions/Lect14/Lect14.html)        |                      |
+| 17      | Efficient Markets                   | May 2, 2024  | [CAPM](/assets/notebooksolutions/Lect15/Lect15.html)        |                      |
 
 
 ## Assignments
@@ -28,4 +29,6 @@
 | 2       | Homework 2                                 | Feb 27, 2024      | Assignment 02      |
 | 3       | Homework 3                                 | Mar 12, 2024      | Assignment 03      |
 | 4       | Homework 4                                 | Mar 19, 2024      | Assignment 04      |
-| 5       | Homework 6                                 | Apr 02, 2024      | Assignment 05      |
+| 5       | Homework 5                                 | Apr 02, 2024      | Assignment 05      |
+| 6       | Homework 6                                 | Apr 09, 2024      | Assignment 06      |
+| 7       | Homework 7                                 | Apr 30, 2024      | Assignment 07      |
