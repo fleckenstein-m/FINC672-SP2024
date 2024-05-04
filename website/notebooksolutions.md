@@ -15,3 +15,4 @@
 | 11      | Using Web APIs for Data Collection  | Mar  12, 2024  | [Link](/assets/notebooksolutions/Lect11/Lect11.html)        |                      |
 | 12      | Intro to Portfolio Mathematics  | Mar  19, 2024  | [Link](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
 | 13      | Mean Variance Analysis          | Apr  25, 2024  | [Link](/assets/notebooksolutions/Lect13/Lect13.html)        |                      |
+| 14      | CAPM                            | May  02, 2024  | [Link](/assets/notebooksolutions/Lect14/Lect14.html)        |                      |

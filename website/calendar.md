@@ -32,3 +32,4 @@
 | 5       | Homework 5                                 | Apr 02, 2024      | Assignment 05      |
 | 6       | Homework 6                                 | Apr 09, 2024      | Assignment 06      |
 | 7       | Homework 7                                 | Apr 30, 2024      | Assignment 07      |
+| 8       | Homework 8                                 | May 14, 2024      | Assignment 08      |

@@ -144,7 +144,14 @@
                 "notebook_path": "notebooks/Assignments/Assignment_07_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+            {
+                "name": "Assignment 08",
+                "notebook_path": "notebooks/Assignments/Assignment_08_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
+       ]
        ]
     }
 ]
