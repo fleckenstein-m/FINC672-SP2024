@@ -96,6 +96,12 @@
                 "notebook_path": "notebooks/Lect15/Lect15_noSol.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+            {
+                "name": "Performance Evaluation",
+                "notebook_path": "notebooks/Lect16/Lect16_noSol.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
 
         ]

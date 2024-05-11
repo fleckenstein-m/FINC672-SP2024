@@ -18,8 +18,8 @@
 | 14      | Introduction to Portfolio Mathematics | Mar  21, 2024  | [Introduction to Portfolio Mathematics](/assets/notebooksolutions/Lect12/Lect12.html)        |                      |
 | 15      | Mean-Variance Analysis              | Mar  21, 2024  | [Mean Variance Analysis](/assets/notebooksolutions/Lect13/Lect13.html)        |                      |
 | 16      | CAPM                                | Apr 23, 2024  | [CAPM](/assets/notebooksolutions/Lect14/Lect14.html)        |                      |
-| 17      | Efficient Markets                   | May 2, 2024  | [CAPM](/assets/notebooksolutions/Lect15/Lect15.html)        |                      |
-
+| 17      | Efficient Markets                   | May 2, 2024  | [Efficient Markets](/assets/notebooksolutions/Lect15/Lect15.html)        |                      |
+| 18      | Performance Evaluation              | May 14, 2024  | [Performance Evaluation](/assets/notebooksolutions/Lect16/Lect16.html)        |                      |
 
 ## Assignments
 
